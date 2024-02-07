@@ -65,10 +65,27 @@ const ImageSlider = () => {
 };
 
 const Home = () => {
-const [focusElement, setFocusElement] = useState(0);
-const images = [service1, service2, service3, service4,service5];
-const info = ['Mental Health','Update Your Medical Profile','Online Appointments','Online video Consultation' ,'Emergency Service' ];
+  const [focusElement, setFocusElement] = useState(0);
+  const images = [service1, service2, service3, service4,service5];
+  const info = ['Mental Health','Update Your Medical Profile','Online Appointments','Online video Consultation' ,'Emergency Service' ];
 
+  const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
+  const contentMap = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',]
+  const contentMap1 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+    const contentMap2 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+    const contentMap3 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+    const contentMap4 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+    const contentMap5 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+  const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+  const switchToDay = (dayIndex) => {
+    setCurrentDayIndex(dayIndex);
+  };
 return (
     <>
     {/*Home-Banner*/}
@@ -110,9 +127,6 @@ return (
           <img src={RectangleBG} alt="" />
     </div>
     <div className="about-section-container">
-      {/* <div className="about-background-image-container">
-        <img src={AboutBackground} alt="" />
-      </div> */}
       <div className="about-section-image-container">
         <img src={AboutBackgroundImage} alt="" />
       </div>
@@ -147,12 +161,9 @@ return (
                 peripheralImageRadius={70}
                 peripheralImageBoxShadow = {0}
                 centralImageBoxShadow = {0}
-                // centralImageBoxShadow = {'5px 10px 18px #888888'}
                 centralImageRadius={85}
-                // focusElementStyling={{border: '2px solid #007EA7'}}
                 autoRotateTime={2}
                 border={false}
-                // borderHexColor={0}
                 />
                 <div className="info-box-wrapper">
                 <p> {info[focusElement]} </p>
@@ -180,6 +191,34 @@ return (
             </div>
         </div>
     </div>
+    {/*Daily Updates*/}
+    <div className="outer-container6">
+        <div className="primary-heading3">
+          <h3>Daily Updates</h3>
+        </div>
+        <div className="dailyU-table-container">
+              <div className="day-switcher-header">
+                {daysOfWeek.map((day, index) => (
+                  <div
+                    key={index}
+                    className={`day-switcher-item ${index === currentDayIndex ? 'active' : ''}`}
+                    onClick={() => switchToDay(index)}
+                  >
+                    {day}
+                  </div>
+                ))}
+            </div>
+              <div className="day-content">
+                <p>{contentMap[currentDayIndex]}</p>
+                <p>{contentMap1[currentDayIndex]}</p>
+                <p>{contentMap2[currentDayIndex]}</p>
+                <p>{contentMap3[currentDayIndex]}</p>
+                <p>{contentMap4[currentDayIndex]}</p>
+                <p>{contentMap5[currentDayIndex]}</p>
+              </div>
+        </div>
+    </div>
+      
   </>
   );
 };
