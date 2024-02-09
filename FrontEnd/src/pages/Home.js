@@ -20,10 +20,16 @@ import doctor6 from "../Assests/doctor6.png"
 import doctor7 from "../Assests/doctor7.png"
 import arrow1 from "../Assests/left-arrow 2.png"
 import arrow2 from "../Assests/right-arrow 2.png"
+import Mail from "../Assests/mail 1.png"
+import Loca from "../Assests/location 1.png"
+import Telephone from "../Assests/emergency-call 1.png"
+import Emergency from "../Assests/emergencyicon.png"
 import 'react-fancy-circular-carousel/FancyCarousel.css';
 import FancyCarousel from "react-fancy-circular-carousel";
 import Navbar from "../Components/Navbar";
 import Header from "../Components/header";
+import Footer from "../Components/Footer";
+
 import "../Styles/Home.css";
 
 const ImageSlider = () => {
@@ -80,6 +86,8 @@ const Home = () => {
     const contentMap4 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
   ];
     const contentMap5 = ['Content for Monday','Content for Tuesday','Content for Wednesday','Content for Thursday','Content for Friday','Content for Saturday','Content for Sunday',
+  ];
+      const contentMap6 = ['9:00AM - 12:00PM ','9:00AM - 12:00PM','9:00AM - 12:00PM','9:00AM - 12:00PM','9.00AM - 12:00PM','9:00AM - 12:00PM','9:00AM - 12:00PM',
   ];
   const [currentDayIndex, setCurrentDayIndex] = useState(0);
 
@@ -208,17 +216,78 @@ return (
                   </div>
                 ))}
             </div>
+
               <div className="day-content">
-                <p>{contentMap[currentDayIndex]}</p>
-                <p>{contentMap1[currentDayIndex]}</p>
-                <p>{contentMap2[currentDayIndex]}</p>
-                <p>{contentMap3[currentDayIndex]}</p>
-                <p>{contentMap4[currentDayIndex]}</p>
-                <p>{contentMap5[currentDayIndex]}</p>
+                  <div className="day-content-details">
+                    <p>{contentMap[currentDayIndex]}</p>
+                    <p>{contentMap1[currentDayIndex]}</p>
+                    <p>{contentMap2[currentDayIndex]}</p>
+                    <p>{contentMap3[currentDayIndex]}</p>
+                    <p>{contentMap4[currentDayIndex]}</p>
+                    <p>{contentMap5[currentDayIndex]}</p>
+                  </div>
+                  <div className="day-content-time">
+                    <p>{contentMap6[currentDayIndex]}</p>
+                    <p>{contentMap6[currentDayIndex]}</p>
+                    <p>{contentMap6[currentDayIndex]}</p>
+                    <p>{contentMap6[currentDayIndex]}</p>
+                    <p>{contentMap6[currentDayIndex]}</p>
+                    <p>{contentMap6[currentDayIndex]}</p>
+                  </div>
               </div>
         </div>
     </div>
-      
+    {/*Get in Touch*/} 
+    <div className="outer-container7">
+          <div className="praimary-heading4">
+            <h3>Get In Touch With Us</h3>
+          </div>
+    </div>
+    <div className="outer-container8">
+          <div className="contact-container">
+            <div className="mail-card">
+                <div className="mail-icon">
+                      <img src={Mail} alt="" />
+                </div>  
+                <div className="mail-text">
+                    <h3>Email Us</h3>
+                    <p>info@sab.ac.lk</p>
+                </div>
+            </div>
+            <div className="mail-card">
+                <div className="mail-icon">
+                      <img src={Loca} alt="" />
+                </div>  
+                <div className="mail-text">
+                    <h3>Head Office</h3>
+                    <p>info@sab.ac.lk</p>
+                </div>
+            </div>
+            <div className="mail-card">
+                <div className="mail-icon">
+                      <img src={Telephone} alt="" />
+                </div>  
+                <div className="mail-text">
+                    <h3>Telephone</h3>
+                    <p>0778193564</p>
+                    <p>0778193564</p>
+                </div>
+            </div>
+            <div className="mail-card">
+                <div className="mail-icon">
+                      <img src={Emergency} alt="" />
+                </div>  
+                <div className="mail-text">
+                    <h3>Emergency</h3>
+                    <p>1990</p>
+                    <p>1990</p>
+                </div>
+            </div>
+          </div>
+    </div>
+    <div className="outer-container9">
+        <Footer/>
+    </div>
   </>
   );
 };
