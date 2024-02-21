@@ -1,5 +1,6 @@
 // import React from "react";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BannerImage from "../Assests/Home image.png";
 import EllipseBackground from "../Assests/Ellipse 95.png";
 import RectangleBackground from "../Assests/Rectangle 23.png";
@@ -33,7 +34,7 @@ import Footer from "../Components/Footer";
 import "../Styles/Home.css";
 
 const ImageSlider = () => {
-  const slides = [
+    const slides = [
     { image: doctor1, text: 'Text 1',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
     { image: doctor2, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
     { image: doctor3, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
@@ -71,6 +72,7 @@ const ImageSlider = () => {
 };
 
 const Home = () => {
+  const navigate = useNavigate();
   const [focusElement, setFocusElement] = useState(0);
   const images = [service1, service2, service3, service4,service5];
   const info = ['Mental Health','Update Your Medical Profile','Online Appointments','Online video Consultation' ,'Emergency Service' ];
@@ -118,14 +120,14 @@ return (
           <p className="primary-text">
             For a  healthier future
           </p>
-          <button className="secondary-button">
+          <button className="secondary-button" onClick={()=> navigate("/Signup1")}>
             Sign Up Now {" "}
           </button>
         </div>
         <div className="home-image-section">
           <img src={BannerImage} alt="" />
-        </div>
-      </div>
+          </div>
+        </div> 
     </div>
   </div>
 
