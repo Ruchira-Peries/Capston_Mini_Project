@@ -6,11 +6,11 @@ import Footer from '../Components/Footer';
 const OnlineAppoinment = () => {
   const [formData, setFormData] = useState({
     regnumber: '',
-    DoctorName: '',
     date: '',
     email: '',
     description: ''
   });
+  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,26 +50,32 @@ const OnlineAppoinment = () => {
           name="regnumber"
           value={formData.regnumber}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
       <label>
         Choose Your Doctor:
-        <input
-          type="text"
-          name="DoctorName"
-          value={formData.DoctorName}
-          onChange={handleChange}
-        />
+        <select
+         name="DoctorName"
+         value={formData.DoctorName}
+        onChange={handleChange}
+        >
+        <option value="">Select Doctor</option>
+         {doctors.map((doctor, index) => (
+        <option key={index} value={doctor}>{doctor}</option>
+          ))}
+      </select>
       </label>
       <br />
       <label>
         Choose Your Date:
         <input
-          type="text"
+          type="date"
           name="date"
           value={formData.date}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -80,6 +86,7 @@ const OnlineAppoinment = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -92,8 +99,9 @@ const OnlineAppoinment = () => {
         />
       </label>
       <br />
-      <button type="submit" className='secondary-button'>Submit</button>
+      <button type="submit" className='btn'>Submit</button>
     </form>
+    <p className='para-text'>If you want physical counseling services, therapy, or psychiatric consultations to address various mental health concerns such as stress, anxiety, depression, and adjustment issues  <a href='/counseling'>Click here</a>.</p>
           </div>
         </div>
       </div>

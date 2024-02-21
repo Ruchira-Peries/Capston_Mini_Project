@@ -3,14 +3,14 @@ import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
-const PhysicalAppoinment = () => {
+const OnlineAppoinment = () => {
   const [formData, setFormData] = useState({
     regnumber: '',
     date: '',
     email: '',
     description: ''
   });
-  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
+  const issue = ['Stress', 'anxiety', 'depression', 'other'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,7 +41,7 @@ const PhysicalAppoinment = () => {
 
         <div className="right-part">
         <div className="right-content">
-          <h1 className="header-text">Set Up your Physical Appoinment</h1>
+          <h1 className="header-text">Set Up your Online Appoinment</h1>
           <form onSubmit={handleSubmit}>
       <label>
         Student Registration Number:
@@ -50,6 +50,7 @@ const PhysicalAppoinment = () => {
           name="regnumber"
           value={formData.regnumber}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -74,6 +75,7 @@ const PhysicalAppoinment = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -84,6 +86,7 @@ const PhysicalAppoinment = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -96,8 +99,8 @@ const PhysicalAppoinment = () => {
         />
       </label>
       <br />
-      <button type="submit" className='btn'>Submit</button>
-      </form>
+      <button type="submit" className='secondary-button'>Submit</button>
+    </form>
           </div>
         </div>
       </div>
@@ -107,4 +110,4 @@ const PhysicalAppoinment = () => {
   )
 }
 
-export default PhysicalAppoinment;
+export default OnlineAppoinment

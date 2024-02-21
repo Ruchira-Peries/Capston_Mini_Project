@@ -3,9 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../src/pages/Home";
 import About from "./pages/About";
 import Appoinments from "./pages/Appoinments";
-import onlineAppoinments from "./pages/OnlineAppoinment";
 import Staff from "./pages/Staff";
 import Services from "./pages/Services";
+import Signup from "./pages/Signup1";
+import Login from "./pages/Login";
+import OnlineAppoinment from "./pages/OnlineAppoinment";
+import PhysicalAppoinment from "./pages/PhysicalAppoinment";
+
 
 
 function App() {
@@ -18,12 +22,15 @@ function App() {
           <Route path="/appoinments" element={<Appoinments></Appoinments>}/>
           <Route path="/staff" element={<Staff></Staff>}/>
           <Route path="/services" element={<Services></Services>}/>
-          <Route path= "/onlineappoinment" element={<onlineAppoinments></onlineAppoinments>} />
-
+          <Route path="/signup1" element={<Signup></Signup>} />
+          <Route path="/login" element = {<Login></Login>} />
+          <Route path="/onlineappoinment" element = {<OnlineAppoinment></OnlineAppoinment>} />
+          <Route path="/physicalappoinment" element = {<PhysicalAppoinment></PhysicalAppoinment>} />
         </Routes>
+
      </Router>
-       
-    
+
+
     </div>
   );
 }

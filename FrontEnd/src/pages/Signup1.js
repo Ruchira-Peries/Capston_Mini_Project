@@ -3,14 +3,13 @@ import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 
-const PhysicalAppoinment = () => {
+const Signup1 = () => {
   const [formData, setFormData] = useState({
     regnumber: '',
-    date: '',
+    name: '',
     email: '',
-    description: ''
+    mobile: ''
   });
-  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,47 +32,35 @@ const PhysicalAppoinment = () => {
     <div className="appoinment-box">
         <div className="left-part">
           <div className="left-content">
-        <h1 className="header-text">Make your appointment</h1>
-          <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
+        <h1 className="header-text">Welcome To UniAid health center </h1>
+          <p className="para-text">Let's Get Started By Setting up your account </p>
           <p className= "sign-text">Already have an account? <a href="\login">Login</a></p>
           </div>
         </div>
 
         <div className="right-part">
         <div className="right-content">
-          <h1 className="header-text">Set Up your Physical Appoinment</h1>
+          <h1 className="header-text">General Information</h1>
           <form onSubmit={handleSubmit}>
       <label>
-        Student Registration Number:
+        Registration Number:
         <input
           type="text"
           name="regnumber"
           value={formData.regnumber}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
       <label>
-        Choose Your Doctor:
-        <select
-         name="DoctorName"
-         value={formData.DoctorName}
-        onChange={handleChange}
-        >
-        <option value="">Select Doctor</option>
-         {doctors.map((doctor, index) => (
-        <option key={index} value={doctor}>{doctor}</option>
-          ))}
-      </select>
-      </label>
-      <br />
-      <label>
-        Choose Your Date:
+        Full name:
         <input
-          type="date"
-          name="date"
-          value={formData.date}
+          type="text"
+          name="name"
+          value={formData.name}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
@@ -84,20 +71,24 @@ const PhysicalAppoinment = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
       <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
+        Mobile Number:
+        <input
+          type="text"
+          name="mobile"
+          value={formData.mobile}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
-      <button type="submit" className='btn'>Submit</button>
-      </form>
+      <button type="submit" className='secondary-button'>Next
+      </button>
+    </form>
           </div>
         </div>
       </div>
@@ -107,4 +98,4 @@ const PhysicalAppoinment = () => {
   )
 }
 
-export default PhysicalAppoinment;
+export default Signup1
