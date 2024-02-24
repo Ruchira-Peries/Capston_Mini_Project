@@ -1,0 +1,78 @@
+#navbar{
+  background-color: rgb(1, 1, 0);
+  position: sticky;
+  top:0px;
+  left: 0px;
+  margin-bottom: 0px;
+  margin-left: -10px;
+  margin-right: -10px;
+  
+  width: 100vw;
+  
+
+}
+
+#navbar ul{
+  display:flex;
+  flex-direction: row;  
+  margin: -12px; 
+  border: radius 5px;
+
+}
+
+#navbar ul li{
+  margin: 11px 12px;
+  font-size: 20px;
+  padding: 8px 6px;
+  list-style: none;
+}
+
+#navbar ul li a{
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+ text-decoration: none;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  
+}
+
+#navbar ul li a:hover{
+  color:black;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+form {
+  margin-top: 20px;
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: #398197;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1288ac;
+}

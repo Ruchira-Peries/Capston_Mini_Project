@@ -1,0 +1,90 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title admin 
+        link(rel="stylesheet", href="../public/SelectDate.css") 
+    body 
+            nav#navbar          
+                ul 
+                    li  #[a(href="/") Home]                  
+                    li  #[a(href="/AdminLogin") Admin Login]                   
+                    li  #[a(href="/") Appointment]
+            h2#heading Select timeslot to see appointment
+
+            form(action="/ShowData" method="POST" id="contactform")
+                div select the doctor:
+                select#doctor(name="doctor") 
+                        option(value="Doctor 1") Doctor 1
+                        option(value="Doctor 2") Doctor 2
+                        option(value="Doctor 3") Doctor 3
+                |day:
+                select.times#day(name="selectedday") 
+                    option(value="1" selected) 1
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="4") 4
+                    option(value="5") 5
+                    option(value="6") 6
+                    option(value="7") 7
+                    option(value="8") 8
+                    option(value="9") 9
+                    option(value="10") 10
+                    option(value="11") 11
+                    option(value="12") 12
+                    option(value="13") 13
+                    option(value="14") 14
+                    option(value="15") 15
+                    option(value="16") 16
+                    option(value="17") 17
+                    option(value="18") 18
+                    option(value="19") 19
+                    option(value="20") 20
+                    option(value="21") 21
+                    option(value="22") 22
+                    option(value="23") 23
+                    option(value="24") 24
+                    option(value="25") 25
+                    option(value="26") 26
+                    option(value="27") 27
+                    option(value="28") 28
+                    option(value="29") 29
+                    option(value="30") 30
+                |month:
+                select.times#month(name="selectedmonth")  
+                    option(value="1" selected) 1
+                    option(value="2") 2
+                    option(value="3") 3
+                    option(value="4") 4
+                    option(value="5") 5
+                    option(value="6") 6
+                    option(value="7") 7
+                    option(value="8") 8
+                    option(value="9") 9
+                    option(value="10") 10
+                    option(value="11") 11
+                    option(value="12") 12  
+                |year:    
+                select.times#year(name="selectedyear")  
+                    option(value="2022" selected) 2022    
+                    option(value="2023") 2023
+
+                |time:
+                select.times#timeslot(name="selectedtime") 
+                    option(value="11") 10:30 - 11:30
+                    option(value="12") 11:30 - 12:30
+                    //- option(value="1") 12:30 - 1:30
+                    option(value="2") 1:30 - 2:30
+                    option(value="3") 2:30 - 3:30
+                    option(value="4") 3:30 - 4:30
+                    option(value="5") 4:30 - 5:30
+
+                button(class="btn") submit   
+
+            
+            
+                   
+
+    

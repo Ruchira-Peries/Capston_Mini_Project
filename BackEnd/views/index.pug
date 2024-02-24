@@ -1,0 +1,73 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Home Page
+        block style 
+        link(rel="stylesheet", href="../public/index.css") 
+
+    
+    body
+        nav#navbar          
+        ul 
+            li  #[a(href="/") Home] 
+            li  #[a(href='/UserSignup') Sign Up]
+            li  #[a(href="/UserLogin") User Login] 
+            li  #[a(href="/Service") Services] 
+            li  #[a(href="/OurStaff") OurStaff]                  
+            li  #[a(href="/AdminLogin") Admin Login]            
+            li  #[a(href="/Appointments") Appointment]        
+            li  #[a(href="/About") About]      
+            li  #[a(href="/Emergency") Emergency]      
+
+        div.heading         
+            h1 Medical Records Management System
+  
+        div.subheading_1
+            p For a healthier future
+         
+            form(action="/" method="POST" id="contactform")
+
+            button(class="btn" onclick="location.href='/UserSignup';") Sign Up New
+
+        div.subheading_2    
+            h2 About Us 
+
+            p Medical system of Sabaragamuwa University of Sri Lanka is a government, University-based regional health system focused on serving the health care needs of students and University.
+
+            form(action="/" method="POST" id="contactform")  
+
+            button(class="btn" onclick="location.href='/About';") Learn More
+  
+
+        div.subheading_3    
+            h2 Our Services 
+
+            p We build readymade websites, mobile applications, and elaborate online business services.
+
+            form(action="/" method="POST" id="contactform")  
+
+            button(class="btn" onclick="location.href='/Service';") Learn More
+  
+
+        div.subheading_4    
+            h2 Our Staff
+
+            p These are our beloved staff that alwaays there for you.
+
+            form(action="/" method="POST" id="contactform")  
+
+            button(class="btn" onclick="location.href='/OurStaff';") Learn More
+  
+
+        footer 
+            p @ 2023 Uni Aid.All Right Reserved.      
+
+         
+
+         
+
+
+        
