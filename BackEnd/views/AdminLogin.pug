@@ -1,0 +1,37 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Admin Login Page
+        block style 
+        link(rel="stylesheet", href="../public/AdminLogin.css") 
+
+
+    body
+        nav#navbar          
+                ul 
+                    li  #[a(href="/") Home]                  
+                    li  #[a(href="/AdminLogin") Admin Login]                    
+                    li  #[a(href="/") Appointments]  
+                    li  #[a(href="/SelectDate") Select Date]  
+        div.mycontact 
+            h1 Admin login 
+            #main  
+            
+                form.item(action="/AdminLogin" method="POST") 
+
+                
+                    input(type="email" name="emaillogin" placeholder="enter your email")
+                
+                    input(type="password" name="passwordlogin" placeholder="enter your password" class="item") 
+                
+
+                    button#btn(class="btn") 
+                         | submit    
+
+            p.item#fail_msg=fail_message    
+
+        footer 
+            p @ 2023 Uni Aid.All Right Reserved         

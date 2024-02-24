@@ -1,0 +1,48 @@
+#Navbar {
+  background-color: rgb(1, 1, 0);
+  position: sticky;
+  top: 0px;
+  left: 0px;
+  margin-bottom: 0px;
+  margin-left: -10px;
+  margin-right: -10px;
+  width: 100vw;
+}
+
+#Navbar ul {
+  display: flex;
+  flex-direction: row;  
+  margin: -12px; 
+}
+
+#Navbar ul li {
+  margin: 11px 12px;
+  font-size: 20px;
+  padding: 8px 6px;
+  list-style: none;
+}
+
+#Navbar ul li a {
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  text-decoration: none;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#Navbar ul li a:hover {
+  color: black;
+  background-color: white;
+  border: 2px solid white;
+  border-radius: 4px;
+}
+
+/* Styles for the heading */
+h1 {
+  color: blue;
+  font-size: 24px;
+}
+
+/* Styles for list items */
+p {
+  margin-bottom: 10px;
+}

@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Student Login Page
+        block style 
+        link(rel="stylesheet", href="../public/UserLogin.css") 
+
+
+    body
+        nav#navbar          
+                ul 
+                    li  #[a(href="/") Home]
+                    li  #[a(href="/Service") Service]  
+                    li  #[a(href="/UserProfile") UserProfile]  
+                    li  #[a(href="/About") About Us]                   
+                    li  #[a(href="/OurStaff") Our Staff]                    
+                    
+        div.mycontact 
+            h1 Student login 
+            #main  
+            
+                form.item(action="/UserLogin" method="POST") 
+
+                
+                    input(type="text" name="usernamelogin" placeholder="Enter your Username")
+                
+                    input(type="password" name="passwordlogin" placeholder="Enter your password" class="item") 
+                
+
+                    button#btn(class="btn") 
+                         | Login    
+
+            p.item#fail_msg=fail_message    
+
+        footer 
+            p @ 2023 Uni Aid.All Right Reserved         
