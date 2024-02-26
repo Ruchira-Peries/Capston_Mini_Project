@@ -375,8 +375,7 @@ app.post('/StudentRecords', (req, res) => {
 });
 
 app.post('/PhysicalAppointments', (req, res) => {    
-    let success_msg = '';
-    let fail_msg = '';
+    
 
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
@@ -450,9 +449,9 @@ app.post('/PhysicalAppointments', (req, res) => {
 });
 
 
-/*app.post('/PhysicalAppointments', (req, res) => {    
-    let success_msg = '';
-    let fail_msg = '';
+
+
+app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
 
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
@@ -460,6 +459,7 @@ app.post('/PhysicalAppointments', (req, res) => {
     var email = req.body.email;
     var date = req.body.date;
     var time = req.body.time;
+    var appointment_type = req.body.appointment_type;
     var message = req.body.message;
     
     // Define year, month, and day
@@ -468,7 +468,7 @@ app.post('/PhysicalAppointments', (req, res) => {
     var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
     var day = currentDate.getDate();
     
-    var sql_create_table = `CREATE TABLE IF NOT EXISTS physical_appointments  (
+    /*var sql_create_table = `CREATE TABLE IF NOT EXISTS appointments  (
         id INT AUTO_INCREMENT,
         doctor VARCHAR(35),
         reg_number VARCHAR(255),
@@ -478,14 +478,18 @@ app.post('/PhysicalAppointments', (req, res) => {
         month INT(5),
         year INT(5),
         time TIME,
+        appointment_type VARCHAR(100),
         message VARCHAR(255),
         PRIMARY KEY (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;*/
 
-    var sql_insert = `INSERT INTO physical_appointments  
-                        (doctor, reg_number, phone_number, email, date, month, year, time, message) 
+    var sql_insert = `INSERT INTO appointments  
+                        (doctor, reg_number, phone_number, email, date, month, year, time,appointment_type, message) 
                       VALUES 
-                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${message}')`;
+                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}','${appointment_type}', '${message}')`;
+
+    // Query to count the number of appointments for the selected time slot
+    var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
 
     db.query(sql_create_table, function(error, result) {
         if (error) {
@@ -494,188 +498,30 @@ app.post('/PhysicalAppointments', (req, res) => {
         }
         console.log('Table created successfully');
 
-        // Insert data into the table
-        db.query(sql_insert, function(error, result) {
+        // Check if the selected time slot is full
+        db.query(sql_count_appointments, function(error, result) {
             if (error) {
-                console.error('Error inserting data: ' + (error.stack || error.message));
+                console.error('Error counting appointments: ' + (error.stack || error.message));
                 throw error;
             }
-            console.log('Data inserted successfully');
-            
-            // Redirect after successful insertion
-            res.redirect("/Appointments");
-        });
-    });
-});   */                
-
-    /*const sql_timeslot_full = `SELECT COUNT(*) AS slot_count FROM physical_appointments_${tableName} 
-                               WHERE date='${year}-${month}-${day}' AND time=${time}`;*/
-
-    /*if (name1.length !== 0) {
-        db.query(sql_create_table, (err, result) => {
-            if (err) {
-                console.error("Error creating table:", err);
-                res.status(500).send("Error creating table");
+            var count = result[0].count;
+            if (count >= 5) {
+                // Time slot is full, display message to choose another time slot
+                res.send("The time slot is full. Please choose another time slot.");
             } else {
-                db.query(sql_timeslot_full, (err, rows) => {
-                    if (err) {
-                        console.error("Error checking time slot:", err);
-                        res.status(500).send("Error checking time slot");
-                    } else {
-                        const slotCount = rows[0].slot_count;
-                        if (slotCount <= 4) {
-                            db.query(sql_insert, (err, result) => {
-                                if (err) {
-                                    console.error("Error inserting data into table:", err);
-                                    res.status(500).send("Error inserting data into table");
-                                } else {
-                                    console.log("Data inserted successfully");
-                                    success_msg = `Data inserted successfully. Your appointment is booked for ${doctor} on ${day}-${month}-${year} at ${time}.`;
-                                    res.render('PhysicalAppointments', { success_message: success_msg });
-                                }
-                            });
-                        } else {
-                            fail_msg = "This time slot is full. Please select another time slot.";
-                            res.render('PhysicalAppointments', { fail_message: fail_msg });
-                        }
+                // Insert data into the table
+                db.query(sql_insert, function(error, result) {
+                    if (error) {
+                        console.error('Error inserting data: ' + (error.stack || error.message));
+                        throw error;
                     }
+                    console.log('Data inserted successfully');
+                    // Redirect after successful insertion
+                    res.send("Data inserted successfully. Your appointment is booked.");
                 });
             }
         });
-    } else {
-        fail_msg = "PLEASE ENTER SOME DATA FIRST";
-        res.render('PhysicalAppointments', { fail_message: fail_msg });
-    }
-});*/
-
-
-app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
-
-    succes_msg = ' ';
-    fail_msg = ' ';
-
-    const db = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "mini_project"
-
     });
-    db.connect((err) => {
-        if (err) throw err;
-
-        console.log('database connected');
-
-    })
-
-    var doctor = req.body.doctor;
-    var name1 = req.body.name1;
-    var phone = req.body.phone1;
-    var email = req.body.email1;
-    var day = req.body.day;
-    var month = req.body.month;
-    var year = req.body.year;
-    var time = req.body.time;
-    var message = req.body.message1;
-    var bookdate = b_date;
-
-
-
-
-
-
-
-
-    // var sql_row_count = `SELECT COUNT(*) FROM adhar`;
-
-    // var sql_if_timeslot_full = ` SELECT COUNT(*) FROM ${doctor}${day}${month}${year}${time} `;
-
-    var tableName = `${doctor}${day}${month}${year}${time}`;
-    var sql_create_table = `CREATE TABLE IF NOT EXISTS online_appointments ${tableName} (id INT NOT NULL AUTO_INCREMENT, doctor VARCHAR(35),date  VARCHAR(35) , time INT, name VARCHAR(35) NOT NULL,phone VARCHAR(15), email VARCHAR(35),message VARCHAR(255),bookdate VARCHAR(20),PRIMARY KEY (id) )ENGINE=InnoDB DEFAULT CHARSET=latin1`;
-
-
-    var sql_insert = `  INSERT INTO online_appointments ${tableName} (doctor,date,time,name,phone,email,message,bookdate) VALUES('${doctor}','${day}-${month}-${year}','${time}','${name1}','${phone}','${email}','${message}','${b_date}')`;
-    var sql_timeslot_full = `SELECT COUNT(*) FROM doctor WHERE date='${day}-${month}-${year}' AND time='${time}'`
-    
-
-
-
-    if (name1.length != 0) {
-
-        db.query(sql_create_table, (err, result) => {
-
-            var resList = [];
-
-            if (err) throw err;
-            else {
-
-                db.query(`SELECT * FROM  ${doctor}${day}${month}${year}${time}`, (err, rows, fields) => {  // for getting   rows.lenth
-
-                    if (err) {
-                        console.error(err); // Log the actual error for debugging
-                        res.status(500).json({ "status_code": 500, "status_message": "internal server error" });
-                    }
-                    else {
-
-                        if (rows.length <= 4) {
-
-                            db.query(sql_insert, (err, result) => {
-                                if (err) throw err;
-                                else {
-
-
-
-
-                                    console.log(result);
-
-
-                                    var succes_msg = ` data inserted successfully  , your appointment is booked for ${doctor} on date: ${day}-${month}-${year} time around: ${time}`;
-
-                                    res.render('OnlineAppointments', { 'success_message': succes_msg })
-
-
-
-                                }
-
-                            });
-                        }
-                        else if (rows.length > 4) {
-                            // res.send("time slot full please select another time slot")
-                            var fail_msg = "This time slot full please select another time slot"
-                            res.render('OnlineAppointments', { 'fail_message': fail_msg })
-
-                        }
-                        else {
-                            // res.send('err dont know');
-                            var fail_msg = 'unknown err'
-                            res.render('OnlineAppointments', { 'fail_message': fail_msg })
-                        }
-
-                    }
-
-                });
-
-
-
-
-
-
-            }
-
-
-
-
-        });
-
-    }
-    else {
-        // res.send("time slot full please select another time slot")
-        var fail_msg = "PLEASE ENTER SOME DATA FIRST"
-        res.render('OnlineAppointments', { 'fail_message': fail_msg })
-
-    }
-
-
 });
 
 
@@ -818,8 +664,7 @@ app.post('/ShowData', function (req, res) {
 app.post('/selectDate', (req, res) => {
     var doctor = req.body.doctor;
     var date = req.body.date;
-    var time = req.body.time;
-
+    
     // Redirect to the getAppointments page with the doctor, date, and time parameters
     res.redirect(`/getAppointments`);
 });
