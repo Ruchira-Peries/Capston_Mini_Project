@@ -1,0 +1,27 @@
+
+
+block content
+  h1 Appointments for #{doctor} 
+  if appointments.length > 0
+    table
+      tr
+        th Appointment Type
+        th Doctor
+        th Registration Number
+        th Phone Number
+        th Email
+        th Date
+        th Time
+        th Message
+      each appointment in appointments
+        tr
+          td= appointment.appointment_type
+          td= appointment.doctor
+          td= appointment.reg_number
+          td= appointment.phone_number
+          td= appointment.email
+          td= appointment.date
+          td= appointment.time
+          td= appointment.message
+  else
+    p No appointments found for the selected criteria.

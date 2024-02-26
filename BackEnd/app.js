@@ -73,9 +73,9 @@ app.get('/Appointments', (req, res) => {
 });
 
 
-app.get('/AdminLogin', (req, res) => {
+app.get('/DoctorLogin', (req, res) => {
 
-    res.render('AdminLogin');
+    res.render('DoctorLogin');
 });
 
 app.get('/SelectDate', (req, res) => {
@@ -113,6 +113,12 @@ app.get('/Emergency', (req, res) => {
     res.render('Emergency');
 });
 
+app.get('/StudentDetails', (req, res) => {
+
+    res.render('StudentDetails');
+});
+
+
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -124,6 +130,24 @@ const transporter = nodemailer.createTransport({
 
 
   app.use(bodyParser.urlencoded({ extended: true }));
+
+  
+
+  app.get('/getAppointments', (req, res) => {
+    var doctor = req.query.doctor;
+    var date = req.query.date;
+    var time = req.query.time;
+
+    var sql_get_appointments = `SELECT * FROM appointments WHERE doctor = '${doctor}' AND date = '${date}' AND time = '${time}'`;
+
+    db.query(sql_get_appointments, function(error, appointments) {
+        if (error) {
+            console.error('Error fetching appointments: ' + (error.stack || error.message));
+            throw error;
+        }
+        res.render('getAppointments', { doctor, date, time, appointments });
+    });
+});
 
   
   
@@ -326,47 +350,168 @@ app.post('/UserLogin', (req, res) => {
 
 });
 
+app.post('/StudentRecords', (req, res) => {
+    const reg_number = req.body.reg_number;
 
+    // Query the database to fetch the student's details based on the registration number
+    const sql_query = `SELECT * FROM student_profile WHERE reg_number = ?`;
+    db.query(sql_query, [reg_number], (error, results) => {
+        if (error) {
+            console.error('Error querying database:', error);
+            // Render an error page or handle the error appropriately
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        if (results.length === 0) {
+            // If no matching student found, render a page indicating that
+            res.render('NoStudentFound', { reg_number });
+            return;
+        }
+
+        // Render a page to display the student's details
+        res.render('StudentDetails', { student: results[0] });
+    });
+});
 
 app.post('/PhysicalAppointments', (req, res) => {    
     let success_msg = '';
     let fail_msg = '';
 
-    const db = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "mini_project"
-    });
-
-    db.connect((err) => {
-        if (err) throw err;
-        console.log('database connected');
-    });
-
-    const { doctor, name1, phone1, email1, day, month, year, time, message } = req.body;
-    const tableName = `${doctor}_${day}${month}${year}${time}`;
+    var doctor = req.body.doctor;
+    var reg_number = req.body.reg_number;
+    var phone_number = req.body.phone_number;
+    var email = req.body.email;
+    var date = req.body.date;
+    var time = req.body.time;
+    var appointment_type = req.body.appointment_type;
+    var message = req.body.message;
     
-    const sql_create_table = `CREATE TABLE IF NOT EXISTS physical_appointments_${tableName} (
-        id INT NOT NULL AUTO_INCREMENT,
+    // Define year, month, and day
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
+    var day = currentDate.getDate();
+    
+    var sql_create_table = `CREATE TABLE IF NOT EXISTS appointments  (
+        id INT AUTO_INCREMENT,
         doctor VARCHAR(35),
-        date DATE,
-        time INT,
-        name VARCHAR(35) NOT NULL,
-        phone INT(10),
-        email VARCHAR(100),
-        message VARCHAR(250),
-        bookdate DATE,
+        reg_number VARCHAR(255),
+        phone_number INT(10),
+        email VARCHAR(255),
+        date INT(10),
+        month INT(5),
+        year INT(5),
+        time TIME,
+        appointment_type VARCHAR(100),
+        message VARCHAR(255),
         PRIMARY KEY (id)
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;
 
-    const sql_insert = `INSERT INTO physical_appointments_${tableName} (doctor, date, time, name, phone, email, message, bookdate) 
-                        VALUES ('${doctor}', '${year}-${month}-${day}', '${time}', '${name1}', '${phone1}', '${email1}', '${message}', NOW())`;
+    var sql_insert = `INSERT INTO appointments  
+                        (doctor, reg_number, phone_number, email, date, month, year, time,appointment_type, message) 
+                      VALUES 
+                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}','${appointment_type}', '${message}')`;
 
-    const sql_timeslot_full = `SELECT COUNT(*) AS slot_count FROM physical_appointments_${tableName} 
-                               WHERE date='${year}-${month}-${day}' AND time=${time}`;
+    // Query to count the number of appointments for the selected time slot
+    var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
 
-    if (name1.length !== 0) {
+    db.query(sql_create_table, function(error, result) {
+        if (error) {
+            console.error('Error creating table: ' + error.stack);
+            throw error;
+        }
+        console.log('Table created successfully');
+
+        // Check if the selected time slot is full
+        db.query(sql_count_appointments, function(error, result) {
+            if (error) {
+                console.error('Error counting appointments: ' + (error.stack || error.message));
+                throw error;
+            }
+            var count = result[0].count;
+            if (count >= 5) {
+                // Time slot is full, display message to choose another time slot
+                res.send("The time slot is full. Please choose another time slot.");
+            } else {
+                // Insert data into the table
+                db.query(sql_insert, function(error, result) {
+                    if (error) {
+                        console.error('Error inserting data: ' + (error.stack || error.message));
+                        throw error;
+                    }
+                    console.log('Data inserted successfully');
+                    // Redirect after successful insertion
+                    res.send("Data inserted successfully. Your appointment is booked.");
+                });
+            }
+        });
+    });
+});
+
+
+/*app.post('/PhysicalAppointments', (req, res) => {    
+    let success_msg = '';
+    let fail_msg = '';
+
+    var doctor = req.body.doctor;
+    var reg_number = req.body.reg_number;
+    var phone_number = req.body.phone_number;
+    var email = req.body.email;
+    var date = req.body.date;
+    var time = req.body.time;
+    var message = req.body.message;
+    
+    // Define year, month, and day
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
+    var day = currentDate.getDate();
+    
+    var sql_create_table = `CREATE TABLE IF NOT EXISTS physical_appointments  (
+        id INT AUTO_INCREMENT,
+        doctor VARCHAR(35),
+        reg_number VARCHAR(255),
+        phone_number INT(10),
+        email VARCHAR(255),
+        date INT(10),
+        month INT(5),
+        year INT(5),
+        time TIME,
+        message VARCHAR(255),
+        PRIMARY KEY (id)
+    ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;
+
+    var sql_insert = `INSERT INTO physical_appointments  
+                        (doctor, reg_number, phone_number, email, date, month, year, time, message) 
+                      VALUES 
+                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${message}')`;
+
+    db.query(sql_create_table, function(error, result) {
+        if (error) {
+            console.error('Error creating table: ' + error.stack);
+            throw error;
+        }
+        console.log('Table created successfully');
+
+        // Insert data into the table
+        db.query(sql_insert, function(error, result) {
+            if (error) {
+                console.error('Error inserting data: ' + (error.stack || error.message));
+                throw error;
+            }
+            console.log('Data inserted successfully');
+            
+            // Redirect after successful insertion
+            res.redirect("/Appointments");
+        });
+    });
+});   */                
+
+    /*const sql_timeslot_full = `SELECT COUNT(*) AS slot_count FROM physical_appointments_${tableName} 
+                               WHERE date='${year}-${month}-${day}' AND time=${time}`;*/
+
+    /*if (name1.length !== 0) {
         db.query(sql_create_table, (err, result) => {
             if (err) {
                 console.error("Error creating table:", err);
@@ -401,7 +546,7 @@ app.post('/PhysicalAppointments', (req, res) => {
         fail_msg = "PLEASE ENTER SOME DATA FIRST";
         res.render('PhysicalAppointments', { fail_message: fail_msg });
     }
-});
+});*/
 
 
 app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
@@ -535,7 +680,7 @@ app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in co
 
 
 
-app.post('/AdminLogin', (req, res) => {
+app.post('/DoctorLogin', (req, res) => {
 
 
     const db = mysql.createConnection({
@@ -580,13 +725,13 @@ app.post('/AdminLogin', (req, res) => {
             }
             else {
 
-                res.render('AdminLogin', { fail_message: "Wrong Password" });
+                res.render('DoctorLogin', { fail_message: "Wrong Password" });
 
             }
 
         }
         else {
-            res.render('AdminLogin', { fail_message: "Wrong Email" });
+            res.render('DoctorLogin', { fail_message: "Wrong Email" });
         }
 
 
@@ -670,8 +815,14 @@ app.post('/ShowData', function (req, res) {
 
 });
 
+app.post('/selectDate', (req, res) => {
+    var doctor = req.body.doctor;
+    var date = req.body.date;
+    var time = req.body.time;
 
-
+    // Redirect to the getAppointments page with the doctor, date, and time parameters
+    res.redirect(`/getAppointments`);
+});
 
 
 

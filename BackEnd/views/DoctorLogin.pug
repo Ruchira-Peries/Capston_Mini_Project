@@ -4,23 +4,23 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Admin Login Page
+        title Doctor Login Page
         block style 
-        link(rel="stylesheet", href="../public/AdminLogin.css") 
+        link(rel="stylesheet", href="../public/DoctorLogin.css") 
 
 
     body
         nav#navbar          
                 ul 
                     li  #[a(href="/") Home]                  
-                    li  #[a(href="/AdminLogin") Admin Login]                    
+                    li  #[a(href="/DoctorLogin") Doctor Login]                    
                     li  #[a(href="/") Appointments]  
                     li  #[a(href="/SelectDate") Select Date]  
         div.mycontact 
-            h1 Admin login 
+            h1 Doctor login 
             #main  
             
-                form.item(action="/AdminLogin" method="POST") 
+                form.item(action="/DoctorLogin" method="POST") 
 
                 
                     input(type="email" name="emaillogin" placeholder="enter your email")
