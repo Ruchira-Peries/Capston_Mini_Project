@@ -1,0 +1,41 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Student Details
+  body
+    h1 Student Details
+    p 1.Registration Number: #{student.reg_number}
+    p 2.Full Name: #{student.fullName}
+    p 3.Date of Birth: #{student.dateOfBirth}
+    p 4.Weight: #{student.weight}
+    p 5.Height: #{student.height}
+    p 6. Condition of Teeth,Gums,Threat, and Nasal Passages:<br/> a. Are the gums and teeath healthy?State of tongue,fouces,and nasal passages. #{student.tonguea}
+    p 7. Examination of heart:<br/> a. Blood Group #{student.hearta}
+    p b. Any past history of health disease of rheumatic fever?: #{student.heartb}
+    p c. Any caerdiac enlargement?: #{student.heartc}
+    p d.Heart sound?: #{student.heartd}
+    p e.Murmurs: #{student.hearte}
+    p f. Blood pressure: #{student.heartf}
+    p 8. Examination of Lungs :<br/> a. History of Tuberculosis,Bronchitis or Asthma? #{student.lungsa}
+    p b. Any obnormility clinicaly?: #{student.lungsa}
+    p 9. Examination of Abondomen: <br/> a.Any evidence of enlargement of liverof spleen? #{student.abondomena}
+    p b. Any past history of peptic ulcer?: #{student.abondomenb}
+    p c. Are the kidneys palpable?: #{student.abondomenc}
+    p d. Any other abnormalities?: #{student.abondomend}
+    p 10. Examination of the Nervous System: <br/> a. Any history of convulsions or insanity? #{student.nervousa}
+    p b. Any past history of poliomyelities?: #{student.nervousb}
+    p c.Fundi: #{student.nervousc}
+    p d.Reflexes: #{student.nervousd}
+    p e. Visions: Without Glass,With Glass,Colour Vision #{student.nervouse}
+    p f. Hearing: Any hearing defeats?, Any past history of discharge from ear? #{student.nervousf}
+    p g. Speech #{student.nervousg}
+    p 11. Operation and Other Details: a. Have you ever had any operations or accidents? #{student.operationa}
+    p b. Any deformities-Congential or Acquired?: #{student.operationb}
+    p c.Any evidence hernia,hydrocele, varicose veins or hemorholds?: #{student.operationc}
+    p d. Immunisations?: #{student.operationd}
+    p 12.Chest X-ray: #{student.x_ray}
+    p 13.Are the indications of any other physical defect or disease : #{student.physicalDefect}
+    // Add more fields as needed
