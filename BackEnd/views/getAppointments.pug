@@ -11,6 +11,8 @@ block content
         th Phone Number
         th Email
         th Date
+        th Month 
+        th Year
         th Time
         th Message
       each appointment in appointments
@@ -21,6 +23,8 @@ block content
           td= appointment.phone_number
           td= appointment.email
           td= appointment.date
+          td= appointment.month 
+          td= appointment.year
           td= appointment.time
           td= appointment.message
   else
