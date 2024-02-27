@@ -113,11 +113,33 @@ app.get('/Emergency', (req, res) => {
     res.render('Emergency');
 });
 
+
 app.get('/StudentDetails', (req, res) => {
+    // Query to fetch student data from the database
+    const sqlQuery = `SELECT * FROM student_profile`;
 
-    res.render('StudentDetails');
+    // Execute the query
+    db.query(sqlQuery, (error, results) => {
+        if (error) {
+            console.error('Error querying database:', error);
+            // Render an error page or handle the error appropriately
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+
+        if (results.length === 0) {
+            // If no student data found, render a page indicating that
+            res.render('NoStudentDataFound');
+            return;
+        }
+
+        // Extract the first student's data (assuming you only expect one student's data)
+        const student = results[0];
+
+        // Render the StudentDetails view and pass the student object to it
+        res.render('StudentDetails', { student });
+    });
 });
-
 
 
 const transporter = nodemailer.createTransport({
@@ -133,21 +155,26 @@ const transporter = nodemailer.createTransport({
 
   
 
-  app.get('/getAppointments', (req, res) => {
+ app.get('/getAppointments', (req, res) => {
     var doctor = req.query.doctor;
-    var date = req.query.date;
-    var time = req.query.time;
+    var date = req.query.date; 
+    var month = req.query.month; 
+    var year = req.query.year;
+    
+    
 
-    var sql_get_appointments = `SELECT * FROM appointments WHERE doctor = '${doctor}' AND date = '${date}' AND time = '${time}'`;
+    var sql_get_appointments = `SELECT * FROM appointments WHERE doctor = '${doctor}' AND date = '${date}' AND month = '${month}' AND year = '${year}'`;
 
     db.query(sql_get_appointments, function(error, appointments) {
         if (error) {
             console.error('Error fetching appointments: ' + (error.stack || error.message));
             throw error;
         }
-        res.render('getAppointments', { doctor, date, time, appointments });
+        res.render('getAppointments', { doctor, date,month,year, appointments });
     });
 });
+
+
 
   
   
@@ -451,7 +478,7 @@ app.post('/PhysicalAppointments', (req, res) => {
 
 
 
-app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
+/*app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
 
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
@@ -468,20 +495,7 @@ app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in co
     var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
     var day = currentDate.getDate();
     
-    /*var sql_create_table = `CREATE TABLE IF NOT EXISTS appointments  (
-        id INT AUTO_INCREMENT,
-        doctor VARCHAR(35),
-        reg_number VARCHAR(255),
-        phone_number INT(10),
-        email VARCHAR(255),
-        date INT(10),
-        month INT(5),
-        year INT(5),
-        time TIME,
-        appointment_type VARCHAR(100),
-        message VARCHAR(255),
-        PRIMARY KEY (id)
-    ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;*/
+    
 
     var sql_insert = `INSERT INTO appointments  
                         (doctor, reg_number, phone_number, email, date, month, year, time,appointment_type, message) 
@@ -522,7 +536,106 @@ app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in co
             }
         });
     });
+});*/
+
+
+
+app.post('/OnlineAppointments', (req, res) => {      
+    // Get appointment details from the form
+    var doctor = req.body.doctor;
+    var reg_number = req.body.reg_number;
+    var phone_number = req.body.phone_number;
+    var email = req.body.email;
+    var date = req.body.date;
+    var time = req.body.time;
+    var appointment_type = req.body.appointment_type;
+    var message = req.body.message;
+    
+    // Define year, month, and day
+    var currentDate = new Date();
+    var year = currentDate.getFullYear();
+    var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
+    var day = currentDate.getDate();
+    
+    // SQL query to insert appointment data into the database
+    var sql_insert = `INSERT INTO appointments  
+                        (doctor, reg_number, phone_number, email, date, month, year, time, appointment_type, message) 
+                      VALUES 
+                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${appointment_type}', '${message}')`;
+
+    // SQL query to count the number of appointments for the selected time slot
+    var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
+
+    // Execute the SQL queries
+    db.query(sql_insert, function(error, result) {
+        if (error) {
+            console.error('Error inserting data: ' + (error.stack || error.message));
+            throw error;
+        }
+        console.log('Data inserted successfully');
+
+        // Check if the selected time slot is full
+        db.query(sql_count_appointments, function(error, result) {
+            if (error) {
+                console.error('Error counting appointments: ' + (error.stack || error.message));
+                throw error;
+            }
+            var count = result[0].count;
+            if (count >= 5) {
+                // Time slot is full, send message to choose another time slot
+                res.send("The time slot is full. Please choose another time slot.");
+            } else {
+                // Appointment is booked, send email confirmation
+                sendEmailConfirmation(email, doctor, date, time, appointment_type, res);
+            }
+        });
+    });
 });
+
+// Function to send email confirmation
+function sendEmailConfirmation(email, doctor, date, time, appointment_type, res) {
+    // Create the email transporter using nodemailer
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'devinimadumali@gmail.com', // Replace with your Gmail email
+            pass: 'dev@1118' // Replace with your Gmail password
+        }
+    });
+
+    // Define email content
+    const mailOptions = {
+        from: 'devinimadumali@gmail.com', // Sender email
+        to: email, // Receiver email (student's email)
+        subject: 'Online Appointment Confirmation', // Email subject
+        html: `
+            <p>Dear Student,</p>
+            <p>Your online appointment with ${doctor} on ${date} at ${time} has been successfully booked.</p>
+            <p>Appointment Details:</p>
+            <ul>
+                <li><strong>Doctor:</strong> ${doctor}</li>
+                <li><strong>Date:</strong> ${date}</li>
+                <li><strong>Time:</strong> ${time}</li>
+                <li><strong>Appointment Type:</strong> ${appointment_type}</li>
+            </ul>
+            <p>Thank you for choosing our service.</p>
+            <p>Best regards,<br>Your Healthcare Team</p>
+        `
+    };
+
+    // Send email
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error('Error sending email:', error);
+            // Handle error appropriately, e.g., display error message to the user
+            res.send('Failed to send confirmation email');
+        } else {
+            console.log('Email sent:', info.response);
+            // Handle success appropriately, e.g., redirect user to a confirmation page
+            res.send("Data inserted successfully. Your appointment is booked. Confirmation email sent.");
+        }
+    });
+}
 
 
 
@@ -592,74 +705,6 @@ app.post('/DoctorLogin', (req, res) => {
 
 
 
-
-
-
-
-
-app.post('/ShowData', function (req, res) {
-
-    var personList = [];
-    var selecteddoctor = req.body.doctor;
-    var selectedday = req.body.selectedday;
-    var selectedmonth = req.body.selectedmonth;
-    var selectedyear = req.body.selectedyear;
-    var selectedtime = req.body.selectedtime;
-
-    // Connect to MySQL database.
-    const db = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "mini_project"
-
-    });
-    db.connect((err) => {
-        if (err) throw err;
-
-        console.log('database connected');
-
-    })
-
-    // Do the query to get data.
-
-    db.query(`SELECT * FROM ${selecteddoctor}${selectedday}${selectedmonth}${selectedyear}${selectedtime}`, function (err, rows, fields) {
-        if (err) {
-            //   res.status(500).json({"status_code": 500,"status_message": "internal server error"});
-            res.send(err);
-            throw err;
-
-
-
-        } else {
-            // Loop check on each row
-            for (var i = 0; i < rows.length; i++) {
-
-                // Create an object to save current row's data
-                var person = {
-                    'doctor': rows[i].doctor,
-                    'name': rows[i].name,
-                    'email': rows[i].email,
-                    'phone': rows[i].phone,
-                    'date': rows[i].date,
-                    'time': rows[i].time,
-                    'message': rows[i].message,
-                    'id': rows[i].id,
-                    'bookdate': rows[i].bookdate
-                }
-                // Add object into array
-                personList.push(person);
-            }
-
-            // Render index.pug page using array 
-            res.render('showdata', { "personList": personList });
-        }
-    });
-
-    // Close the MySQL connection
-    db.end();
-
-});
 
 app.post('/selectDate', (req, res) => {
     var doctor = req.body.doctor;
