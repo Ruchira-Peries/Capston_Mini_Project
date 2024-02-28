@@ -1,14 +1,16 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios'; 
 
 const Signup1 = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    regnumber: '',
-    name: '',
     email: '',
-    mobile: ''
+    username: '',
+    password: ''
   });
 
   const handleChange = (e) => {
@@ -19,83 +21,103 @@ const Signup1 = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form submission here, for now just log the data
-    console.log(formData);
+
+    if (formData.email === '' || formData.username === '' || formData.password === '') {
+      console.error('Error: All fields must be filled');
+      return;
+    }
+    
+      
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    
+     
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+      
+      if (!emailRegex.test(formData.email)) {
+        console.error('Error: Invalid email format');
+       
+        return;
+      }
+    
+     
+      if (!passwordRegex.test(formData.password)) {
+        console.error('Error: Password should contain at least 8 characters including one uppercase, lowercase, number, and symbol');
+       
+        return;
+      }
+      navigate("/otp");
+    
+    try {
+      const response = await axios.post('http://localhost:5001/UserSignup', formData);
+      console.log(response.data);
+      } catch (error) {
+      console.error('Error:', error);
+    }
   };
+
   return (
     <>
-    <Header/>
-    <div className="outer-container">
-    <Navbar/>
-    <div className="appoinment-box">
-        <div className="left-part">
-          <div className="left-content">
-        <h1 className="header-text">Welcome To UniAid health center </h1>
-          <p className="para-text">Let's Get Started By Setting up your account </p>
-          <p className= "sign-text">Already have an account? <a href="\login">Login</a></p>
+      <Header />
+      <div className="outer-container">
+        <Navbar />
+        <div className="appoinment-box">
+          <div className="left-part">
+            <div className="left-content">
+              <h1 className="header-text">Welcome To UniAid health center </h1>
+              <p className="para-text">Let's Get Started By Setting up your account </p>
+              <p className="sign-text">Already have an account? <a href="\login">Login</a></p>
+            </div>
           </div>
-        </div>
 
-        <div className="right-part">
-        <div className="right-content">
-          <h1 className="header-text">General Information</h1>
-          <form onSubmit={handleSubmit}>
-      <label>
-        Registration Number:
-        <input
-          type="text"
-          name="regnumber"
-          value={formData.regnumber}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Full name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Mobile Number:
-        <input
-          type="text"
-          name="mobile"
-          value={formData.mobile}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <button type="submit" className='secondary-button'>Next
-      </button>
-    </form>
+          <div className="right-part">
+            <div className="right-content">
+              <h1 className="header-text">General Information</h1>
+              <form onSubmit={handleSubmit}>
+                <label>
+                  Email:
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <br />
+                <label>
+                  username:
+                  <input
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <br />
+                <label>
+                  Password:
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
+                  />
+                </label>
+                <br />
+                <button type="submit" className='secondary-button'>Next</button>
+              </form>
+            </div>
           </div>
         </div>
+        <Footer />
       </div>
-      <Footer />
-      </div>
-   </>
+    </>
   )
 }
 
-export default Signup1
+export default Signup1;

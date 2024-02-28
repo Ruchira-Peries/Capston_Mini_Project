@@ -9,10 +9,11 @@ import Signup from "./pages/Signup1";
 import Login from "./pages/Login";
 import OnlineAppoinment from "./pages/OnlineAppoinment";
 import PhysicalAppoinment from "./pages/PhysicalAppoinment";
-
+import OTP from "./pages/OTP";
 
 
 function App() {
+  
   return (
     <div className="App">
      <Router>
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element = {<Login></Login>} />
           <Route path="/onlineappoinment" element = {<OnlineAppoinment></OnlineAppoinment>} />
           <Route path="/physicalappoinment" element = {<PhysicalAppoinment></PhysicalAppoinment>} />
+          <Route path="/otp" element = {<OTP></OTP>} />
         </Routes>
 
      </Router>
