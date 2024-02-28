@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import axios from 'axios';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
@@ -6,6 +7,7 @@ import Footer from '../Components/Footer';
 const OTP = () => {
   const [formData, setFormData] = useState({
     otp: '',
+    message: ''
   });
 
   const handleChange = (e) => {
@@ -16,10 +18,33 @@ const OTP = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form submission here, for now just log the data
     console.log(formData);
+
+    try {
+      const response = await axios.post('http://localhost:5001/verifyOTP', { otp: formData.otp });
+      
+      setFormData(prevState => ({
+        ...prevState,
+        message: response.data.message
+      }));
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+    const handleResendOTP = async () => {
+      try {
+        const response = await axios.post('http://localhost:5001/resendOTP');
+        
+        setFormData(prevState => ({
+          ...prevState,
+          message: response.data.message
+        }));
+      } catch (error) {
+        console.error('Error:', error);
+      }
+
   };
   return (
     <>
@@ -50,14 +75,15 @@ const OTP = () => {
         />
       </label>
       <br />
-      <p>Didn't get the OTP?<a href="#">Resend OTP</a></p>
+      <p>Didn't get the OTP?<button type="button" onClick={handleResendOTP}>Resend OTP</button></p>
       <button type="submit" className='btn'>Confirm</button>
     </form>
+    {formData.message && <p>{formData.message}</p>}
+            </div>
           </div>
         </div>
       </div>
-      <Footer />
-      </div>
+      <Footer />   
    </>
   )
 }
