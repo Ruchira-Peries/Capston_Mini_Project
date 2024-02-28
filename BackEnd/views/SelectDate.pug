@@ -4,17 +4,18 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title admin 
+        title Selected Date 
         link(rel="stylesheet", href="../public/SelectDate.css") 
     body 
             nav#navbar          
                 ul 
                     li  #[a(href="/") Home]                  
-                    li  #[a(href="/AdminLogin") Admin Login]                   
-                    li  #[a(href="/") Appointment]
-            h2#heading Select timeslot to see appointment
+                    li  #[a(href="/DoctorLogin") Doctor Login]                   
+                    li  #[a(href="/Appointments") Appointment]
+                    li  #[a(href="/StudentRecords") StudentRecords]
+            h2#heading Select date to see appointment
 
-            form(action="/ShowData" method="POST" id="contactform")
+            form(action="/getAppointments" method="GET" id="contactform")
                 div select the doctor:
                 select#doctor(name="doctor") 
                         option(value="Doctor 1") Doctor 1
@@ -70,16 +71,10 @@ html(lang="en")
                 select.times#year(name="selectedyear")  
                     option(value="2022" selected) 2022    
                     option(value="2023") 2023
+                    option(value="2024") 2024
+                    option(value="2024") 2024
 
-                |time:
-                select.times#timeslot(name="selectedtime") 
-                    option(value="11") 10:30 - 11:30
-                    option(value="12") 11:30 - 12:30
-                    //- option(value="1") 12:30 - 1:30
-                    option(value="2") 1:30 - 2:30
-                    option(value="3") 2:30 - 3:30
-                    option(value="4") 3:30 - 4:30
-                    option(value="5") 4:30 - 5:30
+               
 
                 button(class="btn") submit   
 
