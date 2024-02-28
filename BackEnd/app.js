@@ -5,7 +5,7 @@ const mysql = require('mysql');
 const { error } = require('console');
 const bodyParser = require('body-parser');
 const nodemailer = require('nodemailer');
-
+const cors = require('cors');
 
 const { get } = require('http');
 
@@ -17,7 +17,7 @@ let b_date = new Date();
 
 const app = express();
 
-
+app.use(cors());
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 const db = mysql.createConnection({
     host: "localhost",
@@ -51,6 +51,10 @@ app.get('/UserSignup', (req, res) => {
     res.render('UserSignup');
   });
 
+app.get('/verifyOTP', (req, res) => {
+
+    res.render('verifyOTP');
+});
 
 app.get('/UserLogin', (req, res) => {
 
@@ -114,11 +118,19 @@ app.get('/Emergency', (req, res) => {
 });
 
 
+// const transporter = nodemailer.createTransport({
+//     service: 'gmail',
+//     auth: {
+//       user: 'devinimadumali@gmail.com',
+//       pass: 'dev@1118'
+//     }
+//   });
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'devinimadumali@gmail.com',
-      pass: 'dev@1118'
+      user: 'hvdisurikadhananji@gmail.com',
+      pass: 'izwl tcze klll eyjq'
     }
   });
 
@@ -145,7 +157,8 @@ const transporter = nodemailer.createTransport({
   
           // Send verification email
           const mailOptions = {
-            from: 'devinimadumali@gmail.com',
+            //from: 'devinimadumali@gmail.com',
+            from: 'hvdisurikadhananji@gmail.com',
             to: email,
             subject: 'Email Verification',
             text: `Your verification code is: ${verificationCode}`
@@ -159,13 +172,29 @@ const transporter = nodemailer.createTransport({
               console.log('Email sent: ' + info.response);
               res.send('Verification email sent');
             }
+
+            //POST endpoint to verify OTP
+   app.post('/verifyOTP', (req, res) => {
+  const { verificationCode } = req.body;
+
+  // Check if the OTP exists in the database
+  if (student_login[verificationCode]) {
+    // OTP is valid
+    res.json({ message: 'OTP verified successfully' });
+  } else {
+    // OTP is invalid
+    res.status(400).json({ message: 'Invalid OTP. Please try again.' });
+  }
+});
           });
         });
       }
     });
   });  
 
-// app.use(express.static(static_path));
+
+
+
 
 
 
@@ -676,8 +705,8 @@ app.post('/ShowData', function (req, res) {
 
 
 
-app.listen(5000, () => {
-    console.log(`listening on port 5000`);
+app.listen(5001, () => {
+    console.log(`listening on port 5001`);
 });
 
 
