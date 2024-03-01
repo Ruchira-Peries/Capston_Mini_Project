@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios';
 
 const PhysicalAppoinment = () => {
   const [formData, setFormData] = useState({
     regnumber: '',
+    doctor: '',
     date: '',
     email: '',
     description: ''
@@ -20,10 +22,15 @@ const PhysicalAppoinment = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form submission here, for now just log the data
-    console.log(formData);
+    try {
+      // Send form data to the backend
+      const response = await axios.post('http://localhost:5001/PhysicalAppointments', formData);
+      console.log(response.data); // Log the response from the backend
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
   return (
     <>
@@ -50,15 +57,17 @@ const PhysicalAppoinment = () => {
           name="regnumber"
           value={formData.regnumber}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
       <label>
         Choose Your Doctor:
         <select
-         name="DoctorName"
-         value={formData.DoctorName}
+         name="doctor"
+         value={formData.doctor}
         onChange={handleChange}
+        required
         >
         <option value="">Select Doctor</option>
          {doctors.map((doctor, index) => (
@@ -74,6 +83,7 @@ const PhysicalAppoinment = () => {
           name="date"
           value={formData.date}
           onChange={handleChange}
+          required
         />
       </label>
       <br />
