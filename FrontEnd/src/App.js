@@ -7,7 +7,7 @@ import Staff from "./pages/Staff";
 import Services from "./pages/Services";
 import Signup from "./pages/Signup1";
 import Login from "./pages/Login";
-import OnlineAppoinment from "./pages/OnlineAppoinment";
+import OnlineAppoinment from "./pages/OnlineAppointments";
 import PhysicalAppoinment from "./pages/PhysicalAppoinment";
 import OTP from "./pages/OTP";
 

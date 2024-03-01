@@ -4,30 +4,53 @@ import Header from "../Components/header";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
 import "../Styles/TwoPartitions.css";
+import axios from "axios";
 
 const Appoinments = () => {
   const navigate = useNavigate();
 
-  // Check if the user is signed in
-  const isSignedIn = false; // You would typically get this from your authentication state
+  const isSignedIn = false; 
 
-  // Handle the button click for online appointments
   const handleOnlineAppointment = () => {
     if (isSignedIn) {
-      navigate("/onlineappointment");
+      axios
+        .post("/api/createOnlineAppointment", {
+          appointmentType: "online", // Or any other relevant data you need to send
+          // Add more data as needed
+        })
+        .then((response) => {
+          // Handle successful response
+          navigate("/confirmation");
+        })
+        .catch((error) => {
+          // Handle error response
+          console.error("Error creating appointment:", error);
+        });
     } else {
       navigate("/signin"); // Redirect to the sign-in page if not signed in
     }
   };
 
-  // Handle the button click for physical appointments
   const handlePhysicalAppointment = () => {
     if (isSignedIn) {
-      navigate("/physicalappointment");
+      axios
+        .post("/api/createPhysicalAppointment", {
+          appointmentType: "physical", // Or any other relevant data you need to send
+          // Add more data as needed
+        })
+        .then((response) => {
+          // Handle successful response
+          navigate("/confirmation");
+        })
+        .catch((error) => {
+          // Handle error response
+          console.error("Error creating appointment:", error);
+        });
     } else {
       navigate("/signin"); // Redirect to the sign-in page if not signed in
     }
   };
+
 
   return (
    <>

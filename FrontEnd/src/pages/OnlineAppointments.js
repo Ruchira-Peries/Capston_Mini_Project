@@ -2,10 +2,12 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import axios from 'axios';
 
-const OnlineAppoinment = () => {
+const OnlineAppointments = () => {
   const [formData, setFormData] = useState({
     regnumber: '',
+    doctor: '',
     date: '',
     email: '',
     description: ''
@@ -20,11 +22,17 @@ const OnlineAppoinment = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // handle form submission here, for now just log the data
-    console.log(formData);
+    try {
+      // Send form data to the backend
+      const response = await axios.post('http://localhost:5001/OnlineAppointments', formData);
+      console.log(response.data); // Log the response from the backend
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
+  
   return (
     <>
     <Header/>
@@ -57,9 +65,10 @@ const OnlineAppoinment = () => {
       <label>
         Choose Your Doctor:
         <select
-         name="DoctorName"
-         value={formData.DoctorName}
+         name="doctor"
+         value={formData.doctor}
         onChange={handleChange}
+        required
         >
         <option value="">Select Doctor</option>
          {doctors.map((doctor, index) => (
@@ -111,4 +120,4 @@ const OnlineAppoinment = () => {
   )
 }
 
-export default OnlineAppoinment
+export default OnlineAppointments
