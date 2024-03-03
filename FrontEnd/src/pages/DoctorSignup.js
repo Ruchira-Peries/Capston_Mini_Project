@@ -5,9 +5,10 @@ import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
 import axios from 'axios'; 
 
-const Signup1 = () => {
+const StudentSignup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    userType: 'doctor',
     email: '',
     username: '',
     password: ''
@@ -76,6 +77,20 @@ const Signup1 = () => {
             <div className="right-content">
               <h1 className="header-text">General Information</h1>
               <form onSubmit={handleSubmit}>
+              <label>
+                  Choose your role:
+                  <select
+                    name="userType"
+                    value={formData.userType}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="student">Student</option>
+                    <option value="doctor">Doctor</option>
+                  </select>
+                </label>
+                <br />
+              
                 <label>
                   Email:
                   <input
@@ -120,4 +135,4 @@ const Signup1 = () => {
   )
 }
 
-export default Signup1;
+export default StudentSignup;
