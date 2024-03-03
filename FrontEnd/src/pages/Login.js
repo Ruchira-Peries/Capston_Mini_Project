@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from "../Components/header";
 import Footer from '../Components/Footer';
-import axios from "axios";
+import axios from 'axios';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -19,52 +19,25 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password } = formData;
-
-
-    try {
-      const response = await fetch('http://localhost:5001/UserLogin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Login successful:', data);
     
+    try {
+      const response = await axios.post('http://localhost:5001/UserLogin', formData);
+      
+      // Check the response from the server for success or failure
+      if (response.data.success) {
+        // If login is successful, redirect or perform any necessary actions
+        console.log('Login successful');
       } else {
-        const errorData = await response.json();
-        console.error('Login failed:', errorData);
-        
+        // If login fails, display an error message
+        console.error('Login failed:', response.data.message);
+        alert('Login failed. Please check your credentials.');
       }
     } catch (error) {
-      console.error('Error during login:', error);
-      
+      console.error('Error:', error);
+      alert('An error occurred. Please try again later.');
     }
-  
-
-    
-
-  
-    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-
-    const emailIsValid = validateEmail(email);
-
-    const passwordIsValid = passwordRegex.test(password);
-
-    if (!emailIsValid) {
-      alert("Please enter a valid email address.");
-    } else if (!passwordIsValid) {
-      alert("Password must be at least 8 characters long and contain at least one capital letter, one lowercase letter, one number, and one symbol.");
-    } else {
-      console.log("Form submitted:", formData);
-     }
   };
 
-  
   const validateEmail = (email) => {
     const re = /\S+@\S+\.\S+/;
     return re.test(email);

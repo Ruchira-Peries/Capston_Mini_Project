@@ -10,6 +10,7 @@ const OTP = () => {
     message: ''
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -75,10 +76,10 @@ const OTP = () => {
         />
       </label>
       <br />
-      <p>Didn't get the OTP?<button type="button" onClick={handleResendOTP}>Resend OTP</button></p>
+      <p className='para-text'>Didn't get the OTP?  <a href='/resendOTP' onClick={handleResendOTP}>Resend OTP</a></p>
       <button type="submit" className='btn'>Confirm</button>
     </form>
-    {formData.message && <p>{formData.message}</p>}
+    {formData.message && <p className='para-text'>{formData.message}</p>}
             </div>
           </div>
         </div>

@@ -30,6 +30,7 @@ import FancyCarousel from "react-fancy-circular-carousel";
 import Navbar from "../Components/Navbar";
 import Header from "../Components/header";
 import Footer from "../Components/Footer";
+import ProfileDropdown from "../Components/ProfileDropdown";
 
 import "../Styles/Home.css";
 
@@ -120,7 +121,7 @@ return (
           <p className="primary-text">
             For a  healthier future
           </p>
-          <button className="secondary-button" onClick={()=> navigate("/Signup1")}>
+          <button className="secondary-button" onClick={()=> navigate("/selection")}>
             Sign Up Now {" "}
           </button>
         </div>
@@ -130,7 +131,7 @@ return (
         </div> 
     </div>
   </div>
-
+  
     {/*About*/}
   <div className="outer-container3">
     <div className="About-BGrectangle">
