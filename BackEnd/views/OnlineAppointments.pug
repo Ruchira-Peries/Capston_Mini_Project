@@ -27,7 +27,7 @@ html(lang="en")
     div.mycontact                
         h1 Set Up Your Online Appointment
     #main
-        form(action="/PhysicalAppointments" method="POST" id="contactform")
+        form(action="/OnlineAppointments" method="POST" id="contactform")
             div Choose your doctor:
                 select#doctor(name="doctor") 
                         option(value="Doctor 1 ") Doctor 1
@@ -129,7 +129,7 @@ html(lang="en")
 
             div Choose your appointment type:
                 select#appointment_type(name="appointment_type") 
-                        option(value="Physical ") Physical
+                        option(value="Counseling ") Physical
                         option(value="Online") Online
                         
             br  

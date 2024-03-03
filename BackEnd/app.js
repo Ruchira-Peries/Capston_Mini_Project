@@ -185,20 +185,24 @@ const transporter = nodemailer.createTransport({
   
   
   app.post('/UserSignup', (req, res) => {
-    const { email,username,password } = req.body;
+    const { userType,email,username,password } = req.body;
   
-    // Check if email already exists
-    db.query('SELECT * FROM student_login WHERE email = ?', [email], (err, results) => {
-      if (err) throw err;
+    const tableName = userType === 'student' ? 'student_login' : 'doctor_login';
+ 
+    db.query(`SELECT * FROM ${tableName} WHERE email = ?`, [email], (err, results) => {
+        if (err) throw err;
   
       if (results.length > 0) {
         res.send('Email already exists');
       } else {
         // Insert new student
         const verificationCode = Math.floor(100000 + Math.random() * 900000);
-        const student_login = { email, username,password, verificationCode };
-        db.query('INSERT INTO student_login SET ?', student_login, (err, results) => {
-          if (err) throw err;
+        // const student_login = { userType, email, username, password, verificationCode };
+        // db.query('INSERT INTO student_login SET ?', student_login, (err, results) => {
+        //   if (err) throw err;
+          const newUser = { userType, email, username, password, verificationCode };
+      db.query(`INSERT INTO ${tableName} SET ?`, newUser, (err, results) => {
+        if (err) throw err;
   
           // Send verification email
           const mailOptions = {
@@ -218,29 +222,54 @@ const transporter = nodemailer.createTransport({
               res.send('Verification email sent');
             }
 
-            //POST endpoint to verify OTP
-   app.post('/verifyOTP', (req, res) => {
-  const { verificationCode } = req.body;
-
-  // Check if the OTP exists in the database
-  if (student_login[verificationCode]) {
-    // OTP is valid
-    res.json({ message: 'OTP verified successfully' });
-  } else {
-    // OTP is invalid
-    res.status(400).json({ message: 'Invalid OTP. Please try again.' });
-  }
 });
-          });
-        });
-      }
+});
+    
+}});
+});
+
+// OTP verification and database update for both student and doctor
+app.post('/verifyOTP', (req, res) => {
+    const { userType, otp } = req.body;
+    let tableName = '';
+  
+    // Determine which table to query based on userType
+    if (userType === 'student') {
+        tableName = 'student_login';
+    } else if (userType === 'doctor') {
+        tableName = 'doctor_login';
+    } else {
+        res.status(400).json({ message: 'Invalid user type' });
+        return;
+    }
+  
+    // Check if the OTP exists in the database
+    db.query(`SELECT * FROM ${tableName} WHERE verificationCode = ?`, [otp], (err, results) => {
+        if (err) {
+            console.error('Error verifying OTP:', err);
+            res.status(500).json({ message: 'Internal server error' });
+            return;
+        }
+
+        if (results.length > 0) {
+            // OTP is valid, update the database to mark OTP verification as successful
+            const email = results[0].email; // Assuming email is the identifier for the user
+            db.query(`UPDATE ${tableName} SET isVerified = true WHERE email = ?`, [email], (updateErr, updateResults) => {
+                if (updateErr) {
+                    console.error('Error updating database after OTP verification:', updateErr);
+                    res.status(500).json({ message: 'Internal server error' });
+                    return;
+                }
+
+                // Return success message
+                res.json({ message: 'OTP verified successfully and database updated' });
+            });
+        } else {
+            // OTP is invalid
+            res.status(400).json({ message: 'Invalid OTP. Please try again.' });
+        }
     });
-  });  
-
-
-
-
-
+});
 
 
 app.post('/UserProfile', (req, res) => {
@@ -338,67 +367,112 @@ app.post('/UserProfile', (req, res) => {
     });
 });
 
+// app.post('/UserLogin', (req, res) => {
+
+
+//     const db = mysql.createConnection({
+//         host: "localhost",
+//         user: "root",
+//         password: "",
+//         database: "mini_project"
+
+//     })
+
+//     db.connect((err) => {
+
+//         // if(err) throw err;
+//         console.log("connected");
+
+//     })
+
+
+//     var usernamelogin = req.body.usernamelogin;
+//     var passwordlogin = req.body.passwordlogin;
+
+//     // res.send(`${email1} ${password1}`);
+
+
+
+
+//     var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
+
+
+//     db.query(sql3, (err, rows, result) => {
+//         if (err) {
+//             throw err;
+//         }
+//         else if (rows.length != 0) {
+
+//             // res.send(rows[0].password)
+
+//             if (rows[0].password == passwordlogin) {
+
+//                 res.render('UserProfile');
+
+//             }
+//             else {
+
+//                 res.render('UserLogin', { fail_message: "Wrong Password" });
+
+//             }
+
+//         }
+//         else {
+//             res.render('UserLogin', { fail_message: "Wrong Email" });
+//         }
+
+
+//     });
+
+
+
+
+// });
+
 app.post('/UserLogin', (req, res) => {
+    const { userType, email, password } = req.body;
+    let tableName = '';
 
+    // Determine the table name based on the user type
+    if (userType === 'student') {
+        tableName = 'student_login';
+    } else if (userType === 'doctor') {
+        tableName = 'doctor_login';
+    } else {
+        res.status(400).send('Invalid user type');
+        return;
+    }
 
-    const db = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "mini_project"
-
-    })
-
-    db.connect((err) => {
-
-        // if(err) throw err;
-        console.log("connected");
-
-    })
-
-
-    var usernamelogin = req.body.usernamelogin;
-    var passwordlogin = req.body.passwordlogin;
-
-    // res.send(`${email1} ${password1}`);
-
-
-
-
-    var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
-
-
-    db.query(sql3, (err, rows, result) => {
+    // Query the database to retrieve the password associated with the provided username
+    const sql = `SELECT password FROM ${tableName} WHERE email = ?`;
+    db.query(sql, [email], (err, rows) => {
         if (err) {
-            throw err;
+            console.error('Database query error:', err);
+            res.status(500).send('Internal server error');
+            return;
         }
-        else if (rows.length != 0) {
 
-            // res.send(rows[0].password)
+        if (rows.length === 0) {
+            res.render('UserLogin', { fail_message: "Wrong Username" });
+            return;
+        }
 
-            if (rows[0].password == passwordlogin) {
+        const storedPassword = rows[0].password;
 
-                res.render('UserProfile');
-
+        // Compare the stored password with the provided password
+        if (password === storedPassword) {
+            // Redirect to appropriate profile page based on user type
+            if (userType === 'student') {
+                res.render('StudentProfile');
+            } else if (userType === 'doctor') {
+                res.render('DoctorProfile');
             }
-            else {
-
-                res.render('UserLogin', { fail_message: "Wrong Password" });
-
-            }
-
+        } else {
+            res.render('UserLogin', { fail_message: "Wrong Password" });
         }
-        else {
-            res.render('UserLogin', { fail_message: "Wrong Email" });
-        }
-
-
     });
-
-
-
-
 });
+
 
 app.post('/StudentRecords', (req, res) => {
     const reg_number = req.body.reg_number;
@@ -423,6 +497,7 @@ app.post('/StudentRecords', (req, res) => {
         res.render('StudentDetails', { student: results[0] });
     });
 });
+
 
 app.post('/PhysicalAppointments', (req, res) => {    
     
@@ -499,72 +574,8 @@ app.post('/PhysicalAppointments', (req, res) => {
 });
 
 
-
-
-/*app.post('/OnlineAppointments', (req, res) => {      // same as '/contact' in contact.pug form action
-
-    var doctor = req.body.doctor;
-    var reg_number = req.body.reg_number;
-    var phone_number = req.body.phone_number;
-    var email = req.body.email;
-    var date = req.body.date;
-    var time = req.body.time;
-    var appointment_type = req.body.appointment_type;
-    var message = req.body.message;
-    
-    // Define year, month, and day
-    var currentDate = new Date();
-    var year = currentDate.getFullYear();
-    var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
-    var day = currentDate.getDate();
-    
-    
-
-    var sql_insert = `INSERT INTO appointments  
-                        (doctor, reg_number, phone_number, email, date, month, year, time,appointment_type, message) 
-                      VALUES 
-                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}','${appointment_type}', '${message}')`;
-
-    // Query to count the number of appointments for the selected time slot
-    var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
-
-    db.query(sql_create_table, function(error, result) {
-        if (error) {
-            console.error('Error creating table: ' + error.stack);
-            throw error;
-        }
-        console.log('Table created successfully');
-
-        // Check if the selected time slot is full
-        db.query(sql_count_appointments, function(error, result) {
-            if (error) {
-                console.error('Error counting appointments: ' + (error.stack || error.message));
-                throw error;
-            }
-            var count = result[0].count;
-            if (count >= 5) {
-                // Time slot is full, display message to choose another time slot
-                res.send("The time slot is full. Please choose another time slot.");
-            } else {
-                // Insert data into the table
-                db.query(sql_insert, function(error, result) {
-                    if (error) {
-                        console.error('Error inserting data: ' + (error.stack || error.message));
-                        throw error;
-                    }
-                    console.log('Data inserted successfully');
-                    // Redirect after successful insertion
-                    res.send("Data inserted successfully. Your appointment is booked.");
-                });
-            }
-        });
-    });
-});*/
-
-
-
 app.post('/OnlineAppointments', (req, res) => {      
-    // Get appointment details from the form
+
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
     var phone_number = req.body.phone_number;
@@ -574,13 +585,11 @@ app.post('/OnlineAppointments', (req, res) => {
     var appointment_type = req.body.appointment_type;
     var message = req.body.message;
     
-    // Define year, month, and day
     var currentDate = new Date();
     var year = currentDate.getFullYear();
     var month = currentDate.getMonth() + 1; // Months are zero-based (0 for January)
     var day = currentDate.getDate();
     
-    // SQL query to insert appointment data into the database
     var sql_insert = `INSERT INTO appointments  
                         (doctor, reg_number, phone_number, email, date, month, year, time, appointment_type, message) 
                       VALUES 
@@ -589,7 +598,7 @@ app.post('/OnlineAppointments', (req, res) => {
     // SQL query to count the number of appointments for the selected time slot
     var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
 
-    // Execute the SQL queries
+
     db.query(sql_insert, function(error, result) {
         if (error) {
             console.error('Error inserting data: ' + (error.stack || error.message));
@@ -615,20 +624,23 @@ app.post('/OnlineAppointments', (req, res) => {
     });
 });
 
+
+
 // Function to send email confirmation
 function sendEmailConfirmation(email, doctor, date, time, appointment_type, res) {
-    // Create the email transporter using nodemailer
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'devinimadumali@gmail.com', // Replace with your Gmail email
-            pass: 'dev@1118' // Replace with your Gmail password
+            // user: 'devinimadumali@gmail.com', 
+            // pass: 'dev@1118' 
+            user:  'hvdisurikadhananji@gmail.com',
+            pass:   'izwl tcze klll eyjq'
         }
     });
 
     // Define email content
     const mailOptions = {
-        from: 'devinimadumali@gmail.com', // Sender email
+        from: 'hvdisurikadhananji@gmail.com', // Sender email
         to: email, // Receiver email (student's email)
         subject: 'Online Appointment Confirmation', // Email subject
         html: `
@@ -662,67 +674,67 @@ function sendEmailConfirmation(email, doctor, date, time, appointment_type, res)
 
 
 
-app.post('/DoctorLogin', (req, res) => {
+// app.post('/DoctorLogin', (req, res) => {
 
 
-    const db = mysql.createConnection({
-        host: "localhost",
-        user: "root",
-        password: "",
-        database: "mini_project"
+//     const db = mysql.createConnection({
+//         host: "localhost",
+//         user: "root",
+//         password: "",
+//         database: "mini_project"
 
-    })
+//     })
 
-    db.connect((err) => {
+//     db.connect((err) => {
 
-        // if(err) throw err;
-        console.log("connected");
+//         // if(err) throw err;
+//         console.log("connected");
 
-    })
+//     })
 
 
-    var emaillogin = req.body.emaillogin;
-    var passwordlogin = req.body.passwordlogin;
+//     var emaillogin = req.body.emaillogin;
+//     var passwordlogin = req.body.passwordlogin;
 
     
 
 
 
 
-    var sql3 = `SELECT password FROM user WHERE email = '${emaillogin}'`
+//     var sql3 = `SELECT password FROM user WHERE email = '${emaillogin}'`
 
 
-    db.query(sql3, (err, rows, result) => {
-        if (err) {
-            throw err;
-        }
-        else if (rows.length != 0) {
+//     db.query(sql3, (err, rows, result) => {
+//         if (err) {
+//             throw err;
+//         }
+//         else if (rows.length != 0) {
 
-            // res.send(rows[0].password)
+//             // res.send(rows[0].password)
 
-            if (rows[0].password == passwordlogin) {
+//             if (rows[0].password == passwordlogin) {
 
-                res.render('SelectDate');
+//                 res.render('SelectDate');
 
-            }
-            else {
+//             }
+//             else {
 
-                res.render('DoctorLogin', { fail_message: "Wrong Password" });
+//                 res.render('DoctorLogin', { fail_message: "Wrong Password" });
 
-            }
+//             }
 
-        }
-        else {
-            res.render('DoctorLogin', { fail_message: "Wrong Email" });
-        }
-
-
-    });
+//         }
+//         else {
+//             res.render('DoctorLogin', { fail_message: "Wrong Email" });
+//         }
 
 
+//     });
 
 
-});
+
+
+// });
 
 
 
@@ -741,8 +753,8 @@ app.post('/selectDate', (req, res) => {
 
 
 
-app.listen(5000, () => {
-    console.log(`listening on port 5000`);
+app.listen(5001, () => {
+    console.log(`listening on port 5001`);
 
 });
 
