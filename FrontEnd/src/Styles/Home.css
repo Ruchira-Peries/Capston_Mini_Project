@@ -188,18 +188,21 @@
 .service-container {
   /* position: absolute; */
   max-width: 100%;
-  width: 85vw;
+  width: 90vw;
+  height:470px ;
   margin: 0 auto;
   display: flex;
   align-items: center;
   margin-top: 5rem;
-  gap: 300px;
-  padding-block: 100px;
-
-  background: url("../Assests/ServiceBG2.png");
+  gap: 200px;
+  /* padding-block: 100px; */
+  background-color: white;
+  border-radius: 70px 70px 70px 70px;
+  box-shadow: 0 10px 10px rgb(205, 204, 204);
+  /* background: url("../Assests/ServiceBG2.png");
   background-repeat: no-repeat;
   background-size: 100%;
-  background-position: center;
+  background-position: center; */
 
 }
 
@@ -213,7 +216,17 @@
   max-width: 500px;
   gap: 24px;
 }
-
+.service-images-section{
+  display: flex;
+  height: 470px;
+  width: 650px;
+  background-color: #007EA7;
+  align-items: center;
+  justify-content: center;
+  border-radius: 250px 70px 70px 250px;
+  box-shadow:  0px 10px 10px rgb(205, 204, 204);
+  padding-left: 8rem;
+}
 .primary-heading1 {
   font-weight: 500;
   color: #525252;
@@ -484,7 +497,7 @@
   height: 460px;
   margin: 0 auto;
   margin-top: -16rem;
-  border-radius: 0 0 200px 200px;
+  border-radius: 0 0 120px 120px;
   background: #007EA7;
 }
 .praimary-heading4 h3{

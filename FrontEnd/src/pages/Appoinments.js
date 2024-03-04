@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Components/header";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import "../Styles/TwoPartitions.css";
+import "../Styles/Appointment.css";
 import axios from "axios";
 
 const Appoinments = () => {
@@ -55,31 +55,35 @@ const Appoinments = () => {
   return (
    <>
     <Header/>
-    <div className="outer-container">
+    <div className="outer-container10">
     <Navbar/>
     <div className="appoinment-box">
-        <div className="left-part">
-          <div className="left-content">
-        <h1 className="header-text">Make your appointment</h1>
-          <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
-          <p className="sign-text">
+        <div className="left-part-app">
+          <div className="left-content-app">
+        <h1 className="header-textL">MAKE YOUR APPOINTMENT</h1>
+          <p className="para-textL">Save Your Time</p>
+          <div className="sign-text1">
                 {!isSignedIn && (
                   // Show sign-up link if not signed in
                   <>
-                    Don't have an account? <a href="/signup">Sign Up</a>
+                    <p>Don't have an account? </p><a href="/Selection"style={{ textDecoration: 'none' }}><h4>SignUp</h4></a>
                   </>
                 )}
-              </p>
+              </div>
           </div>
         </div>
 
-        <div className="right-part">
-        <div className="right-content">
-          <h1 className="header-text">Choose your consultation Method</h1>
-          <p className="para-text">Choose your preferred consultation method for your appointment</p>
-          <button className="btn" onClick={()=> navigate("/onlineappoinment")}>Online Consultation</button><br />
-          <button className="btn" onClick={()=> navigate("/physicalappoinment")}>Physical Consultation</button>
+        <div className="right-part-app">
+        <div className="right-content-app">
+          <div className="u-a">
+            <h1 className="header-textR">Choose Your Consultation Method</h1>
+            <p className="para-textR">Choose your preferred consultation method for your appointment</p>
           </div>
+            <div className="b-a">
+              <button className="btn" onClick={()=> navigate("/OnlineAppointments")}>Online Consultation</button>
+              <button className="btn" onClick={()=> navigate("/PhysicalAppoinment")}>Physical Consultation</button>
+            </div>
+        </div>
         </div>
       </div>
       <Footer />

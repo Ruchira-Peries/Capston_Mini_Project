@@ -39,7 +39,6 @@ nav {
 
 .navbar-links-container a:hover {
   color: black;
-  text-decoration: underline;
 }
 
 .primary-button {
@@ -54,6 +53,7 @@ nav {
   font-weight: 600;
   transition: 0.2s;
 }
+
 
 .navbar-cart-icon {
   font-size: 1.15rem;
