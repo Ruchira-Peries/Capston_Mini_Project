@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import "../Styles/Signup.css";
 import axios from 'axios'; 
 
 const StudentSignup = () => {
@@ -62,20 +63,21 @@ const StudentSignup = () => {
   return (
     <>
       <Header />
-      <div className="outer-container">
+      <div className="outer-container13">
         <Navbar />
-        <div className="appoinment-box">
-          <div className="left-part">
-            <div className="left-content">
-              <h1 className="header-text">Welcome To UniAid health center </h1>
-              <p className="para-text">Let's Get Started By Setting up your account </p>
-              <p className="sign-text">Already have an account? <a href="\login">Login</a></p>
+        <div className="Signup-box">
+          <div className="left-part-sig">
+            <div className="left-content-sig">
+              <h1 className="header-textL2">WELCOME TO UNIAID HEALTH CENTER </h1>
+              <p className="para-textL2">Let's Get Started By Setting Up Your Account</p>
+              <div className="sign-text2"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
             </div>
           </div>
+          </div>
 
-          <div className="right-part">
-            <div className="right-content">
-              <h1 className="header-text">General Information</h1>
+          <div className="right-part-sig">
+            <div className="right-content-sig">
+              <h1 className="header-textR">General Information</h1>
               <form onSubmit={handleSubmit}>
               <label>
                   Choose your role:
@@ -124,7 +126,9 @@ const StudentSignup = () => {
                   />
                 </label>
                 <br />
-                <button type="submit" className='secondary-button'>Next</button>
+                <div className='b-l1'>
+                <button type="submit" className='btn2'>Next</button>
+                </div>
               </form>
             </div>
           </div>

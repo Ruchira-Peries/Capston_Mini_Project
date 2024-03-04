@@ -1,19 +1,19 @@
-.outer-container9{
+.outer-container10 {
     /* width: 100vw; */
-        max-width: 100%;
-        align-items: center;
-        width: 85vw;
-        margin: 0 auto;
+    max-width: 100%;
+    align-items: center;
+    width: 85vw;
+    margin: 0 auto;
 }
 
-.about-box{
+.appoinment-box {
     margin-top: 3rem;
     /* padding: 80px; */
     padding: 0px 50px 0px 50px;
     display: flex;
 }
 
-.left-part-about {
+.left-part-app {
     z-index: 1;
     width: 420px;
     height: 510px;
@@ -21,40 +21,43 @@
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
 
-.left-content-about {
+.left-content-app {
     display: flex;
-    margin: 8rem 0rem 0rem 2rem;
+    margin: 7rem 0rem 0rem 2rem;
     color: #fff;
     flex-direction: column;
     gap: 50px;
 }
 
 .header-textL {
-font-weight: 800;
-color: white;
-font-size: 28px;
+    font-weight: 800;
+    color: white;
+    font-size: 28px;
 }
 
 .para-textL {
     width: 100px;
-font-weight: 250;
+    font-weight: 250;
     color: white;
     font-size: 28px;
 }
-.sign-text1{
+
+.sign-text1 {
     display: flex;
     font-size: 0.9rem;
 }
-.sign-text1 p{
-color: black;
-font-size: 0.9rem;
-font-weight: 400;
+
+.sign-text1 p {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 400;
 }
 .sign-text1 h4 {
     color: white;
     font-weight: 400;
 }
-.right-part-about {
+
+.right-part-app {
     width: 1000px;
     height: 510px;
     background-color: #fff;
@@ -62,21 +65,18 @@ font-weight: 400;
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
 
-.right-content-about {
+.right-content-app {
     width: 500px;
-    margin: 6rem 0rem 0rem 12rem;
+    margin: 8rem 0rem 0rem 12rem;
     display: flex;
     flex-direction: column;
     gap: 80px;
+    align-items: center;
     /* margin-left: 40px;
     padding: 50px; */
 }
-.u{
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-.b{
+
+.u-a {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -89,8 +89,33 @@ font-weight: 400;
 }
 
 .para-textR {
+    font-family: "Arsenal", sans-serif;
     /* padding-left: 2rem; */
     color: black;
     font-weight: 400;
     font-size: 1rem;
+}
+.b-a {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+.btn {
+    padding: 0.9rem 2rem;
+    background-color: #007EA7;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    background-color: #525252;
 }

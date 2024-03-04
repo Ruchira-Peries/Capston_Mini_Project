@@ -57,17 +57,17 @@ const Navbar = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-      {/* {menuOptions.map((item) => (
+       {menuOptions.map((item) => (
             <Link key={item.text} to={item.path}>
               {item.text}
             </Link>
           ))}
-        {/* <a href="">Home</a>
+         {/* <a href="">Home</a>
         <a href="">Services</a>
         <a href="">Our Staff</a>
         <a href="">Appointments</a>
-        <a href="">About</a> */}
-        <button className="primary-button" onClick={()=> navigate("/signup1")}>Log In</button>
+        <a href="">About</a>  */}
+        <button className="primary-button" onClick={()=> navigate("/Login")}>Log In</button>
         {/* <button className="primary-button">Log In</button> */}
         
       </div>

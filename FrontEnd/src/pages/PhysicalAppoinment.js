@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import "../Styles/Physicalapp.css";
 import axios from 'axios';
 
 const PhysicalAppoinment = () => {
@@ -35,20 +36,21 @@ const PhysicalAppoinment = () => {
   return (
     <>
     <Header/>
-    <div className="outer-container">
+    <div className="outer-container14">
     <Navbar/>
-    <div className="appoinment-box">
-        <div className="left-part">
-          <div className="left-content">
-        <h1 className="header-text">Make your appointment</h1>
-          <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
-          <p className= "sign-text">Already have an account? <a href="\login">Login</a></p>
-          </div>
+    <div className="PhyApp-box">
+        <div className="left-part-phy">
+          <div className="left-content-phy">
+        <h1 className="header-textL3">MAKE YOUR APPOINTMENT</h1>
+          <p className="para-textL3">Save Your Time</p>
+           <div className="sign-text2"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
+            </div>
+        </div>
         </div>
 
-        <div className="right-part">
-        <div className="right-content">
-          <h1 className="header-text">Set Up your Physical Appoinment</h1>
+        <div className="right-part-phy">
+        <div className="right-content-phy">
+          <h1 className="header-textR">Set Up Your Physical Appoinment</h1>
           <form onSubmit={handleSubmit}>
       <label>
         Student Registration Number:
@@ -106,7 +108,9 @@ const PhysicalAppoinment = () => {
         />
       </label>
       <br />
-      <button type="submit" className='btn'>Submit</button>
+      <div className='b-l2'>
+      <button type="submit" className='btn2'>Next</button>
+      </div>
       </form>
           </div>
         </div>

@@ -149,7 +149,7 @@ return (
           University of Sabaragamuwa Medical System is a government, university-based regional health system focused on serving the health care needs of students and university staff.
         </p>
         <div className="about-buttons-container">
-          <button className="secondary-button">Learn More</button>
+          <button className="secondary-button"onClick={()=> navigate("/About")}>Learn More</button>
         </div>
       </div>
     </div>

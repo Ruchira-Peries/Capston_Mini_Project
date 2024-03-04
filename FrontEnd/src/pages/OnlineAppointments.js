@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
+import "../Styles/Onlineapp.css";
 import axios from 'axios';
 
 const OnlineAppointments = () => {
@@ -36,20 +37,21 @@ const OnlineAppointments = () => {
   return (
     <>
     <Header/>
-    <div className="outer-container">
+    <div className="outer-container15">
     <Navbar/>
-    <div className="appoinment-box">
-        <div className="left-part">
-          <div className="left-content">
-        <h1 className="header-text">Make your appointment</h1>
-          <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
-          <p className= "sign-text">Already have an account? <a href="\login">Login</a></p>
-          </div>
+    <div className="OnApp-box">
+        <div className="left-part-on">
+          <div className="left-content-on">
+        <h1 className="header-textL3">Make your appointment</h1>
+          <p className="para-textL3">Save Your Time</p>
+          <div className="sign-text2"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
+            </div>
+        </div>
         </div>
 
-        <div className="right-part">
-        <div className="right-content">
-          <h1 className="header-text">Set Up your Online Appoinment</h1>
+        <div className="right-part-on">
+        <div className="right-content-on">
+          <h1 className="header-textR">Set Up your Online Appoinment</h1>
           <form onSubmit={handleSubmit}>
       <label>
         Student Registration Number:
@@ -108,9 +110,11 @@ const OnlineAppointments = () => {
         />
       </label>
       <br />
-      <button type="submit" className='btn'>Submit</button>
+      <div className='b-l2'>
+      <button type="submit" className='btn2'>Next</button>
+      </div>
     </form>
-    <p className='para-text'>If you want physical counseling services, therapy, or psychiatric consultations to address various mental health concerns such as stress, anxiety, depression, and adjustment issues  <a href='/counseling'>Click here</a>.</p>
+    <p className='para-textR1'>If you want physical counseling services, therapy, or psychiatric consultations to address various mental health concerns such as stress, anxiety, depression, and adjustment issues  <a href='/counseling'>Click here</a>.</p>
           </div>
         </div>
       </div>
@@ -120,4 +124,4 @@ const OnlineAppointments = () => {
   )
 }
 
-export default OnlineAppointments
+export default OnlineAppointments;
