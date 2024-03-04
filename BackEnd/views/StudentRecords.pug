@@ -1,0 +1,38 @@
+doctype html 
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Student Records Page
+        block style 
+        link(rel="stylesheet", href="../public/StudentRecords.css") 
+
+
+    body
+
+    
+    nav#Navbar          
+        ul 
+            li #[a(href="/") Home]                  
+            li #[a(href="/Service") Services]           
+            li #[a(href="/OurStaff") Our Staff]        
+            li #[a(href="/Appointments") Appointments]
+            li #[a(href="/About") About] 
+            li #[a(href="/AdminLogin") Admin Login]
+
+    h1 Enter Student Name
+
+   
+    form(action="/StudentRecords", method="post")
+        label(for="reg_number") Enter Student reg_number:
+        input(type="text", id="reg_number", name="reg_number")
+        //button(type="submit") Search
+        button(type ="submit" class="btn" onclick="location.href='/StudentDetails';") Search
+
+    // Display the retrieved data
+    if records && records.length > 0
+        each record in records
+            p #{record.id}: #{record.studentName}, Date of Birth: #{record.dateOfBirth}
+    else
+        p No records found 

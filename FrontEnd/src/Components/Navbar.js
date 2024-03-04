@@ -61,12 +61,12 @@ const Navbar = () => {
             <Link key={item.text} to={item.path}>
               {item.text}
             </Link>
-          ))} */}
-        <Link to="/">Home</Link>
-        <Link to= "/Services" >Services</Link>
-        <Link to="/staff" >Our Staff</Link>
-        <Link to="/appoinments" >Appointments</Link>
-       <Link to="/about" >About</Link>
+          ))}
+        {/* <a href="">Home</a>
+        <a href="">Services</a>
+        <a href="">Our Staff</a>
+        <a href="">Appointments</a>
+        <a href="">About</a> */}
         <button className="primary-button" onClick={()=> navigate("/signup1")}>Log In</button>
         {/* <button className="primary-button">Log In</button> */}
         

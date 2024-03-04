@@ -1,0 +1,66 @@
+doctype html 
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Service Page
+        block style 
+        link(rel="stylesheet", href="../public/Service.css") 
+
+
+    body
+
+    nav#Navbar          
+                ul 
+                    li  #[a(href="/") Home]                  
+                    li  #[a(href="/Service") Services]           
+                    li  #[a(href="/OurStaff") Our Staff]        
+                    li  #[a(href="/Appointments") Appointments]
+                    li  #[a(href="/About") About] 
+                    li  #[a(href="/DoctorLogin") Doctor Login]
+
+
+    div.heading         
+        h1 Our Srevices
+  
+    div.subheading_1
+        h2 Mental Health
+         
+        form(action="/Service" method="POST" id="contactform")
+
+        button(class="btn" onclick="location.href='/OurStaff';") See Our Staff
+
+    div.subheading_2    
+        h2 Onlline Appointments
+
+        form(action="/Appointments" method="POST" id="contactform")  
+
+        button(class="btn" onclick="location.href='/OnlineAppointments';") Set Your Appointment
+  
+
+    div.subheading_3    
+        h2 Online Video Consultation 
+
+        form(action="/Appointments" method="POST" id="contactform")  
+
+        button(class="btn" onclick="location.href='/OnlineAppointments';") Get Started
+  
+
+    div.subheading_4    
+        h2 Update Your Medical Profile
+
+        form(action="/Appointments" method="POST" id="contactform")  
+
+        button(class="btn" onclick="location.href='/OnlineAppointments';") Update Your Profile
+
+    div.subheading_4    
+        h2 Emergency Service
+
+        form(action="/Appointments" method="POST" id="contactform")  
+
+        button(class="btn" onclick="location.href='/OnlineAppointments';") call now    
+  
+
+    footer 
+        p @ 2023 Uni Aid.All Right Reserved.                      

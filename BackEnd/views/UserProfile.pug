@@ -1,0 +1,166 @@
+doctype html 
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Student Profile Page
+        block style 
+        link(rel="stylesheet", href="../public/UserProfile.css") 
+
+
+    body
+
+    
+    nav#Navbar          
+                ul 
+                    li  #[a(href="/") Home]                  
+                    li  #[a(href="/Service") Services]           
+                    li  #[a(href="/OurStaff") Our Staff]        
+                    li  #[a(href="/") Appointments]
+                    li  #[a(href="/About") About]
+                    li  #[a(href="/StudentRecords") Student Records] 
+                    
+                   
+
+    div.myprofile                
+        h1 Set Up Your Medical Profile
+    #main
+        form(action="/UserProfile" method="POST" id="contactform")
+            label(for="fullName") 1.Full Name:
+            input(type="text" name="fullName" id="fullName" required)
+            br
+
+            label(for="reg_number") 2. Student Registration Number:
+            input(type="text" name="reg_number" id="reg_number" required)
+            br
+
+            label(for="dateOfBirth") 3. Date of Birth:
+            input(type="date" name="dateOfBirth" id="dateOfBirth" required)
+            br
+
+            label(for="weight") 4. Weight:
+            input(type="number" name="weight" id="weight" required)
+            br
+
+            label(for="height") 5. Height:
+            input(type="number" name="height" id="height" required)
+            br
+
+            label(for="tonguea") 6. Condition of Teeth,Gums,Threat, and Nasal Passages:<br/> a. Are the gums and teeath healthy?State of tongue,fouces,and nasal passages.
+            input(type="text" name="tonguea" id="tonguea" required)
+            br
+
+            label(for="hearta") 7. Examination of heart:<br/> a. Blood Group
+            input(type="text" name="hearta" id="hearta" required)
+            br
+
+            label(for="heartb") b. Any past history of health disease of rheumatic fever?:
+            input(type="text" name="heartb" id="heartb" required)
+            br
+
+            label(for="heartc") c. Any caerdiac enlargement?:
+            input(type="text" name="heartc" id="heartc" required)
+            br
+
+            label(for="heartd") d.Heart sound?:
+            input(type="text" name="heartd" id="heartd" required)
+            br
+
+            label(for="hearte") e.Murmurs:
+            input(type="text" name="hearte" id="hearte" required)
+            br
+
+            label(for="heartf") f. Blood pressure:
+            input(type="text" name="heartf" id="heartf" required)
+            br
+
+            label(for="lungsa") 8. Examination of Lungs :<br/> a. History of Tuberculosis,Bronchitis or Asthma?
+            input(type="text" name="lungsa" id="lungsa" required)
+            br
+
+            label(for="lungsb") b. Any obnormility clinicaly?:
+            input(type="text" name="lungsb" id="lungsb" required)
+            br
+
+            label(for="abondomena") 9. Examination of Abondomen: <br/> a.Any evidence of enlargement of liverof spleen?
+            input(type="text" name="abondomena" id="abondomena" required)
+            br
+
+            label(for="abondomenb") b. Any past history of peptic ulcer?:
+            input(type="text" name="abondomenb" id="abondomenb" required)
+            br
+
+            label(for="abondomenc") c. Are the kidneys palpable?:
+            input(type="text" name="abondomenc" id="abondomenc" required)
+            br
+
+            label(for="abondomend") d. Any other abnormalities?:
+            input(type="text" name="abondomend" id="abondomend" required)
+            br
+
+            label(for="nervousa") 10. Examination of the Nervous System: <br/> a. Any history of convulsions or insanity?
+            input(type="text" name="nervousa" id="nervousa" required)
+            br
+
+            label(for="nervousb") b. Any past history of poliomyelities?:
+            input(type="text" name="nervousb" id="nervousb" required)
+            br
+
+            label(for="nervousc") c.Fundi:
+            input(type="text" name="nervousc" id="nervousc" required)
+            br
+
+            label(for="nervousd") d.Reflexes:
+            input(type="text" name="nervousd" id="nervousd" required)
+            br
+
+            label(for="nervouse") e. Visions: Without Glass,With Glass,Colour Vision
+            input(type="text" name="nervouse" id="nervouse" required)
+            br
+
+            label(for="nervousf") f. Hearing: Any hearing defeats?, Any past history of discharge from ear?
+            input(type="text" name="nervousf" id="nervousf" required)
+            br
+
+            label(for="nervousg") g. Speech
+            input(type="text" name="nervousg" id="nervousg" required)
+            br
+
+            label(for="operationa") 11. Operation and Other Details: a. Have you ever had any operations or accidents?
+            input(type="text" name="operationa" id="operationa" required)
+            br
+
+            label(for="operationb") b. Any deformities-Congential or Acquired?:
+            input(type="text" name="operationb" id="operationb" required)
+            br
+
+            label(for="operationc") c.Any evidence hernia,hydrocele, varicose veins or hemorholds?:
+            input(type="text" name="operationc" id="operationc" required)
+            br
+
+            label(for="operationd") d. Immunisations?:
+            input(type="text" name="operationd" id="operationd" required)
+            br
+
+            label(for="x_ray") 12.Chest X-ray:
+            input(type="file" name="x_ray" id="x_ray" required)
+            br
+
+            label(for="physicalDefect") 13.Are the indications of any other physical defect or disease :
+            input(type="text" name="physicalDefect" id="physicalDefect" required)
+            br
+
+            
+
+            button(type="submit" class="btn") Submit
+ 
+
+            h3.Submited 
+
+            p#success= success_message
+            h4#fail= fail_message
+
+        //- p(color='green')=res 
+
+           
