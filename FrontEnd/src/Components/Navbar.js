@@ -57,16 +57,16 @@ const Navbar = () => {
         <img src={Logo} alt="" />
       </div>
       <div className="navbar-links-container">
-      {menuOptions.map((item) => (
+      {/* {menuOptions.map((item) => (
             <Link key={item.text} to={item.path}>
               {item.text}
             </Link>
-          ))}
-        {/* <a href="">Home</a>
-        <a href="">Services</a>
-        <a href="">Our Staff</a>
-        <a href="">Appointments</a>
-        <a href="">About</a> */}
+          ))} */}
+        <Link to="/">Home</Link>
+        <Link to= "/Services" >Services</Link>
+        <Link to="/staff" >Our Staff</Link>
+        <Link to="/appoinments" >Appointments</Link>
+       <Link to="/about" >About</Link>
         <button className="primary-button" onClick={()=> navigate("/signup1")}>Log In</button>
         {/* <button className="primary-button">Log In</button> */}
         
@@ -92,6 +92,7 @@ const Navbar = () => {
                 <ListItemButton>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.text} />
+                  <ListItemText>{item.text} = {item.path} </ListItemText> 
                 </ListItemButton>
               </ListItem>
             ))}
