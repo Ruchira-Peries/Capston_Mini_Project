@@ -114,7 +114,7 @@ const OnlineAppointments = () => {
       <button type="submit" className='btn2'>Next</button>
       </div>
     </form>
-    <p className='para-textR1'>If you want physical counseling services, therapy, or psychiatric consultations to address various mental health concerns such as stress, anxiety, depression, and adjustment issues  <a href='/counseling'>Click here</a>.</p>
+    <p className='para-textR1'>If you want physical counseling services, therapy, or psychiatric consultations to address various mental health concerns such as stress, anxiety, depression, and adjustment issues   <a href='/counseling' style={{ textDecoration: 'none' }}><span className='t1'>Click Here</span></a>.</p>
           </div>
         </div>
       </div>
