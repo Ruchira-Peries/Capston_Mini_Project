@@ -161,22 +161,19 @@ const transporter = nodemailer.createTransport({
 
   
 
- app.get('/getAppointments', (req, res) => {
+  app.get('/getAppointments', (req, res) => {
     var doctor = req.query.doctor;
-    var date = req.query.date; 
-    var month = req.query.month; 
-    var year = req.query.year;
-    
-    
+    var date = req.query.date;
+    var time = req.query.time;
 
-    var sql_get_appointments = `SELECT * FROM appointments WHERE doctor = '${doctor}' AND date = '${date}' AND month = '${month}' AND year = '${year}'`;
+    var sql_get_appointments = `SELECT * FROM appointments WHERE doctor = '${doctor}' AND date = '${date}' AND time = '${time}'`;
 
     db.query(sql_get_appointments, function(error, appointments) {
         if (error) {
             console.error('Error fetching appointments: ' + (error.stack || error.message));
             throw error;
         }
-        res.render('getAppointments', { doctor, date,month,year, appointments });
+        res.render('getAppointments', { doctor, date, time, appointments });
     });
 });
 
@@ -499,6 +496,7 @@ app.post('/StudentRecords', (req, res) => {
 });
 
 
+
 app.post('/PhysicalAppointments', (req, res) => {    
     
 
@@ -672,6 +670,67 @@ function sendEmailConfirmation(email, doctor, date, time, appointment_type, res)
     });
 }
 
+app.post('/DoctorLogin', (req, res) => {
+
+
+    const db = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "mini_project"
+
+    })
+
+    db.connect((err) => {
+
+        // if(err) throw err;
+        console.log("connected");
+
+    })
+
+
+    var emaillogin = req.body.emaillogin;
+    var passwordlogin = req.body.passwordlogin;
+
+    
+
+
+
+
+    var sql3 = `SELECT password FROM user WHERE email = '${emaillogin}'`
+
+
+    db.query(sql3, (err, rows, result) => {
+        if (err) {
+            throw err;
+        }
+        else if (rows.length != 0) {
+
+            // res.send(rows[0].password)
+
+            if (rows[0].password == passwordlogin) {
+
+                res.render('SelectDate');
+
+            }
+            else {
+
+                res.render('DoctorLogin', { fail_message: "Wrong Password" });
+
+            }
+
+        }
+        else {
+            res.render('DoctorLogin', { fail_message: "Wrong Email" });
+        }
+
+
+    });
+
+
+
+
+});
 
 
 // app.post('/DoctorLogin', (req, res) => {
