@@ -35,6 +35,7 @@ import ProfileDropdown from "../Components/ProfileDropdown";
 import "../Styles/Home.css";
 
 const ImageSlider = () => {
+   const navigate = useNavigate();
     const slides = [
     { image: doctor1, text: 'Text 1',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
     { image: doctor2, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
@@ -63,7 +64,7 @@ const ImageSlider = () => {
           <h3>{slides[currentIndex].text}</h3>
           <p>{slides[currentIndex].text1}</p>
                   <div className="about-buttons-container">
-                    <button className="secondary-button">Learn More</button>
+                    <button className="secondary-button" onClick={()=> navigate("/Staff")}>Learn More</button>
                   </div>
       </div>
       <button className="arrow" onClick={handlePrev}><img src={arrow1}></img></button>
