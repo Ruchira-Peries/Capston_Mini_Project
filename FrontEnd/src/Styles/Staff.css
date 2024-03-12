@@ -1,109 +1,144 @@
-/* .outer-container5{
+.outer-container20 {
+    /* width: 100vw; */
     max-width: 100%;
+    align-items: center;
     width: 85vw;
     margin: 0 auto;
-    height: 450px;
-}
-.staff-container{
-    justify-content: flex-start;
-   display: flex;
-   align-items: center;
-   max-height: 450px;
-    flex-direction: column;
-    gap: 40px;
-    margin-top: 4rem;
-}
-.staff-head-text  {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-.primary-heading2{
-    font-weight: 500;
-    color: #525252;
-    font-size: 45px;
-    
-}
-.primary-text2{
-    font-family: "Arsenal", sans-serif;
-    color: black;
-    font-weight: 400;
-    font-size: 1.2rem;
-}
-.app1{
-    display: flex;
-    text-align: center;
 }
 
-.image-slider {
+.staff-box {
+    margin-top: 3rem;
+    /* padding: 80px; */
+    padding: 0px 50px 0px 50px;
     display: flex;
-    position: relative;
-    margin: auto;
-    overflow: hidden;
-    flex-direction: row-reverse;
-    gap: 100px;
 }
 
-.image-slider img {
-    height: auto;
-    transition: transform 0.5s ease-in-out;
+.left-part-staff {
+    z-index: 1;
+    width: 420px;
+    height: 510px;
+    background-color: #007EA7;
+    box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
-.text{
+
+.left-content-staff {
     display: flex;
-    max-width: 450px;
+    margin: 7rem 0rem 0rem 2rem;
+    color: #fff;
     flex-direction: column;
     gap: 50px;
-    padding-top: 50px;
 }
-.text h3{
+
+.header-textL1 {
+    font-weight: 800;
+    color: white;
+    font-size: 28px;
+}
+
+.para-textL1 {
+    width: 180px;
+    font-weight: 250;
+    color: white;
+    font-size: 28px;
+}
+
+.sign-text1 {
     display: flex;
+    font-size: 0.9rem;
+}
+
+.sign-text1 p {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.sign-text1 h4 {
+    color: white;
+    font-weight: 400;
+}
+
+.right-part-staff {
+    width: 1000px;
+    height: 510px;
+    background-color: #fff;
+    border-radius: 0px 30px 30px 0px;
+    box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
+}
+
+.right-content-staff {
+    width: 700px;
+    margin: 6rem 0rem 0rem 9rem;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    /* margin-left: 40px;
+    padding: 50px; */
+}
+.bo{
+    display: flex;
+    gap: 4rem;
+}
+.imageR{
+    display: flex;
+    
+}
+.d1{
+width: 250px;
+}
+.d2{
+width: 236px;
+}
+.d3 {
+    width: 200px;
+}
+.d4 {
+    width: 189px;
+}
+.texR{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.header-textR4 {
     font-weight: 500;
     color: #525252;
-    font-size: 40px;
+    font-size: 20px;
 }
-.text p{
-    display: flex;
+
+.para-textR {
     font-family: "Arsenal", sans-serif;
+    /* padding-left: 2rem; */
     color: black;
     font-weight: 400;
-    font-size: 1.2rem;
-    text-align: left;
+    font-size: 1rem;
 }
 
-.image-slider .arrow {
-    position: absolute;
-    top: 85%;
-    right: 10%;
-    left: 33%;
-    background:none;
-    border:none;
-    font-size: 36px;
-    font-weight: 600;
-    cursor: pointer;
-}
 
-.image-slider .arrow:first-child {
-    left: 15px;
-}
 
-.image-slider .arrow:last-child {
-    right: 20px;
-}
-.staff-bottum-container{
-    display: flex;
-}
-.secondary-button {
-    padding: 1rem 2.5rem;
+.O {
+    padding: 0.4rem 0.4rem;
     background-color: #007EA7;
     outline: none;
     border: none;
     border-radius: 5rem;
-    font-size: 1.1rem;
     cursor: pointer;
-    font-weight: 600;
-    color: white;
     transition: 0.2s;
     display: flex;
-    align-items: center;
+}
+
+.O:hover {
+    background-color: #525252;
+    
+}
+.O :active{
+    background-color: black;
+}
+
+
+.b-l4 {
+    margin-top: 4rem;
     justify-content: center;
-} */
+    display: flex;
+    gap: 1rem;
+}
