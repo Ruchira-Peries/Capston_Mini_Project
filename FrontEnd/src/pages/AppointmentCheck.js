@@ -75,7 +75,7 @@ const AppointmentCheck = () => {
           required
         />
       </label>
-      <div className='b-l'>
+      <div className='down1'>
       <button type="submit" className='btn1'>Check</button>
       </div>
     </form>

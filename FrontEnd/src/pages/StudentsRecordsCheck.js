@@ -58,7 +58,7 @@ const StudentsRecordsCheck = () => {
         />
     </label>
       <br />
-      <div className='b-l'>
+      <div className='down'>
       <button type="submit" className='btn1'>Check</button>
       </div>
     </form>

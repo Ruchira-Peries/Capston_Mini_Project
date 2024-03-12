@@ -67,7 +67,7 @@ const Navbar = () => {
         <a href="">Our Staff</a>
         <a href="">Appointments</a>
         <a href="">About</a>  */}
-        <button className="primary-button" onClick={()=> navigate("/StudentsRecordsCheck")}>Log In</button>
+        <button className="primary-button" onClick={()=> navigate("/Login")}>Log In</button>
         {/* <button className="primary-button">Log In</button> */}
         
       </div>
