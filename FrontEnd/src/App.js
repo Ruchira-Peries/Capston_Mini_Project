@@ -33,7 +33,7 @@ function App() {
           <Route path="/physicalappoinment" element = {<PhysicalAppoinment></PhysicalAppoinment>} />
           <Route path="/otp" element = {<OTP></OTP>} />
           <Route path="/selection" element = {<Selection></Selection>} />
-          <Route path="/profile" element = {<StudentProfile></StudentProfile>} />
+          <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
         </Routes>
 
      </Router>
