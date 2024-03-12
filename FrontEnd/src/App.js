@@ -13,7 +13,7 @@ import PhysicalAppoinment from "./pages/PhysicalAppoinment";
 import Selection from "./pages/Selection";
 import OTP from "./pages/OTP";
 import StudentProfile from "./pages/StudentProfile";
-
+import AppointmentCheck from "./pages/AppointmentCheck";
 
 function App() {
   
@@ -34,6 +34,7 @@ function App() {
           <Route path="/otp" element = {<OTP></OTP>} />
           <Route path="/selection" element = {<Selection></Selection>} />
           <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
+          <Route path="/AppointmentCheck" element = {<AppointmentCheck></AppointmentCheck>} />
         </Routes>
 
      </Router>
