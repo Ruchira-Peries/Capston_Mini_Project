@@ -2,16 +2,13 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import "../Styles/AppointmentCheck.css";
+import "../Styles/StudentsRecordsCheck.css";
 import axios from 'axios';
 
-const AppointmentCheck = () => {
+const StudentsRecordsCheck = () => {
   const [formData, setFormData] = useState({
-    doctor: '',
-    date: '',
+    regnumber: '',
   });
-  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -24,7 +21,7 @@ const AppointmentCheck = () => {
     e.preventDefault();
     try {
       // Send form data to the backend
-      const response = await axios.post('http://localhost:5001/AppointmentCheck', formData);
+      const response = await axios.post('http://localhost:5001/StudentsRecordsCheck', formData);
       console.log(response.data); // Log the response from the backend
     } catch (error) {
       console.error('Error:', error);
@@ -34,47 +31,33 @@ const AppointmentCheck = () => {
   return (
     <>
     <Header/>
-    <div className="outer-container18">
+    <div className="outer-container19">
     <Navbar/>
-    <div className="AppChk-box">
-        <div className="left-part-Appch">
-          <div className="left-content-Appch">
-        <h1 className="header-textL1">MAKE YOUR APPOINTMENT AVAILABLE</h1>
+    <div className="SRC-box">
+        <div className="left-part-SRC">
+          <div className="left-content-SRC">
+        <h1 className="header-textL1">AVAILABILITY OF STUDENT'S MEDICAL RECORDS</h1>
           <p className="para-textL1">Save Your Time</p>
           <div className="sign-text1"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
             </div>
         </div>
         </div>
 
-        <div className="right-part-Appch">
-        <div className="right-content-Appch">
-          <h1 className="header-textR">Check The Availability Of Your Appointments </h1>
+        <div className="right-part-SRC">
+        <div className="right-content-SRC">
+          <h1 className="header-textR">Check The Availability Of Student's Medical Records </h1>
           <form onSubmit={handleSubmit}>
-      <label>
-        Choose Your Doctor:
-        <select
-         name="doctor"
-         value={formData.doctor}
-        onChange={handleChange}
-        required
-        >
-        <option value="">Select Doctor</option>
-         {doctors.map((doctor, index) => (
-        <option key={index} value={doctor}>{doctor}</option>
-          ))}
-      </select>
-      </label>
-      <br />
-      <label>
-        Choose Your Date:
+    <label>
+        Student Registration Number:
         <input
-          type="date"
-          name="date"
-          value={formData.date}
+          type="text"
+          name="regnumber"
+          value={formData.regnumber}
           onChange={handleChange}
           required
         />
-      </label>
+    </label>
+      <br />
       <div className='b-l'>
       <button type="submit" className='btn1'>Check</button>
       </div>
@@ -88,4 +71,4 @@ const AppointmentCheck = () => {
   )
 }
 
-export default AppointmentCheck;
+export default StudentsRecordsCheck;

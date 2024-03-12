@@ -1,0 +1,141 @@
+.outer-container19 {
+    /* width: 100vw; */
+    max-width: 100%;
+    align-items: center;
+    width: 85vw;
+    margin: 0 auto;
+}
+
+.SRC-box {
+    margin-top: 3rem;
+    /* padding: 80px; */
+    padding: 0px 50px 0px 50px;
+    display: flex;
+}
+
+.left-part-SRC {
+    z-index: 1;
+    width: 420px;
+    height: 510px;
+    background-color: #007EA7;
+    box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
+}
+
+.left-content-SRC {
+    display: flex;
+    margin: 7rem 0rem 0rem 2rem;
+    color: #fff;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.header-textL1 {
+    font-weight: 800;
+    color: white;
+    font-size: 28px;
+}
+
+.para-textL1 {
+    width: 180px;
+    font-weight: 250;
+    color: white;
+    font-size: 28px;
+}
+
+.sign-text1 {
+    display: flex;
+    font-size: 0.9rem;
+}
+
+.sign-text1 p {
+    color: black;
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.sign-text1 h4 {
+    color: white;
+    font-weight: 400;
+}
+
+.right-part-SRC {
+    width: 1000px;
+    height: 510px;
+    background-color: #fff;
+    border-radius: 0px 30px 30px 0px;
+    box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
+}
+
+.right-content-SRC {
+    width: 500px;
+    margin: 8rem 0rem 0rem 12rem;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    /* margin-left: 40px;
+    padding: 50px; */
+}
+
+
+.header-textR {
+    font-weight: 700;
+    color: #525252;
+    font-size: 30px;
+}
+
+.para-textR {
+    font-family: "Arsenal", sans-serif;
+    /* padding-left: 2rem; */
+    color: black;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+
+
+.btn1 {
+    padding: 0.5rem 2rem;
+    background-color: #007EA7;
+    outline: none;
+    border: none;
+    border-radius: 5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn1:hover {
+    background-color: #525252;
+}
+
+.form input {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    /* margin-bottom: 5px; */
+    font-weight: 500;
+    color: #525252;
+}
+
+.b-l {
+    margin-top: 2rem;
+    justify-content: flex-end;
+    display: flex;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}

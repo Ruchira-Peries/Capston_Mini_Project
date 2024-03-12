@@ -14,7 +14,7 @@ import Selection from "./pages/Selection";
 import OTP from "./pages/OTP";
 import StudentProfile from "./pages/StudentProfile";
 import AppointmentCheck from "./pages/AppointmentCheck";
-
+import StudentsRecordsCheck from "./pages/StudentsRecordsCheck";
 function App() {
   
   return (
@@ -35,6 +35,7 @@ function App() {
           <Route path="/selection" element = {<Selection></Selection>} />
           <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
           <Route path="/AppointmentCheck" element = {<AppointmentCheck></AppointmentCheck>} />
+          <Route path="/StudentsRecordsCheck" element = {<StudentsRecordsCheck></StudentsRecordsCheck>} />
         </Routes>
 
      </Router>
