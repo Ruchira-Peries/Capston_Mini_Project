@@ -196,11 +196,11 @@ const transporter = nodemailer.createTransport({
         res.send('Email already exists');
       } else {
         // Insert new student
-        const verificationCode = Math.floor(100000 + Math.random() * 900000);
+        const otp = Math.floor(100000 + Math.random() * 900000);
         // const student_login = { userType, email, username, password, verificationCode };
         // db.query('INSERT INTO student_login SET ?', student_login, (err, results) => {
         //   if (err) throw err;
-          const newUser = { userType, email, username, password, verificationCode };
+          const newUser = { userType, email, username, password, otp };
       db.query(`INSERT INTO ${tableName} SET ?`, newUser, (err, results) => {
         if (err) throw err;
   
@@ -210,7 +210,7 @@ const transporter = nodemailer.createTransport({
             from: 'hvdisurikadhananji@gmail.com',
             to: email,
             subject: 'Email Verification',
-            text: `Your verification code is: ${verificationCode}`
+            text: `Your otp code is: ${otp}`
           };
   
           transporter.sendMail(mailOptions, (err, info) => {
@@ -228,23 +228,22 @@ const transporter = nodemailer.createTransport({
 }});
 });
 
-// OTP verification and database update for both student and doctor
+
 app.post('/verifyOTP', (req, res) => {
     const { userType, otp } = req.body;
     let tableName = '';
-  
-    // Determine which table to query based on userType
-    if (userType === 'student') {
-        tableName = 'student_login';
-    } else if (userType === 'doctor') {
+
+    if (userType === 'doctor') {
         tableName = 'doctor_login';
+    } else if (userType === 'student') {
+        tableName = 'student_login';
     } else {
         res.status(400).json({ message: 'Invalid user type' });
         return;
     }
-  
-    // Check if the OTP exists in the database
-    db.query(`SELECT * FROM ${tableName} WHERE verificationCode = ?`, [otp], (err, results) => {
+
+    // Check if the OTP exists in the database for the selected user type
+    db.query(`SELECT * FROM ${tableName} WHERE otp = ?`, [otp], (err, results) => {
         if (err) {
             console.error('Error verifying OTP:', err);
             res.status(500).json({ message: 'Internal server error' });
@@ -254,7 +253,7 @@ app.post('/verifyOTP', (req, res) => {
         if (results.length > 0) {
             // OTP is valid, update the database to mark OTP verification as successful
             const email = results[0].email; // Assuming email is the identifier for the user
-            db.query(`UPDATE ${tableName} SET isVerified = true WHERE email = ?`, [email], (updateErr, updateResults) => {
+            db.query(`UPDATE ${tableName} SET isVerified = 1 WHERE email = ?`, [email], (updateErr, updateResults) => {
                 if (updateErr) {
                     console.error('Error updating database after OTP verification:', updateErr);
                     res.status(500).json({ message: 'Internal server error' });
@@ -262,11 +261,11 @@ app.post('/verifyOTP', (req, res) => {
                 }
 
                 // Return success message
-                res.json({ message: 'OTP verified successfully and database updated' });
+                res.json({ message: `OTP verified successfully and database updated for ${userType}` });
             });
         } else {
             // OTP is invalid
-            res.status(400).json({ message: 'Invalid OTP. Please try again.' });
+            res.status(400).json({ message: `Invalid OTP for ${userType}. Please try again.` });
         }
     });
 });
@@ -431,44 +430,44 @@ app.post('/UserProfile', (req, res) => {
 
 app.post('/UserLogin', (req, res) => {
     const { userType, email, password } = req.body;
-    let tableName = '';
+    let tableName = 'student_login';
 
-    // Determine the table name based on the user type
-    if (userType === 'student') {
-        tableName = 'student_login';
-    } else if (userType === 'doctor') {
-        tableName = 'doctor_login';
-    } else {
-        res.status(400).send('Invalid user type');
-        return;
-    }
+    // if (userType === 'student') {
+    //     tableName = 'student_login';
+    // } else if (userType === 'doctor') {
+    //     tableName = 'doctor_login';
+    // } else {
+    //     res.status(400).json({ message: 'Invalid user type' });
+    //     return;
+    // }
 
-    // Query the database to retrieve the password associated with the provided username
-    const sql = `SELECT password FROM ${tableName} WHERE email = ?`;
+    // Query the database to retrieve the password and isVerified status associated with the provided email
+    const sql = `SELECT password, isVerified FROM ${tableName} WHERE email = ?`;
     db.query(sql, [email], (err, rows) => {
         if (err) {
             console.error('Database query error:', err);
-            res.status(500).send('Internal server error');
+            res.status(500).json({ message: 'Internal server error' });
             return;
         }
 
         if (rows.length === 0) {
-            res.render('UserLogin', { fail_message: "Wrong Username" });
+            res.status(401).json({ message: 'User not found' });
             return;
         }
 
         const storedPassword = rows[0].password;
+        const isVerified = rows[0].isVerified;
 
         // Compare the stored password with the provided password
-        if (password === storedPassword) {
-            // Redirect to appropriate profile page based on user type
-            if (userType === 'student') {
-                res.render('StudentProfile');
-            } else if (userType === 'doctor') {
-                res.render('DoctorProfile');
-            }
+        if (password === storedPassword && isVerified === 1) {
+            // Login successful
+            res.status(200).json({ message: 'Login successful', userType });
+        } else if (isVerified !== 1) {
+            // User is not verified
+            res.status(401).json({ message: 'Email not verified. Please verify your email before logging in.' });
         } else {
-            res.render('UserLogin', { fail_message: "Wrong Password" });
+            // Invalid email or password
+            res.status(401).json({ message: 'Invalid email or password' });
         }
     });
 });
