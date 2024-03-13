@@ -20,6 +20,9 @@ html(lang="en")
     body
       h1 Sign Up
       form(action='/UserSignup', method='POST')
+       label(for='userType') usertype:
+       input(type='text', name='usertype', required)
+       br
        label(for='email') Email:
        input(type='email', name='email', required)
        br
