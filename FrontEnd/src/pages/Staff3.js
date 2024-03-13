@@ -4,11 +4,11 @@ import Header from "../Components/header";
 import "../Styles/Staff.css";
 import Navbar from "../Components/Navbar";
 import Footer from "../Components/Footer";
-import D1 from "../Assests/D1.png"
+import D4 from "../Assests/D4.png"
 
 
 
-const Staff = () => {
+const Staff3 = () => {
     const navigate = useNavigate();
   return (
    <>
@@ -37,7 +37,7 @@ const Staff = () => {
             </div>
              <div className="bo">
                   <div className="imageR">
-                      <img src={D1} className="d1" alt="" />
+                      <img src={D4} className="d4" alt="" />
                   </div>
                  <div className="texR">
                     <h1 className="header-textR4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do neque </h1>
@@ -60,4 +60,4 @@ const Staff = () => {
   );
 };
 
-export default Staff;
+export default Staff3;

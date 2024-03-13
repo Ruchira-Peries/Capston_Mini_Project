@@ -35,14 +35,15 @@ import ProfileDropdown from "../Components/ProfileDropdown";
 import "../Styles/Home.css";
 
 const ImageSlider = () => {
+   const navigate = useNavigate();
     const slides = [
     { image: doctor1, text: 'Text 1',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
     { image: doctor2, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
-    { image: doctor3, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
-    { image: doctor4, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
-    { image: doctor5, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
-    { image: doctor6, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
-    { image: doctor7, text: 'Text 2',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
+    { image: doctor3, text: 'Text 3',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
+    { image: doctor4, text: 'Text 4',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
+    { image: doctor5, text: 'Text 5',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
+    { image: doctor6, text: 'Text 6',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
+    { image: doctor7, text: 'Text 7',text1:'These are our beloved staff that always there for you fgd dfdfg dh dhs df sdfh dhd' },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -63,7 +64,7 @@ const ImageSlider = () => {
           <h3>{slides[currentIndex].text}</h3>
           <p>{slides[currentIndex].text1}</p>
                   <div className="about-buttons-container">
-                    <button className="secondary-button">Learn More</button>
+                    <button className="secondary-button" onClick={()=> navigate("/Staff")}>Learn More</button>
                   </div>
       </div>
       <button className="arrow" onClick={handlePrev}><img src={arrow1}></img></button>
@@ -149,7 +150,7 @@ return (
           University of Sabaragamuwa Medical System is a government, university-based regional health system focused on serving the health care needs of students and university staff.
         </p>
         <div className="about-buttons-container">
-          <button className="secondary-button">Learn More</button>
+          <button className="secondary-button"onClick={()=> navigate("/About")}>Learn More</button>
         </div>
       </div>
     </div>

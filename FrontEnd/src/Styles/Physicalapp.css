@@ -1,4 +1,4 @@
-.outer-container20 {
+.outer-container14 {
     /* width: 100vw; */
     max-width: 100%;
     align-items: center;
@@ -6,14 +6,14 @@
     margin: 0 auto;
 }
 
-.staff-box {
+.PhyApp-box {
     margin-top: 3rem;
     /* padding: 80px; */
     padding: 0px 50px 0px 50px;
     display: flex;
 }
 
-.left-part-staff {
+.left-part-phy {
     z-index: 1;
     width: 420px;
     height: 510px;
@@ -21,7 +21,7 @@
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
 
-.left-content-staff {
+.left-content-phy {
     display: flex;
     margin: 7rem 0rem 0rem 2rem;
     color: #fff;
@@ -29,36 +29,36 @@
     gap: 50px;
 }
 
-.header-textL1 {
+.header-textL3 {
     font-weight: 800;
     color: white;
     font-size: 28px;
 }
 
-.para-textL1 {
-    width: 180px;
+.para-textL3 {
+    width: 100px;
     font-weight: 250;
     color: white;
     font-size: 28px;
 }
 
-.sign-text1 {
+.sign-text2 {
     display: flex;
     font-size: 0.9rem;
 }
 
-.sign-text1 p {
+.sign-text2 p {
     color: black;
     font-size: 0.9rem;
     font-weight: 400;
 }
 
-.sign-text1 h4 {
+.sign-text2 h4 {
     color: white;
     font-weight: 400;
 }
 
-.right-part-staff {
+.right-part-phy {
     width: 1000px;
     height: 510px;
     background-color: #fff;
@@ -66,44 +66,21 @@
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
 
-.right-content-staff {
-    width: 700px;
-    margin: 6rem 0rem 0rem 9rem;
+.right-content-phy{
+    width: 500px;
+    margin: 2rem 0rem 0rem 10rem;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 30px;
     /* margin-left: 40px;
     padding: 50px; */
 }
-.bo{
-    display: flex;
-    gap: 4rem;
-}
-.imageR{
-    display: flex;
-    
-}
-.d1{
-width: 250px;
-}
-.d2{
-width: 236px;
-}
-.d3 {
-    width: 200px;
-}
-.d4 {
-    width: 189px;
-}
-.texR{
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-.header-textR4 {
-    font-weight: 500;
+
+
+.header-textR {
+    font-weight: 700;
     color: #525252;
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .para-textR {
@@ -116,29 +93,53 @@ width: 236px;
 
 
 
-.O {
-    padding: 0.4rem 0.4rem;
+.btn2 {
+    padding: 0.5rem 2rem;
     background-color: #007EA7;
     outline: none;
     border: none;
     border-radius: 5rem;
+    font-size: 1rem;
     cursor: pointer;
+    font-weight: 600;
+    color: white;
     transition: 0.2s;
     display: flex;
-}
-
-.O:hover {
-    background-color: #525252;
-    
-}
-.O :active{
-    background-color: black;
-}
-
-
-.b-l4 {
-    margin-top: 4rem;
+    align-items: center;
     justify-content: center;
+}
+
+.btn2:hover {
+    background-color: #525252;
+}
+
+.form input {
     display: flex;
-    gap: 1rem;
+    flex-direction: column;
+}
+
+label {
+    /* margin-bottom: 5px; */
+    font-weight: 500;
+    color: #525252;
+}
+
+.b-l2 {
+    margin-top: 1rem;
+    /* justify-content: space-between; */
+    display: flex;
+    justify-content: flex-end;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }

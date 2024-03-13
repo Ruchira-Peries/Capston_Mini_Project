@@ -2,16 +2,13 @@ import React, {useState} from 'react';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
 import Footer from '../Components/Footer';
-import "../Styles/Physicalapp.css";
+import "../Styles/AppointmentCheck.css";
 import axios from 'axios';
 
-const PhysicalAppoinment = () => {
+const AppointmentCheck = () => {
   const [formData, setFormData] = useState({
-    regnumber: '',
     doctor: '',
     date: '',
-    email: '',
-    description: ''
   });
   const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
 
@@ -27,42 +24,32 @@ const PhysicalAppoinment = () => {
     e.preventDefault();
     try {
       // Send form data to the backend
-      const response = await axios.post('http://localhost:5001/PhysicalAppointments', formData);
+      const response = await axios.post('http://localhost:5001/AppointmentCheck', formData);
       console.log(response.data); // Log the response from the backend
     } catch (error) {
       console.error('Error:', error);
     }
   };
+  
   return (
     <>
     <Header/>
-    <div className="outer-container14">
+    <div className="outer-container18">
     <Navbar/>
-    <div className="PhyApp-box">
-        <div className="left-part-phy">
-          <div className="left-content-phy">
-        <h1 className="header-textL3">MAKE YOUR APPOINTMENT</h1>
-          <p className="para-textL3">Save Your Time</p>
-           <div className="sign-text2"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
+    <div className="AppChk-box">
+        <div className="left-part-Appch">
+          <div className="left-content-Appch">
+        <h1 className="header-textL1">MAKE YOUR APPOINTMENT AVAILABLE</h1>
+          <p className="para-textL1">Save Your Time</p>
+          <div className="sign-text1"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
             </div>
         </div>
         </div>
 
-        <div className="right-part-phy">
-        <div className="right-content-phy">
-          <h1 className="header-textR">Set Up Your Physical Appoinment</h1>
+        <div className="right-part-Appch">
+        <div className="right-content-Appch">
+          <h1 className="header-textR">Check The Availability Of Your Appointments </h1>
           <form onSubmit={handleSubmit}>
-      <label>
-        Student Registration Number:
-        <input
-          type="text"
-          name="regnumber"
-          value={formData.regnumber}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
       <label>
         Choose Your Doctor:
         <select
@@ -88,30 +75,10 @@ const PhysicalAppoinment = () => {
           required
         />
       </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <div className='b-l2'>
-      <button type="submit" className='btn2'>Next</button>
+      <div className='down1'>
+      <button type="submit" className='btn1'>Check</button>
       </div>
-      </form>
+    </form>
           </div>
         </div>
       </div>
@@ -121,4 +88,4 @@ const PhysicalAppoinment = () => {
   )
 }
 
-export default PhysicalAppoinment;
+export default AppointmentCheck;

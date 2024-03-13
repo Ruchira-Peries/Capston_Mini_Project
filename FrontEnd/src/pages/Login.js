@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import Header from "../Components/header";
 import Footer from '../Components/Footer';
+import Navbar from "../Components/Navbar";
+import "../Styles/Login.css";
 import axios from 'axios';
 
 const Login = () => {
@@ -42,19 +44,22 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="outer-container">
-        <div className="appoinment-box">
-          <div className="left-part">
-            <div className="left-content">
-              <h1 className="header-text">Log in</h1>
-              <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
-              <p className="sign-text">Already have an account? <a href="\login">Login</a></p>
+      <div className="outer-container11">
+      <Navbar/>
+        <div className="login-box">
+          <div className="left-part-log">
+            <div className="left-content-log">
+              <h1 className="header-textL1">FOR A HEALTHIER LIFE</h1>
+              <p className="para-textL1">Access To Our Services by log in</p>
+              <div className="sign-text1">
+              <p>Don't Have An Account?</p> <a href="\Selection" style={{ textDecoration: 'none' }}><h4>SignUp</h4></a>
+              </div>
             </div>
           </div>
 
-          <div className="right-part">
-            <div className="right-content">
-              <h1 className="header-text">Log In</h1>
+          <div className="right-part-log">
+            <div className="right-content-log">
+              <h1 className="header-textR">Log In</h1>
               <form onSubmit={handleSubmit}>
                 <label>
                   Email:
@@ -78,8 +83,10 @@ const Login = () => {
                   />
                 </label>
                 <br />
-                <a href="#">Forgot password?</a>
-                <button type="submit" className='btn'>Log in</button>
+                <div className='b-l'>
+                <a href="#" className='t' style={{ textDecoration: 'none' }}><p>Forgot password?</p></a>
+                <button type="submit" className='btn1'>Log in</button>
+                </div>
               </form>
             </div>
           </div>
