@@ -34,19 +34,19 @@ const OTP = () => {
       console.error('Error:', error);
     }
   };
-    const handleResendOTP = async () => {
-      try {
-        const response = await axios.post('http://localhost:5001/resendOTP');
+  //   const handleResendOTP = async () => {
+  //     try {
+  //       const response = await axios.post('http://localhost:5001/resendOTP');
         
-        setFormData(prevState => ({
-          ...prevState,
-          message: response.data.message
-        }));
-      } catch (error) {
-        console.error('Error:', error);
-      }
+  //       setFormData(prevState => ({
+  //         ...prevState,
+  //         message: response.data.message
+  //       }));
+  //     } catch (error) {
+  //       console.error('Error:', error);
+  //     }
 
-  };
+  // };
   return (
     <>
     <Header/>
@@ -76,7 +76,8 @@ const OTP = () => {
         />
       </label>
       <br />
-      <p className='para-text'>Didn't get the OTP?  <a href='/resendOTP' onClick={handleResendOTP}>Resend OTP</a></p>
+      {/* <p className='para-text'>Didn't get the OTP?  <a href='/resendOTP' onClick={handleResendOTP}>Resend OTP</a></p> */}
+      <p className='para-text'>Didn't get the OTP?  <a href='/resendOTP'>Resend OTP</a></p>
       <button type="submit" className='btn'>Confirm</button>
     </form>
     {formData.message && <p className='para-text'>{formData.message}</p>}

@@ -24,9 +24,10 @@ const Login = () => {
       const response = await axios.post('http://localhost:5001/UserLogin', formData);
       
       // Check the response from the server for success or failure
-      if (response.data.success) {
+      if (response.status === 200) {
         // If login is successful, redirect or perform any necessary actions
         console.log('Login successful');
+        // Redirect to a different page or perform any other action
       } else {
         // If login fails, display an error message
         console.error('Login failed:', response.data.message);
@@ -36,11 +37,6 @@ const Login = () => {
       console.error('Error:', error);
       alert('An error occurred. Please try again later.');
     }
-  };
-
-  const validateEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
   };
 
   return (
