@@ -230,14 +230,15 @@ app.post('/verifyOTP', (req, res) => {
     const { userType, otp } = req.body;
     let tableName = '';
 
-    if (userType === 'doctor') {
-        tableName = 'doctor_login';
-    } else if (userType === 'student') {
+    if (userType == 'student') {
         tableName = 'student_login';
+    } else if (userType == 'doctor') {
+        tableName = 'doctor_login';
     } else {
-        res.status(400).json({ message: 'Invalid user type' });
+        res.status(((400))).json((({ message: 'Invalid user type' })));
         return;
     }
+    
 
     // Check if the OTP exists in the database for the selected user type
     db.query(`SELECT * FROM ${tableName} WHERE otp = ?`, [otp], (err, results) => {
@@ -427,16 +428,16 @@ app.post('/UserProfile', (req, res) => {
 
 app.post('/UserLogin', (req, res) => {
     const { userType, email, password } = req.body;
-    let tableName = 'student_login';
+    let tableName = '';
 
-    // if (userType === 'student') {
-    //     tableName = 'student_login';
-    // } else if (userType === 'doctor') {
-    //     tableName = 'doctor_login';
-    // } else {
-    //     res.status(400).json({ message: 'Invalid user type' });
-    //     return;
-    // }
+    if (userType === 'student') {
+        tableName = 'student_login';
+    } else if (userType === 'doctor') {
+        tableName = 'doctor_login';
+    } else {
+        res.status(400).json({ message: 'Invalid user type' });
+        return;
+    }
 
     // Query the database to retrieve the password and isVerified status associated with the provided email
     const sql = `SELECT password, isVerified FROM ${tableName} WHERE email = ?`;
@@ -498,14 +499,13 @@ app.post('/StudentRecords', (req, res) => {
 
 app.post('/PhysicalAppointments', (req, res) => {    
     
-
+    var appointment_type = req.body.appointment_type;
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
     var phone_number = req.body.phone_number;
     var email = req.body.email;
     var date = req.body.date;
     var time = req.body.time;
-    var appointment_type = req.body.appointment_type;
     var message = req.body.message;
     
     // Define year, month, and day
@@ -530,9 +530,9 @@ app.post('/PhysicalAppointments', (req, res) => {
     ) ENGINE=InnoDB DEFAULT CHARSET=latin1`;
 
     var sql_insert = `INSERT INTO appointments  
-                        (doctor, reg_number, phone_number, email, date, month, year, time,appointment_type, message) 
+                        (appointment_type, doctor, reg_number, phone_number, email, date, month, year, time, message) 
                       VALUES 
-                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}','${appointment_type}', '${message}')`;
+                        ('${appointment_type}', '${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${message}')`;
 
     // Query to count the number of appointments for the selected time slot
     var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
@@ -573,13 +573,13 @@ app.post('/PhysicalAppointments', (req, res) => {
 
 app.post('/OnlineAppointments', (req, res) => {      
 
+    var appointment_type = req.body.appointment_type;
     var doctor = req.body.doctor;
     var reg_number = req.body.reg_number;
     var phone_number = req.body.phone_number;
     var email = req.body.email;
     var date = req.body.date;
     var time = req.body.time;
-    var appointment_type = req.body.appointment_type;
     var message = req.body.message;
     
     var currentDate = new Date();
@@ -588,9 +588,9 @@ app.post('/OnlineAppointments', (req, res) => {
     var day = currentDate.getDate();
     
     var sql_insert = `INSERT INTO appointments  
-                        (doctor, reg_number, phone_number, email, date, month, year, time, appointment_type, message) 
+                        (appointment_type, doctor, reg_number, phone_number, email, date, month, year, time, message) 
                       VALUES 
-                        ('${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${appointment_type}', '${message}')`;
+                        ('${appointment_type}', '${doctor}', '${reg_number}', '${phone_number}', '${email}', '${date}', '${month}', '${year}', '${time}', '${message}')`;
 
     // SQL query to count the number of appointments for the selected time slot
     var sql_count_appointments = `SELECT COUNT(*) AS count FROM appointments WHERE date = '${date}' AND time = '${time}'`;
@@ -615,7 +615,7 @@ app.post('/OnlineAppointments', (req, res) => {
                 res.send("The time slot is full. Please choose another time slot.");
             } else {
                 // Appointment is booked, send email confirmation
-                sendEmailConfirmation(email, doctor, date, time, appointment_type, res);
+                sendEmailConfirmation(appointment_type, email, doctor, date, time, res);
             }
         });
     });
@@ -624,7 +624,7 @@ app.post('/OnlineAppointments', (req, res) => {
 
 
 // Function to send email confirmation
-function sendEmailConfirmation(email, doctor, date, time, appointment_type, res) {
+function sendEmailConfirmation(appointment_type, email, doctor, date, time, res) {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -635,20 +635,23 @@ function sendEmailConfirmation(email, doctor, date, time, appointment_type, res)
         }
     });
 
+    const joinOnlineLink = 'https://us05web.zoom.us/j/81337908562?pwd=K3Y1N3NMcVdnNEE0Y01Fb2dvK0VlZz09';
+
     // Define email content
     const mailOptions = {
-        from: 'hvdisurikadhananji@gmail.com', // Sender email
-        to: email, // Receiver email (student's email)
-        subject: 'Online Appointment Confirmation', // Email subject
+        from: 'hvdisurikadhananji@gmail.com', 
+        to: email, 
+        subject: 'Online Appointment Confirmation', 
         html: `
             <p>Dear Student,</p>
             <p>Your online appointment with ${doctor} on ${date} at ${time} has been successfully booked.</p>
+            <p>Click <a href="${joinOnlineLink}">here</a> to join the doctor online at the scheduled time.</p>
             <p>Appointment Details:</p>
             <ul>
+                <li><strong>Appointment Type:</strong> ${appointment_type}</li>
                 <li><strong>Doctor:</strong> ${doctor}</li>
                 <li><strong>Date:</strong> ${date}</li>
                 <li><strong>Time:</strong> ${time}</li>
-                <li><strong>Appointment Type:</strong> ${appointment_type}</li>
             </ul>
             <p>Thank you for choosing our service.</p>
             <p>Best regards,<br>Your Healthcare Team</p>

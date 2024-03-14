@@ -7,13 +7,16 @@ import axios from 'axios';
 
 const OnlineAppointments = () => {
   const [formData, setFormData] = useState({
-    regnumber: '',
+    appointment_type: 'online',
+    reg_number: '',
     doctor: '',
     date: '',
+    time: '',
     email: '',
-    description: ''
+    phone_number: '',
+    message: ''
   });
-  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia'];
+  const doctors = ['Dr. Smith', 'Dr. Johnson', 'Dr. Patel', 'Dr. Garcia (Counseling)'];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,12 +56,25 @@ const OnlineAppointments = () => {
         <div className="right-content-on">
           <h1 className="header-textR">Set Up your Online Appoinment</h1>
           <form onSubmit={handleSubmit}>
+          <label>
+                  Choose your Appointment Type:
+                  <select
+                    name="appointment_type"
+                    value={formData.appointment_type}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="online">Online</option>
+                    <option value="physical">Physical</option>
+                  </select>
+                </label>
+                <br />
       <label>
         Student Registration Number:
         <input
           type="text"
-          name="regnumber"
-          value={formData.regnumber}
+          name="reg_number"
+          value={formData.reg_number}
           onChange={handleChange}
           required
         />
@@ -91,6 +107,17 @@ const OnlineAppointments = () => {
       </label>
       <br />
       <label>
+        Choose Your Time:
+        <input
+          type="time"
+          name="time"
+          value={formData.time}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <br />
+      <label>
         Email:
         <input
           type="email"
@@ -102,10 +129,21 @@ const OnlineAppointments = () => {
       </label>
       <br />
       <label>
+        Phone Number:
+        <input
+          type="text"
+          name="phone_number"
+          value={formData.phone_number}
+          onChange={handleChange}
+          required
+        />
+      </label>
+      <br />
+      <label>
         Description:
         <textarea
-          name="description"
-          value={formData.description}
+          name="message"
+          value={formData.message}
           onChange={handleChange}
         />
       </label>
