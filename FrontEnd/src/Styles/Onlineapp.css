@@ -1,5 +1,4 @@
 .outer-container15 {
-    /* width: 100vw; */
     max-width: 100%;
     align-items: center;
     width: 85vw;
@@ -16,7 +15,7 @@
 .left-part-on {
     z-index: 1;
     width: 420px;
-    height: 580px;
+    height: 780px;
     background-color: #007EA7;
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
 }
@@ -60,7 +59,7 @@
 
 .right-part-on {
     width: 1000px;
-    height: 580px;
+    height: 780px;
     background-color: #fff;
     border-radius: 0px 30px 30px 0px;
     box-shadow: 2px 4px 8px 4px rgba(0.5, 0.2, 0.2, 0.2);
@@ -68,7 +67,7 @@
 
 .right-content-on {
     width: 500px;
-    margin: 2rem 0rem 0rem 10rem;
+    margin: 4rem 0rem 0rem 10rem;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -137,6 +136,7 @@ input[type="text"],
 input[type="email"],
 input[type="date"],
 input[type="password"],
+input[type="time"],
 select,
 textarea {
     width: 100%;

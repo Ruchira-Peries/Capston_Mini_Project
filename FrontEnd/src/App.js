@@ -18,6 +18,7 @@ import OTP from "./pages/OTP";
 import StudentProfile from "./pages/StudentProfile";
 import AppointmentCheck from "./pages/AppointmentCheck";
 import StudentsRecordsCheck from "./pages/StudentsRecordsCheck";
+import Counseling from "./pages/Counseling";
 function App() {
   
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
           <Route path="/AppointmentCheck" element = {<AppointmentCheck></AppointmentCheck>} />
           <Route path="/StudentsRecordsCheck" element = {<StudentsRecordsCheck></StudentsRecordsCheck>} />
+          <Route path="/counseling" element = {<Counseling></Counseling>} />
         </Routes>
 
      </Router>

@@ -1,113 +1,48 @@
-import React, {useState} from 'react';
-import Header from "../Components/header";
-import Navbar from '../Components/Navbar';
+import React from 'react';
+import Header from '../Components/header';
 import Footer from '../Components/Footer';
+import '../Styles/Counseling.css';
 
-const OnlineAppoinment = () => {
-  const [formData, setFormData] = useState({
-    regnumber: '',
-    date: '',
-    email: '',
-    description: ''
-  });
-  const issue = ['Stress', 'anxiety', 'depression', 'other'];
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // handle form submission here, for now just log the data
-    console.log(formData);
-  };
+const Counseling = () => {
   return (
-    <>
-    <Header/>
-    <div className="outer-container">
-    <Navbar/>
-    <div className="appoinment-box">
-        <div className="left-part">
-          <div className="left-content">
-        <h1 className="header-text">Make your appointment</h1>
-          <p className="para-text">Easily reserve your time without visiting and save your valuable time</p>
-          <p className= "sign-text">Already have an account? <a href="\login">Login</a></p>
-          </div>
-        </div>
+    <div className="counseling-page">
+      <Header />
 
-        <div className="right-part">
-        <div className="right-content">
-          <h1 className="header-text">Set Up your Online Appoinment</h1>
-          <form onSubmit={handleSubmit}>
-      <label>
-        Student Registration Number:
-        <input
-          type="text"
-          name="regnumber"
-          value={formData.regnumber}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Choose Your Doctor:
-        <select
-         name="DoctorName"
-         value={formData.DoctorName}
-        onChange={handleChange}
-        >
-        <option value="">Select Doctor</option>
-         {doctors.map((doctor, index) => (
-        <option key={index} value={doctor}>{doctor}</option>
-          ))}
-      </select>
-      </label>
-      <br />
-      <label>
-        Choose Your Date:
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Email:
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-      </label>
-      <br />
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <button type="submit" className='secondary-button'>Submit</button>
-    </form>
-          </div>
-        </div>
+      <div className="counseling-content">
+        <h1>Counseling for University Students</h1>
+        <p>
+          University life can be both exciting and challenging, but it's not uncommon for students to face various mental health issues during their academic journey. At our counseling center, we provide support and resources to help students navigate these challenges and thrive in their academic and personal lives.
+        </p>
+
+        <h2>Common Mental Health Issues</h2>
+        <h3>Stress</h3>
+        <p>
+          Stress is a natural response to the demands of university life, such as exams, assignments, and social pressures. While some stress can be motivating, excessive stress can lead to physical and emotional exhaustion, difficulty concentrating, and impaired performance. Our counselors can help you develop healthy coping strategies to manage stress effectively.
+        </p>
+
+        <h3>Anxiety</h3>
+        <p>
+          Anxiety disorders are among the most prevalent mental health issues affecting university students. Symptoms may include persistent worry, restlessness, irritability, and panic attacks. Our counselors offer evidence-based treatments such as cognitive-behavioral therapy (CBT) to help you understand and manage your anxiety symptoms.
+        </p>
+
+        {/* Include more sections for depression, relationship issues, etc. */}
+
+        <h2>Importance of Counseling</h2>
+        <p>
+          Counseling plays a crucial role in promoting self-awareness, developing coping skills, enhancing academic performance, and improving overall quality of life. By seeking support from our counseling center, you can gain valuable insights, learn effective strategies for managing stress and emotional difficulties, and take proactive steps toward better mental health.
+        </p>
+
+        <h2>Get Started Today</h2>
+        <p>
+          If you're struggling with mental health issues or simply need someone to talk to, our counseling center is here to help. Our experienced counselors offer confidential support, compassionate care, and evidence-based therapies tailored to your individual needs. Don't hesitate to reach out and take the first step toward a happier, healthier you.
+        </p>
+
+        <p>Contact us today to schedule an appointment or learn more about our counseling services.</p>
       </div>
+
       <Footer />
-      </div>
-   </>
-  )
-}
+    </div>
+  );
+};
 
-export default OnlineAppoinment
+export default Counseling;
