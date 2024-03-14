@@ -9,7 +9,7 @@ import axios from 'axios';
 const StudentSignup = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    userType: 'student',
+    userType: 'student', // Default to student
     email: '',
     username: '',
     password: ''
@@ -31,31 +31,25 @@ const StudentSignup = () => {
       return;
     }
     
-      
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     
-     
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      console.error('Error: Invalid email format');
+      return;
+    }
     
-      
-      if (!emailRegex.test(formData.email)) {
-        console.error('Error: Invalid email format');
-       
-        return;
-      }
+    if (!passwordRegex.test(formData.password)) {
+      console.error('Error: Password should contain at least 8 characters including one uppercase, lowercase, number, and symbol');
+      return;
+    }
     
-     
-      if (!passwordRegex.test(formData.password)) {
-        console.error('Error: Password should contain at least 8 characters including one uppercase, lowercase, number, and symbol');
-       
-        return;
-      }
-      navigate("/otp");
+    navigate("/otp");
     
     try {
       const response = await axios.post('http://localhost:5001/UserSignup', formData);
       console.log(response.data);
-      } catch (error) {
+    } catch (error) {
       console.error('Error:', error);
     }
   };
@@ -69,7 +63,7 @@ const StudentSignup = () => {
           <div className="left-part-sig">
             <div className="left-content-sig">
               <h1 className="header-textL2">WELCOME TO UNIAID HEALTH CENTER </h1>
-              <p className="para-textL2">Let's Get Started By Setting Up Your Account </p>
+              <p className="para-textL2">Let's Get Started By Setting Up Your Account</p>
               <div className="sign-text2"><p>Already Have An Account?</p> <a href="\login"style={{ textDecoration: 'none' }}><h4>LogIn</h4></a>
             </div>
           </div>
@@ -79,7 +73,7 @@ const StudentSignup = () => {
             <div className="right-content-sig">
               <h1 className="header-textR">General Information</h1>
               <form onSubmit={handleSubmit}>
-              <label>
+                <label>
                   Choose your role:
                   <select
                     name="userType"
@@ -126,7 +120,7 @@ const StudentSignup = () => {
                 </label>
                 <br />
                 <div className='b-l1'>
-                <button type="submit" className='btn2'>Next</button>
+                  <button type="submit" className='btn2'>Next</button>
                 </div>
               </form>
             </div>
