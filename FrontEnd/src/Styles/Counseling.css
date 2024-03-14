@@ -1,0 +1,43 @@
+.counseling-page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .counseling-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .counseling-content h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .counseling-content h2 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  
+  .counseling-content h3 {
+    font-size: 1.2rem;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+  
+  .counseling-content p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+  
+  .counseling-content a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .counseling-content a:hover {
+    text-decoration: underline;
+  }
