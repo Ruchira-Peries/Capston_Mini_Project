@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Header from "../Components/header";
 import Footer from '../Components/Footer';
 import Navbar from '../Components/Navbar';
 import "../Styles/Studentpro.css";
 const StudentProfile = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: '',
     reg_number: '',
@@ -50,11 +52,10 @@ const StudentProfile = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5001/UserProfile', formData);
-      console.log(response.data);
+      localStorage.setItem("formData", JSON.stringify(formData))
       // Redirect or show success message after successful submission
     } catch (error) {
       console.error('Error:', error);
@@ -416,7 +417,7 @@ const StudentProfile = () => {
                   />
                 </label>
                 <div className='b-l2'>
-                <button type="submit" className='btn2'>Save Records</button>
+                <button type="submit" className='btn2'onClick={()=> navigate("")}>Save Records</button>
                 </div>
               </form>
             </div>
