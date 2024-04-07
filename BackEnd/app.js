@@ -334,13 +334,12 @@ app.post('/UserProfile', (req, res) => {
                             operationb VARCHAR(255),
                             operationc VARCHAR(255),
                             operationd VARCHAR(255),
-                            x_ray BLOB,
                             physicalDefect VARCHAR(255),
                             PRIMARY KEY (id)
                             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;`;
-    var sql_insert = `INSERT INTO student_profile (fullName, reg_number, dateOfBirth,weight, height, tonguea, hearta,heartb,heartc,heartd,hearte, heartf,lungsa,lungsb, abondomena,abondomenb,abondomenc,abondomend, nervousa, nervousb,nervousc,nervousd,nervouse,nervousf,nervousg,operationa,operationb,operationc,operationd,x_ray,physicalDefect) 
+    var sql_insert = `INSERT INTO student_profile (fullName, reg_number, dateOfBirth,weight, height, tonguea, hearta,heartb,heartc,heartd,hearte, heartf,lungsa,lungsb, abondomena,abondomenb,abondomenc,abondomend, nervousa, nervousb,nervousc,nervousd,nervouse,nervousf,nervousg,operationa,operationb,operationc,operationd,physicalDefect) 
     VALUES 
-    ('${fullName}', '${reg_number}', '${dateOfBirth}','${weight}', '${height}', '${tonguea}', '${hearta}','${heartb}','${heartc}','${heartd}','${hearte}','${heartf}','${lungsa}','${lungsb}', '${abondomena}','${abondomenb}','${abondomenc}','${abondomend}', '${nervousa}', '${nervousb}','${nervousc}','${nervousd}','${nervouse}','${nervousf}','${nervousg}','${operationa}','${operationb}','${operationc}','${operationd}','${x_ray}','${physicalDefect}')`;
+    ('${fullName}', '${reg_number}', '${dateOfBirth}','${weight}', '${height}', '${tonguea}', '${hearta}','${heartb}','${heartc}','${heartd}','${hearte}','${heartf}','${lungsa}','${lungsb}', '${abondomena}','${abondomenb}','${abondomenc}','${abondomend}', '${nervousa}', '${nervousb}','${nervousc}','${nervousd}','${nervouse}','${nervousf}','${nervousg}','${operationa}','${operationb}','${operationc}','${operationd}','${physicalDefect}')`;
 
     // Execute the query
     db.query(sql_create_table, function(error, result) {
@@ -472,26 +471,24 @@ app.post('/UserLogin', (req, res) => {
 
 
 app.post('/StudentRecords', (req, res) => {
-    const reg_number = req.body.reg_number;
+    const reg_number = req.body.regnumber; // Use correct field name from the frontend
 
     // Query the database to fetch the student's details based on the registration number
     const sql_query = `SELECT * FROM student_profile WHERE reg_number = ?`;
     db.query(sql_query, [reg_number], (error, results) => {
         if (error) {
             console.error('Error querying database:', error);
-            // Render an error page or handle the error appropriately
-            res.status(500).send('Internal Server Error');
-            return;
+            // Send detailed error response
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
 
         if (results.length === 0) {
-            // If no matching student found, render a page indicating that
-            res.render('NoStudentFound', { reg_number });
-            return;
+            // If no matching student found, send appropriate response
+            return res.status(404).json({ error: 'No student found with the provided registration number' });
         }
 
-        // Render a page to display the student's details
-        res.render('StudentDetails', { student: results[0] });
+        // Send the student's details in the response
+        res.status(200).json(results[0]);
     });
 });
 
