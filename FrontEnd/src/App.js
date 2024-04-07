@@ -42,7 +42,7 @@ function App() {
           <Route path="/selection" element = {<Selection></Selection>} />
           <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
           <Route path="/AppointmentCheck" element = {<AppointmentCheck></AppointmentCheck>} />
-          <Route path="/StudentsRecordsCheck" element = {<StudentsRecordsCheck></StudentsRecordsCheck>} />
+          <Route path= "/studentsrecords" element = {<StudentsRecordsCheck></StudentsRecordsCheck>} />
           <Route path="/counseling" element = {<Counseling></Counseling>} />
         </Routes>
 

@@ -21,7 +21,7 @@ const StudentsRecordsCheck = () => {
     e.preventDefault();
     try {
       // Send form data to the backend
-      const response = await axios.post('http://localhost:5001/StudentsRecordsCheck', formData);
+      const response = await axios.post('http://localhost:5001/StudentRecords', formData);
       console.log(response.data); // Log the response from the backend
     } catch (error) {
       console.error('Error:', error);

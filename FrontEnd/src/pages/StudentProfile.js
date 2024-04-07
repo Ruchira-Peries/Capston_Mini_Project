@@ -12,34 +12,32 @@ const StudentProfile = () => {
     weight: '',
     height: '',
     tonguea: '',
-    blood: '',
-    RheumaticFever: '',
-    CardiacEnlargement: '',
-    HeartSound: '',
-    Murmurs: '',
-    BloodPressure: '',
-    Asthma: '',
-    abnormality: '',
-    enlargementofliver: '',
-    pepticUlcer: '',
-    kidneys: '',
-    otherabnormalities: '',
-    convulsions: '',
-    poliomyelitis: '',
-    Fundi: '',
-    Reflexes: '',
-    WithoutGlass: '',
-    WithGlass: '',
-    ColourVision:' ',
-    hearingdefeats:' ',
-    pasthistory:' ',
-    Speech: '',
-    Operation: '',
-    deformities: '',
-    hemorholds: '',
-    Immunisations: '',
-    ChestXray: '',
-    physicaldefect: '',
+    hearta: '',
+    heartb: '',
+    heartc: '',
+    heartd: '',
+    hearte: '',
+    heartf: '',
+    lungsa: '',
+    lungsb: '',
+    abondomena: '',
+    abondomenb: '',
+    abondomenc: '',
+    abondomend: '',
+    nervousa: '',
+    nervousb: '',
+    nervousc: '',
+    nervousd: '',
+    nervouse: '',
+    nervousf: '',
+    nervousg: '',
+    operationa: '',
+    operationb: '',
+    operationc: '',
+    operationd: '',
+    x_ray: '',
+    physicalDefect: '',
+
 
   });
 
@@ -161,48 +159,48 @@ const StudentProfile = () => {
                   Blood group?
                   <input
                     type="text"
-                    name="blood"
-                    value={formData.blood}
+                    name="hearta"
+                    value={formData.hearta}
                     onChange={handleChange}
                     required
                   />
                   Any past history of health disease of rheumatic fever?
                     <input
                     type="text"
-                    name="RheumaticFever"
-                    value={formData.RheumaticFever}
+                    name="heartb"
+                    value={formData.heartb}
                     onChange={handleChange}
                     required
                   />
                   Any cardiac enlargement?
                       <input
                     type="text"
-                    name="CardiacEnlargement"
-                    value={formData.CardiacEnlargement}
+                    name="heartc"
+                    value={formData.heartc}
                     onChange={handleChange}
                     required
                   />
                   Heart Sound?
                       <input
                     type="text"
-                    name="HeartSound"
-                    value={formData.HeartSound}
+                    name="heartd"
+                    value={formData.heartd}
                     onChange={handleChange}
                     required
                   />
                   Murmurs?
                       <input
                     type="text"
-                    name="Murmurs"
-                    value={formData.Murmurs}
+                    name="hearte"
+                    value={formData.hearte}
                     onChange={handleChange}
                     required
                   />
                   Blood pressure?
                     <input
                     type="text"
-                    name="BloodPressure"
-                    value={formData.BloodPressure}
+                    name="heartf"
+                    value={formData.heartf}
                     onChange={handleChange}
                     required
                   />
@@ -213,16 +211,16 @@ const StudentProfile = () => {
                 History of Tuberculosis, Bronchitis or Asthma?
                   <input
                     type="text"
-                    name="Asthma"
-                    value={formData.Asthma}
+                    name="lungsa"
+                    value={formData.lungsa}
                     onChange={handleChange}
                     required
                   />
                   Any abnormality clinically?
                    <input
                     type="text"
-                    name="abnormality"
-                    value={formData.abnormality}
+                    name="lungsb"
+                    value={formData.lungsb}
                     onChange={handleChange}
                     required
                   />
@@ -233,32 +231,32 @@ const StudentProfile = () => {
                   Any evidence of enlargement of liver of spleen?
                         <input
                     type="text"
-                    name="enlargementofliver"
-                    value={formData.enlargementofliver}
+                    name="abondomena"
+                    value={formData.abondomena}
                     onChange={handleChange}
                     required
                   />
                     Any past history of peptic ulcer?
                          <input
                     type="text"
-                    name="pepticUlcer"
-                    value={formData.pepticUlcer}
+                    name="abondomenb"
+                    value={formData.abondomenb}
                     onChange={handleChange}
                     required
                   />
                     Are the kidneys palpable?
                     <input
                     type="text"
-                    name="kidneys"
-                    value={formData.kidneys}
+                    name="abondomenc"
+                    value={formData.abondomenc}
                     onChange={handleChange}
                     required
                   />
                   Any other abnormalities?
                   <input
                     type="text"
-                    name="otherabnormalities"
-                    value={formData.otherabnormalities}
+                    name="abondomend"
+                    value={formData.abondomend}
                     onChange={handleChange}
                     required
                   />
@@ -269,32 +267,32 @@ const StudentProfile = () => {
                    Any  history of convulsions or insanity?
                         <input
                     type="text"
-                    name="convulsions"
-                    value={formData.convulsions}
+                    name="nervousa"
+                    value={formData.nervousa}
                     onChange={handleChange}
                     required
                   />
                   Any past history of poliomyelitis?
                         <input
                     type="text"
-                    name="poliomyelitis"
-                    value={formData.poliomyelitis}
+                    name="nervousb"
+                    value={formData.nervousb}
                     onChange={handleChange}
                     required
                   />
                   Fundi?
                       <input
                     type="text"
-                    name="Fundi"
-                    value={formData.Fundi}
+                    name="nervousc"
+                    value={formData.nervousc}
                     onChange={handleChange}
                     required
                   />
                   Reflexes?
                      <input
                     type="text"
-                    name="Reflexes"
-                    value={formData.Reflexes}
+                    name="nervousd"
+                    value={formData.nervousd}
                     onChange={handleChange}
                     required
                   />
@@ -306,24 +304,24 @@ const StudentProfile = () => {
                   Without Glass?
                   <input
                     type="text"
-                    name="WithoutGlass"
-                    value={formData.WithoutGlass}
+                    name="nervouse"
+                    value={formData.nervouse}
                     onChange={handleChange}
                     required
                   />
                   With Glass?
                      <input
                     type="text"
-                    name="WithGlass"
-                    value={formData.WithGlass}
+                    name="nervousf"
+                    value={formData.nervousf}
                     onChange={handleChange}
                     required
                   />
                   Colour Vision?
                        <input
                     type="text"
-                    name="ColourVision"
-                    value={formData.ColourVision}
+                    name="nervousg"
+                    value={formData.nervousg}
                     onChange={handleChange}
                     required
                   />
@@ -334,16 +332,16 @@ const StudentProfile = () => {
                   Any hearing defeats?
                       <input
                     type="text"
-                    name="hearingdefeats"
-                    value={formData.hearingdefeats}
+                    name="operationa"
+                    value={formData.operationa}
                     onChange={handleChange}
                     required
                   />
                    Any past history of discharge from ear?
                        <input
                     type="text"
-                    name="pasthistory"
-                    value={formData.pasthistory}
+                    name="operationb"
+                    value={formData.operationb}
                     onChange={handleChange}
                     required
                   />
@@ -353,8 +351,8 @@ const StudentProfile = () => {
                   13. Speech:
                       <input
                     type="text"
-                    name="Speech"
-                    value={formData.Speech}
+                    name="operationc"
+                    value={formData.operationc}
                     onChange={handleChange}
                     required
                   />
@@ -365,32 +363,32 @@ const StudentProfile = () => {
                   Have you ever had any operations or accidents?
                       <input
                     type="text"
-                    name="Operation"
-                    value={formData.Operation}
+                    name="Operationa"
+                    value={formData.operationa}
                     onChange={handleChange}
                     required
                   />
                   Any deformities - Congential or Acquired?
                       <input
                     type="text"
-                    name="deformities"
-                    value={formData.deformities}
+                    name="operationb"
+                    value={formData.operationb}
                     onChange={handleChange}
                     required
                   />
                   Any evidence hernia, hydrocele, varicose veins or hemorholds?
                       <input
                     type="text"
-                    name="hemorholds"
-                    value={formData.hemorholds}
+                    name="operationc"
+                    value={formData.operationc}
                     onChange={handleChange}
                     required
                   />
                   Immunisations?
                     <input
                     type="text"
-                    name="Immunisations"
-                    value={formData.Immunisations}
+                    name="operationd"
+                    value={formData.operationd}
                     onChange={handleChange}
                     required
                   />
@@ -400,8 +398,8 @@ const StudentProfile = () => {
                   15. Chest X-ray?
                       <input
                     type="text"
-                    name="ChestXray"
-                    value={formData.ChestXray}
+                    name="x_ray"
+                    value={formData.x_ray}
                     onChange={handleChange}
                     required
                   />
@@ -411,8 +409,8 @@ const StudentProfile = () => {
                   16.Are the indications of any other physical defect or disease?
                       <input
                     type="text"
-                    name="physicaldefect"
-                    value={formData.physicaldefect}
+                    name="physicalDefect"
+                    value={formData.physicalDefect}
                     onChange={handleChange}
                     required
                   />
