@@ -49,6 +49,10 @@ const Navbar = () => {
       icon: <ShoppingCartRoundedIcon />,
       path:"/about",
     },
+    {
+      text: "Profile",
+      path:"/Profile",
+    },
   ];
   return (
     <div className="outer-container1">
