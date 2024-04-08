@@ -186,7 +186,6 @@
 }
 
 .service-container {
-  /* position: absolute; */
   max-width: 100%;
   width: 90vw;
   height:470px ;
@@ -195,14 +194,9 @@
   align-items: center;
   margin-top: 5rem;
   gap: 200px;
-  /* padding-block: 100px; */
   background-color: white;
   border-radius: 70px 70px 70px 70px;
   box-shadow: 0 10px 10px rgb(205, 204, 204);
-  /* background: url("../Assests/ServiceBG2.png");
-  background-repeat: no-repeat;
-  background-size: 100%;
-  background-position: center; */
 
 }
 

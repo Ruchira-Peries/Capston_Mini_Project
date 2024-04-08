@@ -19,8 +19,8 @@ const Services = () => {
 
    <div className="flexColStart v-right">
        
-      <span className="primaryText">Service We Give to You</span>
-      <span className="secondaryText">
+      <span className="primary-heading7">Service We Give to You</span>
+      <span className="primary-heading6">
         We always ready to help by providing the best services for you.
       </span>
       

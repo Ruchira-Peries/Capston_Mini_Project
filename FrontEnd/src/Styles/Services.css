@@ -6,7 +6,7 @@
         margin-top: 5rem;
     }
     
-    .service-container{
+    /* .service-container{
         max-width: 100%;
         width: 85vw;
         margin: 0 auto;
@@ -15,13 +15,12 @@
         margin-top: 5rem;
         gap: 300px;
         padding-block: 100px; 
-    
         background: url("../Assests/ServiceBG2.png");
         background-repeat: no-repeat;
         background-size:100%;
         background-position:center;
     
-    }
+    } */
     .service-text-section{
         flex: 1;
         display: flex;
@@ -32,10 +31,15 @@
         max-width: 500px;
         gap: 24px;
     }
-    .primary-heading1{
+    .primary-heading7{
         font-weight: 500;
-        color: #525252;
-        font-size: 45px;
+        color: #007EA7;
+        font-size: 35px;
+    }
+    .primary-heading6{
+        font-weight: 500;
+        color: #525252;;
+        font-size: 30px;
     }
     .primary-text1{
         font-family: "Arsenal", sans-serif;
