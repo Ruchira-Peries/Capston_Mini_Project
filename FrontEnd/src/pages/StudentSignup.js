@@ -73,18 +73,6 @@ const StudentSignup = () => {
             <div className="right-content-sig">
               <h1 className="header-textR">General Information</h1>
               <form onSubmit={handleSubmit}>
-                <label>
-                  Choose your role:
-                  <select
-                    name="userType"
-                    value={formData.userType}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="student">Student</option>
-                    <option value="doctor">Doctor</option>
-                  </select>
-                </label>
                 <br />
                 <label>
                   Email:
@@ -120,7 +108,7 @@ const StudentSignup = () => {
                 </label>
                 <br />
                 <div className='b-l1'>
-                  <button type="submit" className='btn2'>Next</button>
+                  <button type="submit" className='btn2'>Sign Up</button>
                 </div>
               </form>
             </div>

@@ -24,7 +24,7 @@ const AppointmentCheck = () => {
     e.preventDefault();
     try {
       // Send form data to the backend
-      const response = await axios.post('http://localhost:5001/AppointmentCheck', formData);
+      const response = await axios.post('http://localhost:5001/selectDate', formData);
       console.log(response.data); // Log the response from the backend
     } catch (error) {
       console.error('Error:', error);
@@ -51,7 +51,7 @@ const AppointmentCheck = () => {
           <h1 className="header-textR">Check The Availability Of Your Appointments </h1>
           <form onSubmit={handleSubmit}>
       <label>
-        Choose Your Doctor:
+        Select the Name:
         <select
          name="doctor"
          value={formData.doctor}
@@ -66,7 +66,7 @@ const AppointmentCheck = () => {
       </label>
       <br />
       <label>
-        Choose Your Date:
+        Select the Date:
         <input
           type="date"
           name="date"
@@ -89,3 +89,4 @@ const AppointmentCheck = () => {
 }
 
 export default AppointmentCheck;
+

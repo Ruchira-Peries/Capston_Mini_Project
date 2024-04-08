@@ -182,6 +182,7 @@ const transporter = nodemailer.createTransport({
   
   
   app.post('/UserSignup', (req, res) => {
+    console.log(req)
     const { userType,email,username,password } = req.body;
   
     const tableName = userType === 'student' ? 'student_login' : 'doctor_login';
@@ -334,13 +335,12 @@ app.post('/UserProfile', (req, res) => {
                             operationb VARCHAR(255),
                             operationc VARCHAR(255),
                             operationd VARCHAR(255),
-                            x_ray BLOB,
                             physicalDefect VARCHAR(255),
                             PRIMARY KEY (id)
                             ) ENGINE=InnoDB DEFAULT CHARSET=latin1;`;
-    var sql_insert = `INSERT INTO student_profile (fullName, reg_number, dateOfBirth,weight, height, tonguea, hearta,heartb,heartc,heartd,hearte, heartf,lungsa,lungsb, abondomena,abondomenb,abondomenc,abondomend, nervousa, nervousb,nervousc,nervousd,nervouse,nervousf,nervousg,operationa,operationb,operationc,operationd,x_ray,physicalDefect) 
+    var sql_insert = `INSERT INTO student_profile (fullName, reg_number, dateOfBirth,weight, height, tonguea, hearta,heartb,heartc,heartd,hearte, heartf,lungsa,lungsb, abondomena,abondomenb,abondomenc,abondomend, nervousa, nervousb,nervousc,nervousd,nervouse,nervousf,nervousg,operationa,operationb,operationc,operationd,physicalDefect) 
     VALUES 
-    ('${fullName}', '${reg_number}', '${dateOfBirth}','${weight}', '${height}', '${tonguea}', '${hearta}','${heartb}','${heartc}','${heartd}','${hearte}','${heartf}','${lungsa}','${lungsb}', '${abondomena}','${abondomenb}','${abondomenc}','${abondomend}', '${nervousa}', '${nervousb}','${nervousc}','${nervousd}','${nervouse}','${nervousf}','${nervousg}','${operationa}','${operationb}','${operationc}','${operationd}','${x_ray}','${physicalDefect}')`;
+    ('${fullName}', '${reg_number}', '${dateOfBirth}','${weight}', '${height}', '${tonguea}', '${hearta}','${heartb}','${heartc}','${heartd}','${hearte}','${heartf}','${lungsa}','${lungsb}', '${abondomena}','${abondomenb}','${abondomenc}','${abondomend}', '${nervousa}', '${nervousb}','${nervousc}','${nervousd}','${nervouse}','${nervousf}','${nervousg}','${operationa}','${operationb}','${operationc}','${operationd}','${physicalDefect}')`;
 
     // Execute the query
     db.query(sql_create_table, function(error, result) {
@@ -364,67 +364,64 @@ app.post('/UserProfile', (req, res) => {
     });
 });
 
-// app.post('/UserLogin', (req, res) => {
+app.post('/UserLogin', (req, res) => {
 
 
-//     const db = mysql.createConnection({
-//         host: "localhost",
-//         user: "root",
-//         password: "",
-//         database: "mini_project"
+    const db = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "mini_project"
 
-//     })
+    })
 
-//     db.connect((err) => {
+    db.connect((err) => {
 
-//         // if(err) throw err;
-//         console.log("connected");
+        // if(err) throw err;
+        console.log("connected");
 
-//     })
+    })
 
+    var userType = req.body.userType;
+    var usernamelogin = req.body.usernamelogin;
+    var passwordlogin = req.body.passwordlogin;
 
-//     var usernamelogin = req.body.usernamelogin;
-//     var passwordlogin = req.body.passwordlogin;
-
-//     // res.send(`${email1} ${password1}`);
-
-
-
-
-//     var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
-
-
-//     db.query(sql3, (err, rows, result) => {
-//         if (err) {
-//             throw err;
-//         }
-//         else if (rows.length != 0) {
-
-//             // res.send(rows[0].password)
-
-//             if (rows[0].password == passwordlogin) {
-
-//                 res.render('UserProfile');
-
-//             }
-//             else {
-
-//                 res.render('UserLogin', { fail_message: "Wrong Password" });
-
-//             }
-
-//         }
-//         else {
-//             res.render('UserLogin', { fail_message: "Wrong Email" });
-//         }
-
-
-//     });
+    // res.send(`${email1} ${password1}`);
 
 
 
 
-// });
+    var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
+
+
+    db.query(sql3, (err, rows, result) => {
+        if (err) {
+            throw err;
+        }
+        else if (rows.length != 0) {
+
+            // res.send(rows[0].password)
+
+            if (rows[0].password == passwordlogin) {
+
+                res.render('UserProfile');
+
+            }
+            else {
+
+                res.render('UserLogin', { fail_message: "Wrong Password" });
+
+            }
+
+        }
+        else {
+            res.render('UserLogin', { fail_message: "Wrong Email" });
+        }
+
+
+    });
+
+
 
 // app.post('/UserLogin', (req, res) => {
 //     const { userType, email, password } = req.body;
@@ -513,6 +510,7 @@ app.post('/UserLogin', (req, res) => {
                 return;
             }
 
+
             if (rows.length === 0) {
                 // User not found or not a doctor
                 res.status(401).json({ message: 'User not found or not a doctor' });
@@ -537,26 +535,24 @@ app.post('/UserLogin', (req, res) => {
 });
 
 app.post('/StudentRecords', (req, res) => {
-    const reg_number = req.body.reg_number;
+    const reg_number = req.body.regnumber; // Use correct field name from the frontend
 
     // Query the database to fetch the student's details based on the registration number
     const sql_query = `SELECT * FROM student_profile WHERE reg_number = ?`;
     db.query(sql_query, [reg_number], (error, results) => {
         if (error) {
             console.error('Error querying database:', error);
-            // Render an error page or handle the error appropriately
-            res.status(500).send('Internal Server Error');
-            return;
+            // Send detailed error response
+            return res.status(500).json({ error: 'Internal Server Error' });
         }
 
         if (results.length === 0) {
-            // If no matching student found, render a page indicating that
-            res.render('NoStudentFound', { reg_number });
-            return;
+            // If no matching student found, send appropriate response
+            return res.status(404).json({ error: 'No student found with the provided registration number' });
         }
 
-        // Render a page to display the student's details
-        res.render('StudentDetails', { student: results[0] });
+        // Send the student's details in the response
+        res.status(200).json(results[0]);
     });
 });
 

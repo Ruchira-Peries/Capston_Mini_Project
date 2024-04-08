@@ -19,6 +19,9 @@ import StudentProfile from "./pages/StudentProfile";
 import AppointmentCheck from "./pages/AppointmentCheck";
 import StudentsRecordsCheck from "./pages/StudentsRecordsCheck";
 import Counseling from "./pages/Counseling";
+import StudentProfileDetails from "./pages/StudentProfileDetails";
+import DocProfile from "./pages/DocProfile";
+import Profile from "./pages/Profile";
 function App() {
   
   return (
@@ -43,7 +46,11 @@ function App() {
           <Route path="/studentprofile" element = {<StudentProfile></StudentProfile>} />
           <Route path="/AppointmentCheck" element = {<AppointmentCheck></AppointmentCheck>} />
           <Route path="/StudentsRecordsCheck" element = {<StudentsRecordsCheck></StudentsRecordsCheck>} />
-          <Route path="/counseling" element = {<Counseling></Counseling>} />
+          <Route path="/Counseling" element = {<Counseling></Counseling>} />
+          <Route path="/StudentProfileDetails" element = {<StudentProfileDetails></StudentProfileDetails>} />
+          <Route path="/Profile" element = {<Profile></Profile>} />
+          <Route path="/Docprofile" element = {<DocProfile></DocProfile>} />
+
         </Routes>
 
      </Router>
