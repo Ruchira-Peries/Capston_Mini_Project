@@ -182,6 +182,7 @@ const transporter = nodemailer.createTransport({
   
   
   app.post('/UserSignup', (req, res) => {
+    console.log(req)
     const { userType,email,username,password } = req.body;
   
     const tableName = userType === 'student' ? 'student_login' : 'doctor_login';
@@ -363,111 +364,112 @@ app.post('/UserProfile', (req, res) => {
     });
 });
 
-// app.post('/UserLogin', (req, res) => {
-
-
-//     const db = mysql.createConnection({
-//         host: "localhost",
-//         user: "root",
-//         password: "",
-//         database: "mini_project"
-
-//     })
-
-//     db.connect((err) => {
-
-//         // if(err) throw err;
-//         console.log("connected");
-
-//     })
-
-
-//     var usernamelogin = req.body.usernamelogin;
-//     var passwordlogin = req.body.passwordlogin;
-
-//     // res.send(`${email1} ${password1}`);
-
-
-
-
-//     var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
-
-
-//     db.query(sql3, (err, rows, result) => {
-//         if (err) {
-//             throw err;
-//         }
-//         else if (rows.length != 0) {
-
-//             // res.send(rows[0].password)
-
-//             if (rows[0].password == passwordlogin) {
-
-//                 res.render('UserProfile');
-
-//             }
-//             else {
-
-//                 res.render('UserLogin', { fail_message: "Wrong Password" });
-
-//             }
-
-//         }
-//         else {
-//             res.render('UserLogin', { fail_message: "Wrong Email" });
-//         }
-
-
-//     });
-
-
-
-
-// });
-
 app.post('/UserLogin', (req, res) => {
-    const { userType, email, password } = req.body;
-    let tableName = '';
 
-    if (userType === 'student') {
-        tableName = 'student_login';
-    } else if (userType === 'doctor') {
-        tableName = 'doctor_login';
-    } else {
-        res.status(400).json({ message: 'Invalid user type' });
-        return;
-    }
 
-    // Query the database to retrieve the password and isVerified status associated with the provided email
-    const sql = `SELECT password, isVerified FROM ${tableName} WHERE email = ?`;
-    db.query(sql, [email], (err, rows) => {
+    const db = mysql.createConnection({
+        host: "localhost",
+        user: "root",
+        password: "",
+        database: "mini_project"
+
+    })
+
+    db.connect((err) => {
+
+        // if(err) throw err;
+        console.log("connected");
+
+    })
+
+    var userType = req.body.userType;
+    var usernamelogin = req.body.usernamelogin;
+    var passwordlogin = req.body.passwordlogin;
+
+    // res.send(`${email1} ${password1}`);
+
+
+
+
+    var sql3 = `SELECT password FROM student_login WHERE username = '${usernamelogin}'`
+
+
+    db.query(sql3, (err, rows, result) => {
         if (err) {
-            console.error('Database query error:', err);
-            res.status(500).json({ message: 'Internal server error' });
-            return;
+            throw err;
+        }
+        else if (rows.length != 0) {
+
+            // res.send(rows[0].password)
+
+            if (rows[0].password == passwordlogin) {
+
+                res.render('UserProfile');
+
+            }
+            else {
+
+                res.render('UserLogin', { fail_message: "Wrong Password" });
+
+            }
+
+        }
+        else {
+            res.render('UserLogin', { fail_message: "Wrong Email" });
         }
 
-        if (rows.length === 0) {
-            res.status(401).json({ message: 'User not found' });
-            return;
-        }
 
-        const storedPassword = rows[0].password;
-        const isVerified = rows[0].isVerified;
-
-        // Compare the stored password with the provided password
-        if (password === storedPassword && isVerified === 1) {
-            // Login successful
-            res.status(200).json({ message: 'Login successful', userType });
-        } else if (isVerified !== 1) {
-            // User is not verified
-            res.status(401).json({ message: 'Email not verified. Please verify your email before logging in.' });
-        } else {
-            // Invalid email or password
-            res.status(401).json({ message: 'Invalid email or password' });
-        }
     });
+
+
+
+
 });
+
+// app.post('/UserLogin', (req, res) => {
+//     const { userType, email, password } = req.body;
+//     let tableName = 'student_login';
+
+//     // if (userType === 'student') {
+//     //     tableName = 'student_login';
+//     // } else if (userType === 'doctor') {
+//     //     tableName = 'doctor_login';
+//     // } else {
+//     //     res.status(400).json({ message: 'Invalid user type' });
+//     //     return;
+//     // }
+
+//     // Query the database to retrieve the password and isVerified status associated with the provided email
+//     const sql = `SELECT password, isVerified FROM ${tableName} WHERE email = ?`;
+//     db.query(sql, [email], (err, rows) => {
+//         if (err) {
+//             console.error('Database query error:', err);
+//             res.status(500).json({ message: 'Internal server error' });
+//             return;
+//         }
+
+//         if (rows.length === 0) {
+//             res.status(401).json({ message: 'User not found' });
+//             return;
+//         }
+
+//         const storedPassword = rows[0].password;
+//         const isVerified = rows[0].isVerified;
+
+//         // Compare the stored password with the provided password
+       
+//         if (password === storedPassword) {
+//             // Login successful
+//             res.status(200).json({ message: 'Login successful', userType });
+//         } else if (isVerified !== 1) {
+//             // User is not verified
+//             res.status(401).json({ message: 'Email not verified. Please verify your email before logging in.' });
+//         } else {
+//             // Invalid email or password
+//             res.status(401).json({ message: 'Invalid email or password' });
+//         }
+//     });
+// });
 
 
 app.post('/StudentRecords', (req, res) => {

@@ -22,9 +22,11 @@ html(lang="en")
             h1 Student login 
             #main  
             
-                form.item(action="/UserLogin" method="POST") 
-
+                form.item(action="/UserLogin" method="POST" ) 
                 
+                    select(name='usertype' required)
+                           option(value="Doctor") Doctor
+                           option(value="Student") Student
                     input(type="email" name="email" placeholder="Enter your email")
                 
                     input(type="password" name="password" placeholder="Enter your password" class="item") 
