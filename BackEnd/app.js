@@ -423,21 +423,18 @@ app.post('/UserLogin', (req, res) => {
 
 
 
-
-});
-
 // app.post('/UserLogin', (req, res) => {
 //     const { userType, email, password } = req.body;
-//     let tableName = 'student_login';
+//     let tableName = '';
 
-//     // if (userType === 'student') {
-//     //     tableName = 'student_login';
-//     // } else if (userType === 'doctor') {
-//     //     tableName = 'doctor_login';
-//     // } else {
-//     //     res.status(400).json({ message: 'Invalid user type' });
-//     //     return;
-//     // }
+//     if (userType === 'student') {
+//         tableName = 'student_login';
+//     } else if (userType === 'doctor') {
+//         tableName = 'doctor_login';
+//     } else {
+//         res.status(400).json({ message: 'Invalid user type' });
+//         return;
+//     }
 
 //     // Query the database to retrieve the password and isVerified status associated with the provided email
 //     const sql = `SELECT password, isVerified FROM ${tableName} WHERE email = ?`;
@@ -457,8 +454,7 @@ app.post('/UserLogin', (req, res) => {
 //         const isVerified = rows[0].isVerified;
 
 //         // Compare the stored password with the provided password
-       
-//         if (password === storedPassword) {
+//         if (password === storedPassword && isVerified === 1) {
 //             // Login successful
 //             res.status(200).json({ message: 'Login successful', userType });
 //         } else if (isVerified !== 1) {
@@ -471,6 +467,72 @@ app.post('/UserLogin', (req, res) => {
 //     });
 // });
 
+app.post('/UserLogin', (req, res) => {
+    const { email, password, userType } = req.body;
+
+    // Check if userType is "student"
+    if (userType === 'Student') {
+        // Query the database to retrieve the password associated with the provided email for students
+        const sql = 'SELECT password FROM student_login WHERE email = ?';
+
+        db.query(sql, [email], (err, rows) => {
+            if (err) {
+                console.error('Database query error:', err);
+                res.status(500).json({ message: 'Internal server error' });
+                return;
+            }
+
+            if (rows.length === 0) {
+                // User not found
+                res.status(401).json({ message: 'User not found' });
+                return;
+            }
+
+            const storedPassword = rows[0].password;
+
+            // Compare the stored password with the provided password
+            if (password === storedPassword) {
+                // Login successful for student
+                res.status(200).json({ message: 'Login successful for student' });
+            } else {
+                // Invalid email or password for student
+                res.status(401).json({ message: 'Invalid email or password for student' });
+            }
+        });
+    } else if (userType === 'Doctor') {
+        // Query the database to retrieve the password associated with the provided email for doctors
+        const sql = 'SELECT password FROM student_login WHERE userType = ? AND email = ?';
+
+        db.query(sql, [userType, email], (err, rows) => {
+            if (err) {
+                console.error('Database query error:', err);
+                res.status(500).json({ message: 'Internal server error' });
+                return;
+            }
+
+
+            if (rows.length === 0) {
+                // User not found or not a doctor
+                res.status(401).json({ message: 'User not found or not a doctor' });
+                return;
+            }
+
+            const storedPassword = rows[0].password;
+
+            // Compare the stored password with the provided password
+            if (password === storedPassword) {
+                // Login successful for doctor
+                res.status(200).json({ message: 'Login successful for doctor' });
+            } else {
+                // Invalid email or password for doctor
+                res.status(401).json({ message: 'Invalid email or password for doctor' });
+            }
+        });
+    } else {
+        // Invalid userType
+        res.status(400).json({ message: 'Invalid userType' });
+    }
+});
 
 app.post('/StudentRecords', (req, res) => {
     const reg_number = req.body.regnumber; // Use correct field name from the frontend
@@ -801,16 +863,36 @@ app.post('/DoctorLogin', (req, res) => {
 
 
 
-app.post('/selectDate', (req, res) => {
+// app.post('/selectDate', (req, res) => {
+//     var doctor = req.body.doctor;
+//     var date = req.body.date;
+    
+//     // Redirect to the getAppointments page with the doctor, date, and time parameters
+//     res.redirect(`/getAppointments`);
+// });
+
+
+app.post('/selectDate', async (req, res) => {
     var doctor = req.body.doctor;
     var date = req.body.date;
     
-    // Redirect to the getAppointments page with the doctor, date, and time parameters
-    res.redirect(`/getAppointments`);
+    try {
+        // Query the database to check if appointments exist for the selected doctor and date
+        const appointments = await db.query('SELECT * FROM appointment WHERE doctor = ? AND date = ?', [doctor, date]);
+
+        if (appointments.length > 0) {
+            // Appointments found, handle them accordingly (e.g., display them)
+            res.render('appointments', { appointments: appointments });
+        } else {
+            // No appointments found for the selected criteria, send a message back to the client
+            res.status(200).send("No appointments found for the selected criteria.");
+        }
+    } catch (error) {
+        // Error handling if database query fails
+        console.error("Error fetching appointments:", error);
+        res.status(500).send("Internal server error");
+    }
 });
-
-
-
 
 
 app.listen(5001, () => {
