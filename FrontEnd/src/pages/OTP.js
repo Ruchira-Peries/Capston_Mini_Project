@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Header from "../Components/header";
 import Navbar from '../Components/Navbar';
@@ -6,6 +7,7 @@ import Footer from '../Components/Footer';
 import "../Styles/OTP.css";
 
 const OTP = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     otp: '',
     message: ''
@@ -24,17 +26,36 @@ const OTP = () => {
     e.preventDefault();
     console.log(formData);
 
-    try {
-      const response = await axios.post('http://localhost:5001/verifyOTP', { otp: formData.otp });
+  //   try {
+  //     const response = await axios.post('http://localhost:5001/verifyOTP', { otp: formData.otp });
       
+  //     setFormData(prevState => ({
+  //       ...prevState,
+  //       message: response.data.message
+  //     }));
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //   }
+  // };
+
+  try {
+    const response = await axios.post('http://localhost:5001/verifyOTP', { otp: formData.otp });
+    
+    if (response.data.success) {
+      // If OTP is correct, navigate to the home page
+      navigate("/");
+    } else {
+      // If OTP is incorrect, display an error message
       setFormData(prevState => ({
         ...prevState,
         message: response.data.message
       }));
-    } catch (error) {
-      console.error('Error:', error);
     }
-  };
+  } catch (error) {
+    console.error('Error:', error);
+  }
+};
+
     const handleResendOTP = async () => {
       try {
         const response = await axios.post('http://localhost:5001/resendOTP');
@@ -85,7 +106,7 @@ const OTP = () => {
          <div className='b-l3'>
                 <p>Didn't get the OTP?</p><a href='/resendOTP' onClick={handleResendOTP}  style={{ textDecoration: 'none' }}><h4>Resend OTP</h4></a>
           </div>
-                <button type="submit" className='btn4'>Confirm</button>
+                <button type="submit" className='btn4'onClick={()=> navigate("/")}>Confirm</button>
         </div>
     </form>
     {formData.message && <p className='para-textR'>{formData.message}</p>}
@@ -98,4 +119,4 @@ const OTP = () => {
   )
 }
 
-export default OTP;
+export default OTP;  

@@ -122,7 +122,7 @@ return (
           <p className="primary-text">
             For a  healthier future
           </p>
-          <button className="secondary-button" onClick={()=> navigate("/selection")}>
+          <button className="secondary-button" onClick={()=> navigate("/signup1")}>
             Sign Up Now {" "}
           </button>
         </div>

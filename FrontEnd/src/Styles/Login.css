@@ -70,7 +70,7 @@
     margin: 6rem 0rem 0rem 12rem;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 40px;
     /* margin-left: 40px;
     padding: 50px; */
 }
@@ -92,13 +92,13 @@
 
 
 
-.btn1 {
-    padding: 0.5rem 2rem;
+.btnr {
+    padding: 0.7rem 2rem;
     background-color: #007EA7;
     outline: none;
     border: none;
     border-radius: 5rem;
-    font-size: 1rem;
+    font-size: 0.8rem;
     cursor: pointer;
     font-weight: 600;
     color: white;
@@ -108,7 +108,7 @@
     justify-content: center;
 }
 
-.btn1:hover {
+.btnr:hover {
     background-color: #525252;
 }
 .form input {
@@ -130,6 +130,11 @@ label {
     color:#007EA7 ;
     font-weight: 400;
     font-size: 0.9rem;
+}
+.b-r{
+    display: flex;
+    gap: 8px;
+
 }
 .t{
     display: flex;
