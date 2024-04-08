@@ -20,6 +20,7 @@ import AppointmentCheck from "./pages/AppointmentCheck";
 import StudentsRecordsCheck from "./pages/StudentsRecordsCheck";
 import Counseling from "./pages/Counseling";
 import StudentProfileDetails from "./pages/StudentProfileDetails";
+import DocProfile from "./pages/DocProfile";
 import Profile from "./pages/Profile";
 function App() {
   
@@ -48,6 +49,7 @@ function App() {
           <Route path="/Counseling" element = {<Counseling></Counseling>} />
           <Route path="/StudentProfileDetails" element = {<StudentProfileDetails></StudentProfileDetails>} />
           <Route path="/Profile" element = {<Profile></Profile>} />
+          <Route path="/Docprofile" element = {<DocProfile></DocProfile>} />
 
         </Routes>
 
