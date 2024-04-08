@@ -18,22 +18,17 @@ html(lang="en")
                     li  #[a(href="/About") About Us]                   
                     li  #[a(href="/OurStaff") Our Staff]                    
                     
-        div.mycontact 
-            h1 Student login 
-            #main  
-            
-                form.item(action="/UserLogin" method="POST") 
-
-                
-                    input(type="email" name="email" placeholder="Enter your email")
-                
-                    input(type="password" name="password" placeholder="Enter your password" class="item") 
-                
-
-                    button#btn(class="btn") 
-                         | Login    
-
-            p.item#fail_msg=fail_message    
+    div.mycontact
+    h1 Student login 
+    #main
+        form.item(action="/UserLogin" method="POST")
+            input(type="email" name="email" placeholder="Enter your email")
+            input(type="password" name="password" placeholder="Enter your password" class="item")
+            select(name="userType")
+                option(value="Student") Student
+                option(value="Doctor") Doctor
+            button#btn(type="submit" class="btn") Login
+    p.item#fail_msg=fail_message
 
         footer 
             p @ 2023 Uni Aid.All Right Reserved         
