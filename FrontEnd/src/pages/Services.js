@@ -80,7 +80,7 @@ const Services = () => {
         <p className="primary-text">
         Experience personalized healthcare from the comfort of your home with our online video consultation service. Connect with trusted medical professionals in real-time through secure video calls, ensuring convenient access to expert advice and care wherever you are. </p>
         <div className="about-buttons-container">
-          <button className="btn" onClick={()=> navigate("/OnlindAppointment")}>Get Started</button>
+          <button className="btn" onClick={()=> navigate("/OnlineAppointments")}>Get Started</button>
         </div>
       </div>
     </div>
@@ -119,7 +119,9 @@ const Services = () => {
         Trust in our swift response and expert care during critical moments for peace of mind and optimal health outcomes. 
         </p>
         <div className="about-buttons-container">
-          <button className="btn" onClick={()=> navigate("/About")}>Call Now</button>
+          {/* <button className="btn" onClick={()=> navigate("/About")}>Call 1990</button> */}
+          <a href="tel:+941990" className="btn" style={{ textDecoration: 'none' }}>Call For Emergency </a>
+    </div>
         
         </div>
       </div>
@@ -127,7 +129,7 @@ const Services = () => {
     </div>
     
    <Footer />
-      </div>
+      
   </>
   )
 }
