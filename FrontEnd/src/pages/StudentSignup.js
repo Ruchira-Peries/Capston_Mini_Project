@@ -71,7 +71,7 @@ const StudentSignup = () => {
 
           <div className="right-part-sig">
             <div className="right-content-sig">
-              <h1 className="header-textR">General Information</h1>
+              <h1 className="header-textR">Creating Account</h1>
               <form onSubmit={handleSubmit}>
                 <br />
                 <label>
