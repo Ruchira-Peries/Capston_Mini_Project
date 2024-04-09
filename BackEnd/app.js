@@ -420,7 +420,7 @@ app.post('/UserLogin', (req, res) => {
 
 
     });
-
+});
 
 
 // app.post('/UserLogin', (req, res) => {
@@ -878,7 +878,7 @@ app.post('/selectDate', async (req, res) => {
     
     try {
         // Query the database to check if appointments exist for the selected doctor and date
-        const appointments = await db.query('SELECT * FROM appointment WHERE doctor = ? AND date = ?', [doctor, date]);
+        const appointments = await db.query('SELECT * FROM appointments WHERE doctor = ? AND date = ?', [doctor, date]);
 
         if (appointments.length > 0) {
             // Appointments found, handle them accordingly (e.g., display them)
